@@ -21,7 +21,7 @@ export const PaginationSchema = z.object({
 });
 
 // Product schemas
-export const ProductTypeSchema = z.enum(['simple', 'configurable', 'bundle', 'grouped', 'virtual', 'downloadable']);
+export const ProductTypeSchema = z.enum(['simple', 'configurable', 'bundle', 'grouped', 'virtual']);
 export const ProductStatusSchema = z.enum(['active', 'inactive', 'draft', 'archived']);
 
 export const CreateProductSchema = z.object({

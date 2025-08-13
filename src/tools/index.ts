@@ -13,7 +13,7 @@ export const toolDefinitions: Tool[] = [
         sku: { type: 'string', description: 'Mã SKU duy nhất của sản phẩm' },
         productType: {
           type: 'string',
-          enum: ['simple', 'configurable', 'bundle', 'grouped', 'virtual', 'downloadable'],
+          enum: ['simple', 'configurable', 'bundle', 'grouped', 'virtual'],
           description: 'Loại sản phẩm'
         },
         categoryId: { type: 'string', description: 'UUID danh mục' },
@@ -39,7 +39,7 @@ export const toolDefinitions: Tool[] = [
         categoryId: { type: 'string', description: 'Lọc theo UUID danh mục' },
         productType: {
           type: 'string',
-          enum: ['simple', 'configurable', 'bundle', 'grouped', 'virtual', 'downloadable']
+          enum: ['simple', 'configurable', 'bundle', 'grouped', 'virtual']
         },
         status: {
           type: 'string',

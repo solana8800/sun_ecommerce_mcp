@@ -305,7 +305,6 @@ class SunEcommerceMCPServer {
    - Configurable (multiple variants)
    - Bundle (multiple products sold together)
    - Virtual (no physical shipping)
-   - Downloadable (digital product)
 
 3. **Category**: Which category should this product belong to?
 4. **SKU**: Unique product identifier
@@ -455,8 +454,7 @@ What aspect of your eCommerce strategy would you like to discuss? I can provide 
           examples: [
             'Simple products',
             'Configurable products with variants',
-            'Bundle products',
-            'Digital/downloadable products',
+            'Bundle products'
           ],
         },
         {
