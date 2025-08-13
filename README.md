@@ -58,6 +58,23 @@ Một máy chủ Model Context Protocol (MCP) toàn diện giúp AI assistant hi
 {
   "mcpServers": {
     "sun-ecommerce": {
+      "command": "npx",
+      "args": ["-y", "git+https://github.com/solana8800/sun_ecommerce_mcp.git"],
+      "env": {
+        "SUN_ECOMMERCE_BASE_URL": "http://42.96.60.253:8080",
+        "SUN_ECOMMERCE_AUTH_TOKEN": "sun-ecommerce"
+      }
+    }
+  }
+}
+```
+
+#### Dành cho phát triển
+1. Sử dụng đường dẫn local
+```json
+{
+  "mcpServers": {
+    "sun-ecommerce": {
       "command": "node",
       "args": ["/Users/aloha/Documents/projects/sun_ecommerce_product/mcp-server/dist/index.js"],
       "env": {
@@ -69,7 +86,7 @@ Một máy chủ Model Context Protocol (MCP) toàn diện giúp AI assistant hi
 }
 ```
 
-#### Dành cho phát triển
+2. Chạy local
 ```bash
 # Clone và cài đặt
 git clone git@github.com:solana8800/sun_ecommerce_mcp.git
@@ -81,6 +98,13 @@ npm run build
 
 # Chạy local
 npm start
+```
+
+3. Command local
+```bash
+SUN_ECOMMERCE_BASE_URL="http://42.96.60.253:8080" \
+SUN_ECOMMERCE_AUTH_TOKEN="sun-ecommerce" \
+npx -y git+https://github.com/solana8800/sun_ecommerce_mcp.git
 ```
 
 ### Cấu hình

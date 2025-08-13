@@ -1,5 +1,5 @@
 {
-  "name": "@sun-ecommerce/mcp-server",
+  "name": "@solana8800/sun_ecommerce_mcp",
   "version": "1.0.0",
   "description": "Model Context Protocol server for Sun eCommerce Platform - enables AI assistants to understand and control the complete eCommerce system",
   "main": "dist/index.js",
@@ -51,12 +51,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/sun-ecommerce/mcp-server.git"
+    "url": "https://github.com/solana8800/sun_ecommerce_mcp.git"
   },
   "bugs": {
-    "url": "https://github.com/sun-ecommerce/mcp-server/issues"
+    "url": "https://github.com/solana8800/sun_ecommerce_mcp/issues"
   },
-  "homepage": "https://github.com/sun-ecommerce/mcp-server#readme",
+  "homepage": "https://github.com/solana8800/sun_ecommerce_mcp#readme",
   "engines": {
     "node": ">=18.0.0"
   },
