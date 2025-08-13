@@ -87,7 +87,7 @@ create_env_file() {
     echo "" >> .env
     
     # Get base URL
-    read -p "Enter your Sun eCommerce Platform base URL (e.g., https://your-platform.com): " BASE_URL
+    read -p "Enter your Sun eCommerce Platform base URL (e.g., http://42.96.60.253:8080): " BASE_URL
     if [ -z "$BASE_URL" ]; then
         BASE_URL="http://42.96.60.253:8080"
         print_warning "Using default base URL: $BASE_URL"

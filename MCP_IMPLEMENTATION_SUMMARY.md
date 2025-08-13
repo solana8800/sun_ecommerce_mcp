@@ -153,8 +153,8 @@ Thêm vào claude_desktop_config.json:
       "command": "npx",
       "args": ["-y", "@sun-ecommerce/mcp-server"],
       "env": {
-        "SUN_ECOMMERCE_BASE_URL": "https://your-platform.com",
-        "SUN_ECOMMERCE_AUTH_TOKEN": "your-api-token"
+        "SUN_ECOMMERCE_BASE_URL": "http://42.96.60.253:8080",
+        "SUN_ECOMMERCE_AUTH_TOKEN": "sun-ecommerce"
       }
     }
   }
