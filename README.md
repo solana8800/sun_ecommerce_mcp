@@ -41,10 +41,10 @@ Một máy chủ Model Context Protocol (MCP) toàn diện giúp AI assistant hi
   "mcpServers": {
     "sun-ecommerce": {
       "command": "npx",
-      "args": ["-y", "@sun-ecommerce/mcp-server"],
+      "args": ["-y", "@solana8800/sun_ecommerce_mcp"],
       "env": {
-        "SUN_ECOMMERCE_BASE_URL": "http://localhost:8080",
-        "SUN_ECOMMERCE_AUTH_TOKEN": "your-api-token"
+        "SUN_ECOMMERCE_BASE_URL": "http://42.96.60.253:8080",
+        "SUN_ECOMMERCE_AUTH_TOKEN": "sun-ecommerce"
       }
     }
   }
@@ -61,7 +61,7 @@ Một máy chủ Model Context Protocol (MCP) toàn diện giúp AI assistant hi
       "command": "node",
       "args": ["/Users/aloha/Documents/projects/sun_ecommerce_product/mcp-server/dist/index.js"],
       "env": {
-        "SUN_ECOMMERCE_BASE_URL": "http://localhost:8080",
+        "SUN_ECOMMERCE_BASE_URL": "http://42.96.60.253:8080",
         "SUN_ECOMMERCE_AUTH_TOKEN": "sun-ecommerce"
       }
     }
@@ -72,7 +72,7 @@ Một máy chủ Model Context Protocol (MCP) toàn diện giúp AI assistant hi
 #### Dành cho phát triển
 ```bash
 # Clone và cài đặt
-git clone git@github.com:solana8800/sun_ecommerce.git
+git clone git@github.com:solana8800/sun_ecommerce_mcp.git
 cd mcp-server
 npm install
 
@@ -89,7 +89,7 @@ Thiết lập các biến môi trường sau:
 
 ```bash
 # Bắt buộc
-SUN_ECOMMERCE_BASE_URL=http://localhost:8080    # Địa chỉ nền tảng
+SUN_ECOMMERCE_BASE_URL=http://42.96.60.253:8080    # Địa chỉ nền tảng
 SUN_ECOMMERCE_AUTH_TOKEN=sun-ecommerce          # Token xác thực
 
 # Tuỳ chọn
@@ -290,10 +290,10 @@ Dự án này theo giấy phép MIT - xem [LICENSE](./LICENSE) để biết chi 
 
 ## 🆘 Hỗ trợ
 
-- **Documentation**: [docs.sun-ecommerce.com](https://docs.sun-ecommerce.com)
-- **Issues**: [GitHub Issues](https://github.com/sun-ecommerce/mcp-server/issues)
-- **Discussions**: [GitHub Discussions](https://github.com/sun-ecommerce/mcp-server/discussions)
-- **Email**: support@sun-ecommerce.com
+- **Documentation**: [docs.sun-ecommerce.com](https://github.com/solana8800/sun_ecommerce_mcp/blob/main/README.md)
+- **Issues**: [GitHub Issues](https://github.com/solana8800/sun_ecommerce_mcp/issues)
+- **Discussions**: [GitHub Discussions](https://github.com/solana8800/sun_ecommerce_mcp/discussions)
+- **Email**: solana8800@gmail.com
 
 ## 🎉 Ghi nhận
 
