@@ -405,7 +405,7 @@ Tư vấn chiến lược giá.
 
 Tất cả API calls yêu cầu authentication token trong header:
 ```
-Authorization: Bearer {SUN_ECOMMERCE_AUTH_TOKEN}
+Authorization: Bearer {SUN_ECOMMERCE_API_TOKEN}
 ```
 
 ## 📝 Versioning

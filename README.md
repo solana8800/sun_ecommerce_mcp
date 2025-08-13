@@ -43,8 +43,8 @@ Một máy chủ Model Context Protocol (MCP) toàn diện giúp AI assistant hi
       "command": "npx",
       "args": ["-y", "@solana8800/sun_ecommerce_mcp"],
       "env": {
-        "SUN_ECOMMERCE_BASE_URL": "http://42.96.60.253:8080",
-        "SUN_ECOMMERCE_AUTH_TOKEN": "sun-ecommerce"
+        "SUN_ECOMMERCE_API_URL": "http://42.96.60.253:8080",
+        "SUN_ECOMMERCE_API_TOKEN": "sun-ecommerce"
       }
     }
   }
@@ -61,8 +61,8 @@ Một máy chủ Model Context Protocol (MCP) toàn diện giúp AI assistant hi
       "command": "npx",
       "args": ["-y", "git+https://github.com/solana8800/sun_ecommerce_mcp.git"],
       "env": {
-        "SUN_ECOMMERCE_BASE_URL": "http://42.96.60.253:8080",
-        "SUN_ECOMMERCE_AUTH_TOKEN": "sun-ecommerce"
+        "SUN_ECOMMERCE_API_URL": "http://42.96.60.253:8080",
+        "SUN_ECOMMERCE_API_TOKEN": "sun-ecommerce"
       }
     }
   }
@@ -78,8 +78,8 @@ Một máy chủ Model Context Protocol (MCP) toàn diện giúp AI assistant hi
       "command": "node",
       "args": ["/Users/aloha/Documents/projects/sun_ecommerce_product/mcp-server/dist/index.js"],
       "env": {
-        "SUN_ECOMMERCE_BASE_URL": "http://42.96.60.253:8080",
-        "SUN_ECOMMERCE_AUTH_TOKEN": "sun-ecommerce"
+        "SUN_ECOMMERCE_API_URL": "http://42.96.60.253:8080",
+        "SUN_ECOMMERCE_API_TOKEN": "sun-ecommerce"
       }
     }
   }
@@ -102,8 +102,8 @@ npm start
 
 3. Command local
 ```bash
-SUN_ECOMMERCE_BASE_URL="http://42.96.60.253:8080" \
-SUN_ECOMMERCE_AUTH_TOKEN="sun-ecommerce" \
+SUN_ECOMMERCE_API_URL="http://42.96.60.253:8080" \
+SUN_ECOMMERCE_API_TOKEN="sun-ecommerce" \
 npx -y git+https://github.com/solana8800/sun_ecommerce_mcp.git
 ```
 
@@ -113,8 +113,8 @@ Thiết lập các biến môi trường sau:
 
 ```bash
 # Bắt buộc
-SUN_ECOMMERCE_BASE_URL=http://42.96.60.253:8080    # Địa chỉ nền tảng
-SUN_ECOMMERCE_AUTH_TOKEN=sun-ecommerce          # Token xác thực
+SUN_ECOMMERCE_API_URL=http://42.96.60.253:8080    # Địa chỉ nền tảng
+SUN_ECOMMERCE_API_TOKEN=sun-ecommerce          # Token xác thực
 
 # Tuỳ chọn
 SUN_ECOMMERCE_API_VERSION=v1                    # Phiên bản API (mặc định: v1)

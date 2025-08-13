@@ -22,7 +22,7 @@ Code: TIMEOUT_ERROR
 ```typescript
 // 1. Increase timeout
 const client = new SunEcommerceClient({
-  baseURL: process.env.SUN_ECOMMERCE_BASE_URL,
+  baseURL: process.env.SUN_ECOMMERCE_API_URL,
   timeout: 60000, // Increase to 60 seconds
   retries: 3
 });
@@ -80,7 +80,7 @@ const agent = new https.Agent({
 });
 
 const client = new SunEcommerceClient({
-  baseURL: process.env.SUN_ECOMMERCE_BASE_URL,
+  baseURL: process.env.SUN_ECOMMERCE_API_URL,
   httpsAgent: agent
 });
 ```
@@ -606,7 +606,7 @@ class BatchProcessor {
 ```typescript
 // Enable debug logging
 const client = new SunEcommerceClient({
-  baseURL: process.env.SUN_ECOMMERCE_BASE_URL,
+  baseURL: process.env.SUN_ECOMMERCE_API_URL,
   debug: true, // Enable debug mode
   logLevel: 'debug'
 });

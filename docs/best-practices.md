@@ -10,7 +10,7 @@ Hướng dẫn các thực hành tốt nhất khi sử dụng Sun eCommerce MCP 
 ```typescript
 // ✅ Good: Sử dụng connection pooling
 const apiClient = new SunEcommerceClient({
-  baseURL: process.env.SUN_ECOMMERCE_BASE_URL,
+  baseURL: process.env.SUN_ECOMMERCE_API_URL,
   timeout: 30000,
   retries: 3,
   keepAlive: true,
@@ -131,7 +131,7 @@ class TokenManager {
   
   constructor() {
     // Đọc token từ secure storage, không hardcode
-    this.token = process.env.SUN_ECOMMERCE_AUTH_TOKEN;
+    this.token = process.env.SUN_ECOMMERCE_API_TOKEN;
     if (!this.token) {
       throw new Error('Authentication token not configured');
     }
@@ -725,8 +725,8 @@ class Config {
     const env = process.env.NODE_ENV || 'development';
     
     const baseConfig = {
-      apiUrl: process.env.SUN_ECOMMERCE_BASE_URL,
-      apiToken: process.env.SUN_ECOMMERCE_AUTH_TOKEN,
+      apiUrl: process.env.SUN_ECOMMERCE_API_URL,
+      apiToken: process.env.SUN_ECOMMERCE_API_TOKEN,
       timeout: parseInt(process.env.API_TIMEOUT || '30000'),
       retries: parseInt(process.env.API_RETRIES || '3')
     };

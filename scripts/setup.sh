@@ -92,7 +92,7 @@ create_env_file() {
         BASE_URL="http://42.96.60.253:8080"
         print_warning "Using default base URL: $BASE_URL"
     fi
-    echo "SUN_ECOMMERCE_BASE_URL=$BASE_URL" >> .env
+    echo "SUN_ECOMMERCE_API_URL=$BASE_URL" >> .env
     
     # Get API token
     read -s -p "Enter your API authentication token: " API_TOKEN
@@ -101,7 +101,7 @@ create_env_file() {
         print_error "API token is required"
         exit 1
     fi
-    echo "SUN_ECOMMERCE_AUTH_TOKEN=$API_TOKEN" >> .env
+    echo "SUN_ECOMMERCE_API_TOKEN=$API_TOKEN" >> .env
     
     # Optional configurations
     echo "" >> .env
@@ -128,13 +128,13 @@ test_configuration() {
     source .env
     set +a
     
-    print_status "Testing connection to $SUN_ECOMMERCE_BASE_URL..."
+    print_status "Testing connection to $SUN_ECOMMERCE_API_URL..."
     
     # Test health check
     if command_exists curl; then
         HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" \
-            -H "Authorization: Bearer $SUN_ECOMMERCE_AUTH_TOKEN" \
-            "$SUN_ECOMMERCE_BASE_URL/api/v1/health" || echo "000")
+            -H "Authorization: Bearer $SUN_ECOMMERCE_API_TOKEN" \
+            "$SUN_ECOMMERCE_API_URL/api/v1/health" || echo "000")
         
         if [ "$HTTP_CODE" = "200" ]; then
             print_status "✅ Connection successful!"
@@ -201,8 +201,8 @@ setup_claude_desktop() {
       "command": "npx",
       "args": ["-y", "@sun-ecommerce/mcp-server"],
       "env": {
-        "SUN_ECOMMERCE_BASE_URL": "$SUN_ECOMMERCE_BASE_URL",
-        "SUN_ECOMMERCE_AUTH_TOKEN": "$SUN_ECOMMERCE_AUTH_TOKEN",
+        "SUN_ECOMMERCE_API_URL": "$SUN_ECOMMERCE_API_URL",
+        "SUN_ECOMMERCE_API_TOKEN": "$SUN_ECOMMERCE_API_TOKEN",
         "SUN_ECOMMERCE_API_VERSION": "${SUN_ECOMMERCE_API_VERSION:-v1}",
         "SUN_ECOMMERCE_TIMEOUT": "${SUN_ECOMMERCE_TIMEOUT:-30000}",
         "SUN_ECOMMERCE_RETRIES": "${SUN_ECOMMERCE_RETRIES:-3}",
@@ -241,8 +241,8 @@ setup_cursor() {
       "command": "npx",
       "args": ["-y", "@sun-ecommerce/mcp-server"],
       "env": {
-        "SUN_ECOMMERCE_BASE_URL": "$SUN_ECOMMERCE_BASE_URL",
-        "SUN_ECOMMERCE_AUTH_TOKEN": "$SUN_ECOMMERCE_AUTH_TOKEN",
+        "SUN_ECOMMERCE_API_URL": "$SUN_ECOMMERCE_API_URL",
+        "SUN_ECOMMERCE_API_TOKEN": "$SUN_ECOMMERCE_API_TOKEN",
         "SUN_ECOMMERCE_API_VERSION": "${SUN_ECOMMERCE_API_VERSION:-v1}",
         "SUN_ECOMMERCE_TIMEOUT": "${SUN_ECOMMERCE_TIMEOUT:-30000}",
         "SUN_ECOMMERCE_RETRIES": "${SUN_ECOMMERCE_RETRIES:-3}",

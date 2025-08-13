@@ -29,8 +29,8 @@ Tìm file cấu hình Claude Desktop:
       "command": "npx",
       "args": ["-y", "@sun-ecommerce/mcp-server"],
       "env": {
-        "SUN_ECOMMERCE_BASE_URL": "http://42.96.60.253:8080",
-        "SUN_ECOMMERCE_AUTH_TOKEN": "sun-ecommerce",
+        "SUN_ECOMMERCE_API_URL": "http://42.96.60.253:8080",
+        "SUN_ECOMMERCE_API_TOKEN": "sun-ecommerce",
         "SUN_ECOMMERCE_API_VERSION": "v1",
         "SUN_ECOMMERCE_TIMEOUT": "30000",
         "SUN_ECOMMERCE_RETRIES": "3",
@@ -58,8 +58,8 @@ Khởi động lại Claude Desktop để áp dụng cấu hình mới.
       "command": "npx",
       "args": ["-y", "@sun-ecommerce/mcp-server"],
       "env": {
-        "SUN_ECOMMERCE_BASE_URL": "http://42.96.60.253:8080",
-        "SUN_ECOMMERCE_AUTH_TOKEN": "sun-ecommerce"
+        "SUN_ECOMMERCE_API_URL": "http://42.96.60.253:8080",
+        "SUN_ECOMMERCE_API_TOKEN": "sun-ecommerce"
       }
     }
   }
@@ -76,8 +76,8 @@ Tạo file `.cursor/mcp.json` ở thư mục gốc dự án:
       "command": "npx",
       "args": ["-y", "@sun-ecommerce/mcp-server"],
       "env": {
-        "SUN_ECOMMERCE_BASE_URL": "http://42.96.60.253:8080",
-        "SUN_ECOMMERCE_AUTH_TOKEN": "sun-ecommerce"
+        "SUN_ECOMMERCE_API_URL": "http://42.96.60.253:8080",
+        "SUN_ECOMMERCE_API_TOKEN": "sun-ecommerce"
       }
     }
   }
@@ -99,8 +99,8 @@ npm install
 npm run build
 
 # Thiết lập biến môi trường
-export SUN_ECOMMERCE_BASE_URL="http://42.96.60.253:8080"
-export SUN_ECOMMERCE_AUTH_TOKEN="your-dev-token"
+export SUN_ECOMMERCE_API_URL="http://42.96.60.253:8080"
+export SUN_ECOMMERCE_API_TOKEN="your-dev-token"
 
 # Chạy server
 npm start
@@ -119,7 +119,7 @@ COPY docs/ ./docs/
 
 EXPOSE 3000
 
-ENV SUN_ECOMMERCE_BASE_URL=http://42.96.60.253:8080
+ENV SUN_ECOMMERCE_API_URL=http://42.96.60.253:8080
 ENV SUN_ECOMMERCE_API_VERSION=v1
 
 CMD ["node", "dist/index.js"]
@@ -129,8 +129,8 @@ CMD ["node", "dist/index.js"]
 # Build và chạy
 docker build -t sun-ecommerce-mcp .
 docker run -p 3000:3000 \
-  -e SUN_ECOMMERCE_BASE_URL=http://42.96.60.253:8080 \
-  -e SUN_ECOMMERCE_AUTH_TOKEN=your-token \
+  -e SUN_ECOMMERCE_API_URL=http://42.96.60.253:8080 \
+  -e SUN_ECOMMERCE_API_TOKEN=your-token \
   sun-ecommerce-mcp
 ```
 
@@ -140,8 +140,8 @@ docker run -p 3000:3000 \
 
 | Biến | Bắt buộc | Mặc định | Mô tả |
 |----------|----------|---------|-------------|
-| `SUN_ECOMMERCE_BASE_URL` | ✅ | - | Địa chỉ nền tảng |
-| `SUN_ECOMMERCE_AUTH_TOKEN` | ✅ | - | Token xác thực API |
+| `SUN_ECOMMERCE_API_URL` | ✅ | - | Địa chỉ nền tảng |
+| `SUN_ECOMMERCE_API_TOKEN` | ✅ | - | Token xác thực API |
 | `SUN_ECOMMERCE_API_VERSION` | ❌ | `v1` | Phiên bản API |
 | `SUN_ECOMMERCE_TIMEOUT` | ❌ | `30000` | Timeout request (ms) |
 | `SUN_ECOMMERCE_RETRIES` | ❌ | `3` | Số lần retry |
@@ -270,7 +270,7 @@ Dành cho triển khai riêng:
       "command": "npx",
       "args": ["-y", "@sun-ecommerce/mcp-server"],
       "env": {
-        "SUN_ECOMMERCE_BASE_URL": "https://custom-domain.com",
+        "SUN_ECOMMERCE_API_URL": "https://custom-domain.com",
         "SUN_ECOMMERCE_API_VERSION": "v2",
         "SUN_ECOMMERCE_CUSTOM_HEADERS": "{\"X-Custom-Header\": \"value\"}"
       }
@@ -288,14 +288,14 @@ Dành cho hệ thống HA:
       "command": "npx",
       "args": ["-y", "@sun-ecommerce/mcp-server"],
       "env": {
-        "SUN_ECOMMERCE_BASE_URL": "https://primary.sun-ecommerce.com"
+        "SUN_ECOMMERCE_API_URL": "https://primary.sun-ecommerce.com"
       }
     },
     "sun-ecommerce-backup": {
       "command": "npx",
       "args": ["-y", "@sun-ecommerce/mcp-server"],
       "env": {
-        "SUN_ECOMMERCE_BASE_URL": "https://backup.sun-ecommerce.com"
+        "SUN_ECOMMERCE_API_URL": "https://backup.sun-ecommerce.com"
       }
     }
   }
