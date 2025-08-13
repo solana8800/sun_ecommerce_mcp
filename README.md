@@ -101,41 +101,132 @@ SUN_ECOMMERCE_ENABLE_LOGGING=true               # Bật logging (mặc định: 
 
 ## 🛠️ Các công cụ hỗ trợ
 
-### Product Management
+### Product Management Tools
 - `create_product` - Tạo sản phẩm mới với đầy đủ cấu hình
 - `search_products` - Tìm kiếm sản phẩm với bộ lọc nâng cao
-- `get_product` - Lấy thông tin chi tiết sản phẩm
-- `update_product` - Cập nhật sản phẩm
+- `get_product` - Lấy thông tin chi tiết sản phẩm theo ID
+- `get_product_by_handle` - Lấy thông tin sản phẩm theo handle/slug
+- `update_product` - Cập nhật thông tin sản phẩm
+- `delete_product` - Xóa sản phẩm khỏi hệ thống
 
-### Category Management
-- `create_category` - Tạo danh mục sản phẩm
+### Category Management Tools
+- `create_category` - Tạo danh mục sản phẩm mới
 - `list_categories` - Liệt kê hoặc lấy cây danh mục
-- `get_category` - Lấy chi tiết danh mục
+- `get_category` - Lấy chi tiết danh mục theo ID
+- `update_category` - Cập nhật thông tin danh mục
+- `delete_category` - Xóa danh mục
 
-### Pricing Rules
+### Pricing Rules Tools
 - `create_pricing_rule` - Thiết lập quy tắc giá, khuyến mãi
+- `get_pricing_rule` - Lấy thông tin quy tắc giá theo ID
+- `update_pricing_rule` - Cập nhật quy tắc giá
+- `delete_pricing_rule` - Xóa quy tắc giá
 - `apply_pricing_rules` - Tính giá với quy tắc áp dụng
 - `list_pricing_rules` - Liệt kê quy tắc giá
 - `validate_pricing_rule` - Kiểm tra cấu hình quy tắc
+- `get_pricing_rule_by_name` - Lấy quy tắc giá theo tên
+- `update_pricing_rule_status` - Cập nhật trạng thái quy tắc giá
+- `get_active_pricing_rules` - Lấy danh sách quy tắc giá đang hoạt động
+- `bulk_calculate_price` - Tính toán giá hàng loạt cho nhiều sản phẩm
+- `get_pricing_rules_by_priority` - Lấy quy tắc giá theo độ ưu tiên
+- `bulk_update_pricing_rule_status` - Cập nhật trạng thái hàng loạt
+- `get_pricing_rule_stats` - Lấy thống kê quy tắc giá
+- `duplicate_pricing_rule` - Sao chép quy tắc giá
 
-### Cart Operations
-- `create_cart` - Tạo giỏ hàng
-- `add_cart_item` - Thêm sản phẩm vào giỏ
+### Cart Management Tools
+- `create_cart` - Tạo giỏ hàng mới
+- `add_cart_item` - Thêm sản phẩm vào giỏ hàng
+- `update_cart_item` - Cập nhật sản phẩm trong giỏ
+- `remove_cart_item` - Xóa sản phẩm khỏi giỏ
 - `get_cart` - Lấy chi tiết giỏ hàng
+- `get_cart_items` - Lấy danh sách sản phẩm trong giỏ
 - `get_cart_summary` - Tổng hợp giá trị giỏ hàng
+- `clear_cart` - Xóa toàn bộ giỏ hàng
 
-### Inventory Management
-- `check_inventory` - Kiểm tra tồn kho
+### Inventory Management Tools
+- `create_inventory` - Tạo bản ghi tồn kho mới
+- `check_inventory` - Kiểm tra tồn kho sản phẩm
 - `reserve_inventory` - Đặt chỗ tồn kho cho đơn hàng
-- `get_inventory` - Lấy thông tin tồn kho
+- `get_inventory` - Lấy thông tin tồn kho theo ID
+- `list_inventory` - Liệt kê tồn kho với bộ lọc
+- `update_inventory` - Cập nhật số lượng tồn kho
 
-### Media Management
-- `upload_media` - Tải lên media sản phẩm
-- `list_media` - Liệt kê file media
+### Media Management Tools
+- `upload_media` - Tải lên file media (hình ảnh, video)
+- `get_media` - Lấy thông tin file media theo ID
+- `list_media` - Liệt kê file media với bộ lọc
+- `update_media` - Cập nhật thông tin file media
+- `delete_media` - Xóa file media
+
+### Partner Management Tools
+- `create_partner` - Tạo đối tác kinh doanh mới
+- `get_partner` - Lấy thông tin đối tác theo ID
+- `list_partners` - Liệt kê đối tác với bộ lọc
+- `update_partner` - Cập nhật thông tin đối tác
+- `delete_partner` - Xóa đối tác
+
+### Sales Channel Management Tools
+- `create_sales_channel` - Tạo kênh bán hàng mới
+- `get_sales_channel` - Lấy thông tin kênh bán hàng
+- `list_sales_channels` - Liệt kê kênh bán hàng
+- `update_sales_channel` - Cập nhật kênh bán hàng
+- `delete_sales_channel` - Xóa kênh bán hàng
+- `activate_sales_channel` - Kích hoạt kênh bán hàng
+- `deactivate_sales_channel` - Vô hiệu hóa kênh bán hàng
+- `get_sales_channel_statistics` - Lấy thống kê kênh bán hàng
+
+### Product Attribute Management Tools
+- `create_product_attribute` - Tạo thuộc tính sản phẩm mới
+- `get_product_attribute` - Lấy thông tin thuộc tính theo ID
+- `get_product_attribute_by_name` - Lấy thuộc tính theo tên
+- `list_product_attributes` - Liệt kê thuộc tính sản phẩm
+- `update_product_attribute` - Cập nhật thuộc tính
+- `delete_product_attribute` - Xóa thuộc tính
+- `create_attribute_value` - Tạo giá trị thuộc tính
+- `get_attribute_values` - Lấy danh sách giá trị thuộc tính
+- `update_attribute_value` - Cập nhật giá trị thuộc tính
+- `delete_attribute_value` - Xóa giá trị thuộc tính
+- `bulk_create_attribute_values` - Tạo hàng loạt giá trị thuộc tính
+- `get_attribute_usage` - Lấy thông tin sử dụng thuộc tính
+
+### Translation Management Tools
+#### Product Translations
+- `create_product_translation` - Tạo bản dịch cho sản phẩm
+- `get_product_translation` - Lấy bản dịch sản phẩm theo ngôn ngữ
+- `update_product_translation` - Cập nhật bản dịch sản phẩm
+- `delete_product_translation` - Xóa bản dịch sản phẩm
+- `list_product_translations` - Liệt kê tất cả bản dịch của sản phẩm
+
+#### Category Translations
+- `create_category_translation` - Tạo bản dịch cho danh mục
+- `get_category_translation` - Lấy bản dịch danh mục theo ngôn ngữ
+- `update_category_translation` - Cập nhật bản dịch danh mục
+- `delete_category_translation` - Xóa bản dịch danh mục
+- `list_category_translations` - Liệt kê tất cả bản dịch của danh mục
+
+#### Product Attribute Translations
+- `create_product_attribute_translation` - Tạo bản dịch cho thuộc tính sản phẩm
+- `get_product_attribute_translation` - Lấy bản dịch thuộc tính theo ngôn ngữ
+- `update_product_attribute_translation` - Cập nhật bản dịch thuộc tính
+- `delete_product_attribute_translation` - Xóa bản dịch thuộc tính
+- `list_product_attribute_translations` - Liệt kê bản dịch thuộc tính
+
+#### Product Variant Translations
+- `create_product_variant_translation` - Tạo bản dịch cho biến thể sản phẩm
+- `get_product_variant_translation` - Lấy bản dịch biến thể theo ngôn ngữ
+- `update_product_variant_translation` - Cập nhật bản dịch biến thể
+- `delete_product_variant_translation` - Xóa bản dịch biến thể
+- `list_product_variant_translations` - Liệt kê bản dịch biến thể
+
+#### Bulk Translation Operations
+- `bulk_create_translations` - Tạo hàng loạt bản dịch
+- `bulk_delete_translations` - Xóa hàng loạt bản dịch
+- `get_translation_stats` - Lấy thống kê bản dịch
+- `get_supported_languages` - Lấy danh sách ngôn ngữ được hỗ trợ
 
 ### System Operations
-- `health_check` - Kiểm tra sức khoẻ hệ thống
-- `get_system_info` - Lấy thông tin hệ thống
+- `health_check` - Kiểm tra sức khỏe hệ thống
+- `get_system_info` - Lấy thông tin hệ thống và khả năng
 
 ## 📚 Tài liệu tham khảo
 
