@@ -99,7 +99,7 @@ npm install
 npm run build
 
 # Thiết lập biến môi trường
-export SUN_ECOMMERCE_BASE_URL="http://localhost:8080"
+export SUN_ECOMMERCE_BASE_URL="http://42.96.60.253:8080"
 export SUN_ECOMMERCE_AUTH_TOKEN="your-dev-token"
 
 # Chạy server

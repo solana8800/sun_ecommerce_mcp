@@ -2,7 +2,7 @@ import { z } from 'zod';
 
 // Base configuration schema
 export const ConfigSchema = z.object({
-  baseUrl: z.string().url().default('http://localhost:8080'),
+  baseUrl: z.string().url().default('http://42.96.60.253:8080'),
   apiVersion: z.string().default('v1'),
   timeout: z.number().default(30000),
   retries: z.number().default(3),
