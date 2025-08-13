@@ -1,201 +1,201 @@
-                                 Apache License
-                           Version 2.0, January 2004
+Giấy phép Apache
+                           Phiên bản 2.0, Tháng 1 năm 2004
                         http://www.apache.org/licenses/
 
-   TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION
+   ĐIỀU KHOẢN VÀ ĐIỀU KIỆN SỬ DỤNG, SAO CHÉP VÀ PHÂN PHỐI
 
-   1. Definitions.
+   1. Định nghĩa.
 
-      "License" shall mean the terms and conditions for use, reproduction,
-      and distribution as defined by Sections 1 through 9 of this document.
+      "Giấy phép" có nghĩa là các điều khoản và điều kiện sử dụng, sao chép
+      và phân phối như được định nghĩa trong các Mục từ 1 đến 9 của tài liệu này.
 
-      "Licensor" shall mean the copyright owner or entity authorized by
-      the copyright owner that is granting the License.
+      "Người cấp phép" có nghĩa là chủ sở hữu bản quyền hoặc thực thể được
+      chủ sở hữu bản quyền ủy quyền cấp Giấy phép.
 
-      "Legal Entity" shall mean the union of the acting entity and all
-      other entities that control, are controlled by, or are under common
-      control with that entity. For the purposes of this definition,
-      "control" means (i) the power, direct or indirect, to cause the
-      direction or management of such entity, whether by contract or
-      otherwise, or (ii) ownership of fifty percent (50%) or more of the
-      outstanding shares, or (iii) beneficial ownership of such entity.
+      "Thực thể pháp lý" có nghĩa là sự hợp nhất của thực thể hành động và tất cả
+      các thực thể khác kiểm soát, được kiểm soát bởi, hoặc dưới sự kiểm soát chung
+      với thực thể đó. Với mục đích của định nghĩa này,
+      "kiểm soát" có nghĩa là (i) quyền lực, trực tiếp hoặc gián tiếp, để gây ra
+      sự chỉ đạo hoặc quản lý của thực thể đó, dù bằng hợp đồng hay
+      cách khác, hoặc (ii) sở hữu năm mười phần trăm (50%) hoặc nhiều hơn
+      cổ phần đang lưu hành, hoặc (iii) quyền sở hữu có lợi của thực thể đó.
 
-      "You" (or "Your") shall mean an individual or Legal Entity
-      exercising permissions granted by this License.
+      "Bạn" (hoặc "Của bạn") có nghĩa là một cá nhân hoặc Thực thể pháp lý
+      thực hiện các quyền được cấp theo Giấy phép này.
 
-      "Source" form shall mean the preferred form for making modifications,
-      including but not limited to software source code, documentation
-      source, and configuration files.
+      Dạng "Nguồn" có nghĩa là dạng ưa thích để thực hiện các sửa đổi,
+      bao gồm nhưng không giới hạn ở mã nguồn phần mềm, nguồn tài liệu
+      và tệp cấu hình.
 
-      "Object" form shall mean any form resulting from mechanical
-      transformation or translation of a Source form, including but
-      not limited to compiled object code, generated documentation,
-      and conversions to other media types.
+      Dạng "Đối tượng" có nghĩa là bất kỳ dạng nào phát sinh từ việc biến đổi
+      cơ học hoặc dịch thuật của dạng Nguồn, bao gồm nhưng
+      không giới hạn ở mã đối tượng được biên dịch, tài liệu được tạo,
+      và chuyển đổi sang các loại phương tiện khác.
 
-      "Work" shall mean the work of authorship, whether in Source or
-      Object form, made available under the License, as indicated by a
-      copyright notice that is included in or attached to the work
-      (an example is provided in the Appendix below).
+      "Tác phẩm" có nghĩa là tác phẩm của tác giả, dù ở dạng Nguồn hay
+      dạng Đối tượng, được cung cấp theo Giấy phép, như được chỉ ra bởi
+      thông báo bản quyền được bao gồm trong hoặc đính kèm với tác phẩm
+      (một ví dụ được cung cấp trong Phụ lục bên dưới).
 
-      "Derivative Works" shall mean any work, whether in Source or Object
-      form, that is based on (or derived from) the Work and for which the
-      editorial revisions, annotations, elaborations, or other modifications
-      represent, as a whole, an original work of authorship. For the purposes
-      of this License, Derivative Works shall not include works that remain
-      separable from, or merely link (or bind by name) to the interfaces of,
-      the Work and Derivative Works thereof.
+      "Tác phẩm phái sinh" có nghĩa là bất kỳ tác phẩm nào, dù ở dạng Nguồn hay Đối tượng,
+      dựa trên (hoặc phái sinh từ) Tác phẩm và mà các
+      sửa đổi biên tập, chú thích, elaborations, hoặc các sửa đổi khác
+      đại diện, như một tổng thể, một tác phẩm gốc của tác giả. Với mục đích
+      của Giấy phép này, Tác phẩm phái sinh sẽ không bao gồm các tác phẩm mà vẫn
+      có thể tách biệt từ, hoặc chỉ liên kết (hoặc ràng buộc theo tên) với các giao diện của,
+      Tác phẩm và Tác phẩm phái sinh của nó.
 
-      "Contribution" shall mean any work of authorship, including
-      the original version of the Work and any modifications or additions
-      to that Work or Derivative Works thereof, that is intentionally
-      submitted to Licensor for inclusion in the Work by the copyright owner
-      or by an individual or Legal Entity authorized to submit on behalf of
-      the copyright owner. For the purposes of this definition, "submitted"
-      means any form of electronic, verbal, or written communication sent
-      to the Licensor or its representatives, including but not limited to
-      communication on electronic mailing lists, source code control systems,
-      and issue tracking systems that are managed by, or on behalf of, the
-      Licensor for the purpose of discussing and improving the Work, but
-      excluding communication that is conspicuously marked or otherwise
-      designated in writing by the copyright owner as "Not a Contribution."
+      "Đóng góp" có nghĩa là bất kỳ tác phẩm tác giả nào, bao gồm
+      phiên bản gốc của Tác phẩm và bất kỳ sửa đổi hoặc bổ sung nào
+      cho Tác phẩm hoặc Tác phẩm phái sinh của nó, được cố ý
+      gửi cho Người cấp phép để đưa vào Tác phẩm bởi chủ sở hữu bản quyền
+      hoặc bởi một cá nhân hoặc Thực thể pháp lý được ủy quyền gửi thay mặt
+      chủ sở hữu bản quyền. Với mục đích của định nghĩa này, "được gửi"
+      có nghĩa là bất kỳ hình thức giao tiếp điện tử, bằng lời nói, hoặc bằng văn bản nào được gửi
+      cho Người cấp phép hoặc đại diện của họ, bao gồm nhưng không giới hạn ở
+      giao tiếp trên danh sách gửi thư điện tử, hệ thống kiểm soát mã nguồn,
+      và hệ thống theo dõi vấn đề được quản lý bởi, hoặc thay mặt cho,
+      Người cấp phép với mục đích thảo luận và cải thiện Tác phẩm, nhưng
+      loại trừ giao tiếp được đánh dấu rõ ràng hoặc được
+      chỉ định bằng văn bản bởi chủ sở hữu bản quyền là "Không phải là Đóng góp".
 
-      "Contributor" shall mean Licensor and any individual or Legal Entity
-      on behalf of whom a Contribution has been received by Licensor and
-      subsequently incorporated within the Work.
+      "Người đóng góp" có nghĩa là Người cấp phép và bất kỳ cá nhân hoặc Thực thể pháp lý nào
+      thay mặt cho ai mà một Đóng góp đã được nhận bởi Người cấp phép và
+      sau đó được kết hợp trong Tác phẩm.
 
-   2. Grant of Copyright License. Subject to the terms and conditions of
-      this License, each Contributor hereby grants to You a perpetual,
-      worldwide, non-exclusive, no-charge, royalty-free, irrevocable
-      copyright license to reproduce, prepare Derivative Works of,
-      publicly display, publicly perform, sublicense, and distribute the
-      Work and such Derivative Works in Source or Object form.
+   2. Cấp Giấy phép Bản quyền. Tuân theo các điều khoản và điều kiện của
+      Giấy phép này, mỗi Người đóng góp hereby cấp cho Bạn một
+      giấy phép bản quyền vĩnh viễn, toàn cầu, không độc quyền, miễn phí, không thu phí,
+      không thể thu hồi để sao chép, chuẩn bị Tác phẩm phái sinh của,
+      hiển thị công khai, thực hiện công khai, cấp phép phụ, và phân phối
+      Tác phẩm và các Tác phẩm phái sinh như vậy ở dạng Nguồn hoặc Đối tượng.
 
-   3. Grant of Patent License. Subject to the terms and conditions of
-      this License, each Contributor hereby grants to You a perpetual,
-      worldwide, non-exclusive, no-charge, royalty-free, irrevocable
-      (except as stated in this section) patent license to make, have made,
-      use, offer to sell, sell, import, and otherwise transfer the Work,
-      where such license applies only to those patent claims licensable
-      by such Contributor that are necessarily infringed by their
-      Contribution(s) alone or by combination of their Contribution(s)
-      with the Work to which such Contribution(s) was submitted. If You
-      institute patent litigation against any entity (including a
-      cross-claim or counterclaim in a lawsuit) alleging that the Work
-      or a Contribution incorporated within the Work constitutes direct
-      or contributory patent infringement, then any patent licenses
-      granted to You under this License for that Work shall terminate
-      as of the date such litigation is filed.
+   3. Cấp Giấy phép Bằng sáng chế. Tuân theo các điều khoản và điều kiện của
+      Giấy phép này, mỗi Người đóng góp hereby cấp cho Bạn một
+      giấy phép bằng sáng chế vĩnh viễn, toàn cầu, không độc quyền, miễn phí, không thu phí,
+      không thể thu hồi (trừ khi được nêu trong mục này) để tạo, đã tạo,
+      sử dụng, đề nghị bán, bán, nhập khẩu, và chuyển giao Tác phẩm khác,
+      trong đó giấy phép như vậy chỉ áp dụng cho những yêu cầu bằng sáng chế có thể cấp phép
+      bởi Người đóng góp đó mà nhất thiết bị vi phạm bởi
+      (các) Đóng góp của họ một mình hoặc bằng sự kết hợp của (các) Đóng góp của họ
+      với Tác phẩm mà (các) Đóng góp đó đã được gửi. Nếu Bạn
+      khởi kiện kiện tụng bằng sáng chế chống lại bất kỳ thực thể nào (bao gồm
+      yêu cầu chéo hoặc phản yêu cầu trong một vụ kiện) cáo buộc rằng Tác phẩm
+      hoặc một Đóng góp được kết hợp trong Tác phẩm cấu thành trực tiếp
+      hoặc vi phạm bằng sáng chế đóng góp, thì bất kỳ giấy phép bằng sáng chế nào
+      được cấp cho Bạn theo Giấy phép này cho Tác phẩm đó sẽ chấm dứt
+      kể từ ngày kiện tụng như vậy được nộp.
 
-   4. Redistribution. You may reproduce and distribute copies of the
-      Work or Derivative Works thereof in any medium, with or without
-      modifications, and in Source or Object form, provided that You
-      meet the following conditions:
+   4. Phân phối lại. Bạn có thể sao chép và phân phối các bản sao của
+      Tác phẩm hoặc Tác phẩm phái sinh của nó trong bất kỳ phương tiện nào, có hoặc không có
+      sửa đổi, và ở dạng Nguồn hoặc Đối tượng, với điều kiện là Bạn
+      đáp ứng các điều kiện sau:
 
-      (a) You must give any other recipients of the Work or
-          Derivative Works a copy of this License; and
+      (a) Bạn phải cung cấp cho bất kỳ người nhận nào khác của Tác phẩm hoặc
+          Tác phẩm phái sinh một bản sao của Giấy phép này; và
 
-      (b) You must cause any modified files to carry prominent notices
-          stating that You changed the files; and
+      (b) Bạn phải làm cho bất kỳ tệp đã sửa đổi nào mang thông báo nổi bật
+          nêu rằng Bạn đã thay đổi các tệp; và
 
-      (c) You must retain, in the Source form of any Derivative Works
-          that You distribute, all copyright, patent, trademark, and
-          attribution notices from the Source form of the Work,
-          excluding those notices that do not pertain to any part of
-          the Derivative Works; and
+      (c) Bạn phải giữ lại, ở dạng Nguồn của bất kỳ Tác phẩm phái sinh nào
+          mà Bạn phân phối, tất cả các thông báo bản quyền, bằng sáng chế, thương hiệu, và
+          ghi nhận từ dạng Nguồn của Tác phẩm,
+          loại trừ những thông báo không liên quan đến bất kỳ phần nào của
+          Tác phẩm phái sinh; và
 
-      (d) If the Work includes a "NOTICE" text file as part of its
-          distribution, then any Derivative Works that You distribute must
-          include a readable copy of the attribution notices contained
-          within such NOTICE file, excluding those notices that do not
-          pertain to any part of the Derivative Works, in at least one
-          of the following places: within a NOTICE text file distributed
-          as part of the Derivative Works; within the Source form or
-          documentation, if provided along with the Derivative Works; or,
-          within a display generated by the Derivative Works, if and
-          wherever such third-party notices normally appear. The contents
-          of the NOTICE file are for informational purposes only and
-          do not modify the License. You may add Your own attribution
-          notices within Derivative Works that You distribute, alongside
-          or as an addendum to the NOTICE text from the Work, provided
-          that such additional attribution notices cannot be construed
-          as modifying the License.
+      (d) Nếu Tác phẩm bao gồm một tệp văn bản "NOTICE" như một phần của
+          phân phối của nó, thì bất kỳ Tác phẩm phái sinh nào mà Bạn phân phối phải
+          bao gồm một bản sao có thể đọc được của các thông báo ghi nhận có trong
+          tệp NOTICE đó, loại trừ những thông báo không
+          liên quan đến bất kỳ phần nào của Tác phẩm phái sinh, ít nhất trong một
+          trong những nơi sau: trong một tệp văn bản NOTICE được phân phối
+          như một phần của Tác phẩm phái sinh; trong dạng Nguồn hoặc
+          tài liệu, nếu được cung cấp cùng với Tác phẩm phái sinh; hoặc,
+          trong một màn hình được tạo bởi Tác phẩm phái sinh, nếu và
+          bất cứ nơi nào mà các thông báo của bên thứ ba như vậy thường xuất hiện. Nội dung
+          của tệp NOTICE chỉ dành cho mục đích thông tin và
+          không sửa đổi Giấy phép. Bạn có thể thêm các thông báo ghi nhận của riêng Bạn
+          trong Tác phẩm phái sinh mà Bạn phân phối, bên cạnh
+          hoặc như một phụ lục cho văn bản NOTICE từ Tác phẩm, với điều kiện
+          rằng các thông báo ghi nhận bổ sung như vậy không thể được hiểu
+          là sửa đổi Giấy phép.
 
-      You may add Your own copyright statement to Your modifications and
-      may provide additional or different license terms and conditions
-      for use, reproduction, or distribution of Your modifications, or
-      for any such Derivative Works as a whole, provided Your use,
-      reproduction, and distribution of the Work otherwise complies with
-      the conditions stated in this License.
+      Bạn có thể thêm tuyên bố bản quyền của riêng Bạn vào các sửa đổi của Bạn và
+      có thể cung cấp các điều khoản và điều kiện giấy phép bổ sung hoặc khác
+      cho việc sử dụng, sao chép, hoặc phân phối các sửa đổi của Bạn, hoặc
+      cho bất kỳ Tác phẩm phái sinh như vậy nào như một tổng thể, với điều kiện việc sử dụng,
+      sao chép, và phân phối Tác phẩm của Bạn tuân thủ
+      các điều kiện được nêu trong Giấy phép này.
 
-   5. Submission of Contributions. Unless You explicitly state otherwise,
-      any Contribution intentionally submitted for inclusion in the Work
-      by You to the Licensor shall be under the terms and conditions of
-      this License, without any additional terms or conditions.
-      Notwithstanding the above, nothing herein shall supersede or modify
-      the terms of any separate license agreement you may have executed
-      with Licensor regarding such Contributions.
+   5. Gửi Đóng góp. Trừ khi Bạn nêu rõ khác,
+      bất kỳ Đóng góp nào được cố ý gửi để đưa vào Tác phẩm
+      bởi Bạn cho Người cấp phép sẽ theo các điều khoản và điều kiện của
+      Giấy phép này, không có bất kỳ điều khoản hoặc điều kiện bổ sung nào.
+      Bất chấp điều trên, không có gì ở đây sẽ thay thế hoặc sửa đổi
+      các điều khoản của bất kỳ thỏa thuận giấy phép riêng biệt nào mà bạn có thể đã thực hiện
+      với Người cấp phép liên quan đến các Đóng góp như vậy.
 
-   6. Trademarks. This License does not grant permission to use the trade
-      names, trademarks, service marks, or product names of the Licensor,
-      except as required for reasonable and customary use in describing the
-      origin of the Work and reproducing the content of the NOTICE file.
+   6. Thương hiệu. Giấy phép này không cấp quyền sử dụng tên thương mại,
+      thương hiệu, nhãn hiệu dịch vụ, hoặc tên sản phẩm của Người cấp phép,
+      trừ khi được yêu cầu cho việc sử dụng hợp lý và thông thường trong việc mô tả
+      nguồn gốc của Tác phẩm và sao chép nội dung của tệp NOTICE.
 
-   7. Disclaimer of Warranty. Unless required by applicable law or
-      agreed to in writing, Licensor provides the Work (and each
-      Contributor provides its Contributions) on an "AS IS" BASIS,
-      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
-      implied, including, without limitation, any warranties or conditions
-      of TITLE, NON-INFRINGEMENT, MERCHANTABILITY, or FITNESS FOR A
-      PARTICULAR PURPOSE. You are solely responsible for determining the
-      appropriateness of using or redistributing the Work and assume any
-      risks associated with Your exercise of permissions under this License.
+   7. Từ chối Bảo hành. Trừ khi được yêu cầu bởi luật áp dụng hoặc
+      được đồng ý bằng văn bản, Người cấp phép cung cấp Tác phẩm (và mỗi
+      Người đóng góp cung cấp các Đóng góp của họ) trên cơ sở "NHƯ LÀ",
+      KHÔNG CÓ BẢO HÀNH HOẶC ĐIỀU KIỆN GÌ, dù rõ ràng hay
+      ngụ ý, bao gồm, không giới hạn, bất kỳ bảo hành hoặc điều kiện nào về
+      TIÊU ĐỀ, KHÔNG VI PHẠM, KHẢ NĂNG BÁN ĐƯỢC, hoặc PHÙ HỢP CHO
+      MỤC ĐÍCH CỤ THỂ. Bạn hoàn toàn chịu trách nhiệm xác định
+      tính phù hợp của việc sử dụng hoặc phân phối lại Tác phẩm và chấp nhận bất kỳ
+      rủi ro nào liên quan đến việc thực hiện các quyền của Bạn theo Giấy phép này.
 
-   8. Limitation of Liability. In no event and under no legal theory,
-      whether in tort (including negligence), contract, or otherwise,
-      unless required by applicable law (such as deliberate and grossly
-      negligent acts) or agreed to in writing, shall any Contributor be
-      liable to You for damages, including any direct, indirect, special,
-      incidental, or consequential damages of any character arising as a
-      result of this License or out of the use or inability to use the
-      Work (including but not limited to damages for loss of goodwill,
-      work stoppage, computer failure or malfunction, or any and all
-      other commercial damages or losses), even if such Contributor
-      has been advised of the possibility of such damages.
+   8. Giới hạn Trách nhiệm. Trong mọi trường hợp và theo bất kỳ lý thuyết pháp lý nào,
+      dù trong tort (bao gồm sơ suất), hợp đồng, hoặc cách khác,
+      trừ khi được yêu cầu bởi luật áp dụng (như các hành vi cố ý và
+      sơ suất nghiêm trọng) hoặc được đồng ý bằng văn bản, bất kỳ Người đóng góp nào sẽ
+      chịu trách nhiệm với Bạn về thiệt hại, bao gồm bất kỳ thiệt hại trực tiếp, gián tiếp, đặc biệt,
+      ngẫu nhiên, hoặc hậu quả nào phát sinh như một
+      kết quả của Giấy phép này hoặc từ việc sử dụng hoặc không thể sử dụng
+      Tác phẩm (bao gồm nhưng không giới hạn ở thiệt hại do mất thiện chí,
+      ngừng làm việc, lỗi máy tính hoặc trục trặc, hoặc bất kỳ và tất cả
+      thiệt hại hoặc tổn thất thương mại khác), ngay cả khi Người đóng góp như vậy
+      đã được thông báo về khả năng xảy ra thiệt hại như vậy.
 
-   9. Accepting Warranty or Additional Liability. While redistributing
-      the Work or Derivative Works thereof, You may choose to offer,
-      and charge a fee for, acceptance of support, warranty, indemnity,
-      or other liability obligations and/or rights consistent with this
-      License. However, in accepting such obligations, You may act only
-      on Your own behalf and on Your sole responsibility, not on behalf
-      of any other Contributor, and only if You agree to indemnify,
-      defend, and hold each Contributor harmless for any liability
-      incurred by, or claims asserted against, such Contributor by reason
-      of your accepting any such warranty or additional liability.
+   9. Chấp nhận Bảo hành hoặc Trách nhiệm Bổ sung. Trong khi phân phối lại
+      Tác phẩm hoặc Tác phẩm phái sinh của nó, Bạn có thể chọn đề nghị,
+      và tính phí cho, việc chấp nhận hỗ trợ, bảo hành, bồi thường,
+      hoặc các nghĩa vụ trách nhiệm và/hoặc quyền khác phù hợp với
+      Giấy phép này. Tuy nhiên, khi chấp nhận các nghĩa vụ như vậy, Bạn chỉ có thể hành động
+      thay mặt cho chính Bạn và trên trách nhiệm duy nhất của Bạn, không thay mặt
+      cho bất kỳ Người đóng góp nào khác, và chỉ khi Bạn đồng ý bồi thường,
+      bảo vệ, và giữ cho mỗi Người đóng góp không bị tổn hại về bất kỳ trách nhiệm nào
+      phát sinh bởi, hoặc yêu cầu được khẳng định chống lại, Người đóng góp như vậy bởi lý do
+      việc bạn chấp nhận bất kỳ bảo hành hoặc trách nhiệm bổ sung như vậy.
 
-   END OF TERMS AND CONDITIONS
+   KẾT THÚC ĐIỀU KHOẢN VÀ ĐIỀU KIỆN
 
-   APPENDIX: How to apply the Apache License to your work.
+   PHỤ LỤC: Cách áp dụng Giấy phép Apache cho tác phẩm của bạn.
 
-      To apply the Apache License to your work, attach the following
-      boilerplate notice, with the fields enclosed by brackets "[]"
-      replaced with your own identifying information. (Don't include
-      the brackets!)  The text should be enclosed in the appropriate
-      comment syntax for the file format. We also recommend that a
-      file or class name and description of purpose be included on the
-      same "printed page" as the copyright notice for easier
-      identification within third-party archives.
+      Để áp dụng Giấy phép Apache cho tác phẩm của bạn, đính kèm
+      thông báo boilerplate sau, với các trường được bao quanh bởi dấu ngoặc "[]"
+      được thay thế bằng thông tin nhận dạng của riêng bạn. (Đừng bao gồm
+      dấu ngoặc!) Văn bản nên được bao quanh trong
+      cú pháp chú thích phù hợp cho định dạng tệp. Chúng tôi cũng khuyến nghị rằng một
+      tên tệp hoặc lớp và mô tả mục đích được bao gồm trên
+      cùng "trang in" với thông báo bản quyền để dễ dàng
+      nhận dạng trong các kho lưu trữ của bên thứ ba.
 
-   Copyright [yyyy] [name of copyright owner]
+   Bản quyền 2024 Sun eCommerce Platform
 
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Được cấp phép theo Giấy phép Apache, Phiên bản 2.0 ("Giấy phép");
+   bạn không được sử dụng tệp này trừ khi tuân thủ Giấy phép.
+   Bạn có thể lấy một bản sao của Giấy phép tại
 
        http://www.apache.org/licenses/LICENSE-2.0
 
-   Unless required by applicable law or agreed to in writing, software
-   distributed under the License is distributed on an "AS IS" BASIS,
-   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   See the License for the specific language governing permissions and
-   limitations under the License.
+   Trừ khi được yêu cầu bởi luật áp dụng hoặc được đồng ý bằng văn bản, phần mềm
+   được phân phối theo Giấy phép được phân phối trên cơ sở "NHƯ LÀ",
+   KHÔNG CÓ BẢO HÀNH HOẶC ĐIỀU KIỆN GÌ, dù rõ ràng hay ngụ ý.
+   Xem Giấy phép để biết ngôn ngữ cụ thể chi phối các quyền
+   và giới hạn theo Giấy phép.
