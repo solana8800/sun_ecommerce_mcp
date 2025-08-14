@@ -99,10 +99,12 @@ async function runTests() {
   }
 }
 
-// Chạy tests
-if (import.meta.url === `file://${process.argv[1]}`) {
+// Run the tests if this file is executed directly
+if (process.argv[1] === new URL(import.meta.url).pathname) {
   runTests().catch((error) => {
-    console.error('Unhandled error in test suite:', error);
+    console.error('Failed to run tests:', error);
     process.exit(1);
   });
 }
+
+export { testApiConnection, testDirectApiConnection, runTests };

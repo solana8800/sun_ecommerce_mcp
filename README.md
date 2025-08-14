@@ -59,7 +59,7 @@ Một máy chủ Model Context Protocol (MCP) toàn diện giúp AI assistant hi
   "mcpServers": {
     "sun-ecommerce": {
       "command": "npx",
-      "args": ["-y", "git+https://github.com/solana8800/sun_ecommerce_mcp.git"],
+      "args": ["-y", "@solana8800/sun_ecommerce_mcp"],
       "env": {
         "SUN_ECOMMERCE_API_URL": "http://42.96.60.253:8080",
         "SUN_ECOMMERCE_API_TOKEN": "sun-ecommerce"

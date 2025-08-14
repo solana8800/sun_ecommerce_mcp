@@ -92,7 +92,7 @@ export const missingTools = [
     },
   },
 
-  // Sales Channel Management Tools (8 missing - ENTIRE CONTROLLER)
+  // Sales Channel Management Tools (6 missing - ENTIRE CONTROLLER)
   {
     name: 'create_sales_channel',
     description: 'Tạo kênh bán hàng mới',
@@ -170,7 +170,7 @@ export const missingTools = [
     },
   },
 
-  // Translation Management Tools (5 missing - ENTIRE CONTROLLER)
+  // Translation Management Tools (6 missing - ENTIRE CONTROLLER)
   {
     name: 'create_translation',
     description: 'Tạo bản dịch mới cho sản phẩm hoặc danh mục',
@@ -245,7 +245,7 @@ export const missingTools = [
     },
   },
 
-  // Product Attribute Management Tools (8 missing - ENTIRE CONTROLLER)
+  // Attribute Management Tools (5 missing - ENTIRE CONTROLLER)
   {
     name: 'create_attribute',
     description: 'Tạo thuộc tính sản phẩm mới',

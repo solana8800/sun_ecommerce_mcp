@@ -51,7 +51,7 @@ async function testMcpServer() {
     }
 
     // Test 4: Direct API call to products
-    console.log('\n🛍️ Test 4: Direct API - Products');
+    console.log('\n📡 Test 4: Direct API - Products');
     try {
       const products = await apiClient.searchProducts({ limit: 3 });
       console.log('✅ Direct Products API successful:', products);
@@ -59,18 +59,28 @@ async function testMcpServer() {
       console.log('❌ Direct Products API failed:', error instanceof Error ? error.message : error);
     }
 
-    console.log('\n🎉 MCP Server testing completed!');
-    
+    // Test 5: System health check
+    console.log('\n🏥 Test 5: System Health');
+    try {
+      const health = await apiClient.getSystemHealth();
+      console.log('✅ System Health successful:', health);
+    } catch (error) {
+      console.log('❌ System Health failed:', error instanceof Error ? error.message : error);
+    }
+
   } catch (error) {
-    console.error('❌ Test suite failed:', error);
-    process.exit(1);
+    console.error('💥 Test failed with error:', error instanceof Error ? error.message : error);
   }
+
+  console.log('\n🏁 Test completed!');
 }
 
-// Run the test
-if (import.meta.url === `file://${process.argv[1]}`) {
+// Run the test if this file is executed directly
+if (process.argv[1] === new URL(import.meta.url).pathname) {
   testMcpServer().catch((error) => {
-    console.error('💥 Test execution failed:', error);
+    console.error('Failed to run test:', error);
     process.exit(1);
   });
 }
+
+export { testMcpServer };

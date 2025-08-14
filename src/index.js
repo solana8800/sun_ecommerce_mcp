@@ -11,24 +11,23 @@ import {
   ListPromptsRequestSchema,
 } from '@modelcontextprotocol/sdk/types.js';
 import { SunEcommerceApiClient } from './client/api-client.js';
-import { ConfigSchema } from './types/index.js';
 import { toolDefinitions } from './tools/index.js';
 import { resourceDefinitions } from './resources/index.js';
 import { promptDefinitions } from './prompts/index.js';
 import { ToolHandler } from './tools/tool-handler.js';
 
+/**
+ * Sun eCommerce MCP Server - Pure JavaScript Implementation
+ * Provides Model Context Protocol interface for Sun eCommerce Platform
+ */
 class SunEcommerceMCPServer {
-  private server: Server;
-  private apiClient: SunEcommerceApiClient;
-  private toolHandler: ToolHandler;
-
   constructor() {
     try {
       console.error('Creating MCP Server instance...');
       
       this.server = new Server(
         {
-          name: '@sun-ecommerce/mcp-server',
+          name: '@sun-ecommerce/mcp-server-js',
           version: '1.0.0',
         },
         {
@@ -48,108 +47,114 @@ class SunEcommerceMCPServer {
         timeout: parseInt(process.env.SUN_ECOMMERCE_API_TIMEOUT || '30000'),
         retries: parseInt(process.env.SUN_ECOMMERCE_API_RETRIES || '3'),
         authToken: process.env.SUN_ECOMMERCE_API_TOKEN || 'sun-ecommerce',
-        enableLogging: process.env.SUN_ECOMMERCE_ENABLE_LOGGING !== 'false',
       };
-      
-      console.error('API Client config:', JSON.stringify(config, null, 2));
-      
-      this.apiClient = new SunEcommerceApiClient(config);
-      console.error('API Client created successfully');
 
+      console.error('Initializing API client with config:', {
+        baseUrl: config.baseUrl,
+        apiVersion: config.apiVersion,
+        timeout: config.timeout,
+        retries: config.retries,
+        authToken: config.authToken ? '[REDACTED]' : 'none'
+      });
+
+      this.apiClient = new SunEcommerceApiClient(config);
       this.toolHandler = new ToolHandler(this.apiClient);
-      console.error('Tool Handler created successfully');
       
       this.setupHandlers();
-      console.error('Handlers setup completed');
+      console.error('MCP Server initialized successfully');
     } catch (error) {
-      console.error('Error in constructor:', error);
+      console.error('Failed to initialize MCP Server:', error);
       throw error;
     }
   }
 
-  private setupHandlers(): void {
+  setupHandlers() {
     // List available tools
-    (this.server as any).setRequestHandler(ListToolsRequestSchema, async () => {
+    this.server.setRequestHandler(ListToolsRequestSchema, async () => {
       return {
         tools: toolDefinitions,
       };
     });
 
     // Handle tool calls
-    (this.server as any).setRequestHandler(CallToolRequestSchema, async (request: any) => {
-      try {
-        const result = await this.toolHandler.handleTool(
-          request.params.name,
-          request.params.arguments || {}
-        );
-        return {
-          content: [
-            {
-              type: 'text',
-              text: JSON.stringify(result, null, 2),
-            },
-          ],
-        };
-      } catch (error) {
-        return {
-          content: [
-            {
-              type: 'text',
-              text: `Error: ${error instanceof Error ? error.message : 'Unknown error'}`,
-            },
-          ],
-          isError: true,
-        };
-      }
+    this.server.setRequestHandler(CallToolRequestSchema, async (request) => {
+      const { name, arguments: args } = request.params;
+      return await this.toolHandler.handleToolCall(name, args || {});
     });
 
     // List available resources
-    (this.server as any).setRequestHandler(ListResourcesRequestSchema, async () => {
+    this.server.setRequestHandler(ListResourcesRequestSchema, async () => {
       return {
-        resources: resourceDefinitions,
+        resources: [
+          {
+            uri: 'sun-ecommerce://api/documentation',
+            name: 'API Documentation',
+            description: 'Complete API documentation for Sun eCommerce Platform',
+            mimeType: 'application/json',
+          },
+          {
+            uri: 'sun-ecommerce://system/info',
+            name: 'System Information',
+            description: 'Current system status and capabilities',
+            mimeType: 'application/json',
+          },
+          {
+            uri: 'sun-ecommerce://guides/getting-started',
+            name: 'Getting Started Guide',
+            description: 'Quick start guide for the Sun eCommerce Platform',
+            mimeType: 'application/json',
+          },
+          {
+            uri: 'sun-ecommerce://guides/product-management',
+            name: 'Product Management Guide',
+            description: 'Complete guide to managing products',
+            mimeType: 'application/json',
+          },
+          {
+            uri: 'sun-ecommerce://guides/pricing-rules',
+            name: 'Pricing Rules Guide',
+            description: 'Advanced pricing and discount management',
+            mimeType: 'application/json',
+          },
+          {
+            uri: 'sun-ecommerce://guides/api-integration',
+            name: 'API Integration Guide',
+            description: 'Best practices for API integration',
+            mimeType: 'application/json',
+          },
+        ],
       };
     });
 
     // Handle resource reads
-    (this.server as any).setRequestHandler(ReadResourceRequestSchema, async (request: any) => {
-      try {
-        const result = await this.handleResourceRead(request.params.uri);
-        return {
-          contents: [
-            {
-              uri: request.params.uri,
-              mimeType: 'application/json',
-              text: JSON.stringify(result, null, 2),
-            },
-          ],
-        };
-      } catch (error) {
-        throw new Error(`Failed to read resource: ${error instanceof Error ? error.message : 'Unknown error'}`);
-      }
+    this.server.setRequestHandler(ReadResourceRequestSchema, async (request) => {
+      const { uri } = request.params;
+      return {
+        contents: [
+          {
+            uri,
+            mimeType: 'application/json',
+            text: JSON.stringify(await this.handleResourceRead(uri), null, 2),
+          },
+        ],
+      };
     });
 
     // List available prompts
-    (this.server as any).setRequestHandler(ListPromptsRequestSchema, async () => {
+    this.server.setRequestHandler(ListPromptsRequestSchema, async () => {
       return {
         prompts: promptDefinitions,
       };
     });
 
     // Handle prompt requests
-    (this.server as any).setRequestHandler(GetPromptRequestSchema, async (request: any) => {
-      try {
-        const result = await this.handlePromptRequest(
-          request.params.name,
-          request.params.arguments || {}
-        );
-        return result;
-      } catch (error) {
-        throw new Error(`Failed to get prompt: ${error instanceof Error ? error.message : 'Unknown error'}`);
-      }
+    this.server.setRequestHandler(GetPromptRequestSchema, async (request) => {
+      const { name, arguments: args } = request.params;
+      return await this.handlePromptRequest(name, args || {});
     });
   }
 
-  private async handleResourceRead(uri: string): Promise<any> {
+  async handleResourceRead(uri) {
     switch (uri) {
       case 'sun-ecommerce://api/documentation':
         return await this.getApiDocumentation();
@@ -168,7 +173,7 @@ class SunEcommerceMCPServer {
     }
   }
 
-  private async handlePromptRequest(name: string, args: Record<string, any>): Promise<any> {
+  async handlePromptRequest(name, args) {
     switch (name) {
       case 'create-product-wizard':
         return this.getCreateProductWizard(args);
@@ -183,12 +188,12 @@ class SunEcommerceMCPServer {
     }
   }
 
-  private async getApiDocumentation(): Promise<any> {
+  async getApiDocumentation() {
     return {
       title: 'Sun eCommerce Platform API Documentation',
       version: '1.0.0',
       description: 'Complete API documentation for the Sun eCommerce Platform',
-      baseUrl: this.apiClient['config'].baseUrl,
+      baseUrl: this.apiClient.config.baseUrl,
       endpoints: {
         products: {
           create: 'POST /api/v1/products',
@@ -244,7 +249,7 @@ class SunEcommerceMCPServer {
     };
   }
 
-  private async getSystemInfo(): Promise<any> {
+  async getSystemInfo() {
     try {
       const health = await this.apiClient.healthCheck();
       return {
@@ -276,7 +281,7 @@ class SunEcommerceMCPServer {
     }
   }
 
-  private getGettingStartedGuide(): any {
+  getGettingStartedGuide() {
     return {
       title: 'Getting Started with Sun eCommerce Platform',
       sections: [
@@ -305,7 +310,7 @@ class SunEcommerceMCPServer {
     };
   }
 
-  private getCreateProductWizard(args: Record<string, any>): any {
+  getCreateProductWizard(args) {
     return {
       description: 'Interactive wizard to guide product creation',
       messages: [
@@ -333,7 +338,7 @@ Please provide the product name and type to get started.`,
     };
   }
 
-  private getSetupPricingRulePrompt(args: Record<string, any>): any {
+  getSetupPricingRulePrompt(args) {
     const ruleType = args.ruleType || 'percentage_discount';
 
     return {
@@ -368,7 +373,7 @@ What type of discount would you like to create?`,
     };
   }
 
-  private getTroubleshootApiPrompt(args: Record<string, any>): any {
+  getTroubleshootApiPrompt(args) {
     const issue = args.issue || 'general';
 
     return {
@@ -410,7 +415,7 @@ What specific issue are you experiencing? Please share:
     };
   }
 
-  private getEcommerceConsultantPrompt(args: Record<string, any>): any {
+  getEcommerceConsultantPrompt(args) {
     const topic = args.topic || 'general';
 
     return {
@@ -459,7 +464,7 @@ What aspect of your eCommerce strategy would you like to discuss? I can provide 
     };
   }
 
-  private getProductManagementGuide(): any {
+  getProductManagementGuide() {
     return {
       title: 'Product Management Guide',
       description: 'Complete guide to managing products in the Sun eCommerce Platform',
@@ -495,7 +500,7 @@ What aspect of your eCommerce strategy would you like to discuss? I can provide 
     };
   }
 
-  private getPricingRulesGuide(): any {
+  getPricingRulesGuide() {
     return {
       title: 'Pricing Rules Guide',
       description: 'Advanced pricing and discount management',
@@ -529,7 +534,7 @@ What aspect of your eCommerce strategy would you like to discuss? I can provide 
     };
   }
 
-  private getApiIntegrationGuide(): any {
+  getApiIntegrationGuide() {
     return {
       title: 'API Integration Guide',
       description: 'Best practices for integrating with the Sun eCommerce Platform',
@@ -554,14 +559,14 @@ What aspect of your eCommerce strategy would you like to discuss? I can provide 
     };
   }
 
-  async run(): Promise<void> {
+  async run() {
     const transport = new StdioServerTransport();
-    await (this.server as any).connect(transport);
+    await this.server.connect(transport);
 
     // Log startup information
     if (process.env.SUN_ECOMMERCE_ENABLE_LOGGING !== 'false') {
-      console.error('Sun eCommerce MCP Server started successfully');
-      console.error(`Base URL: ${this.apiClient['config'].baseUrl}`);
+      console.error('Sun eCommerce MCP Server (JavaScript) started successfully');
+      console.error(`Base URL: ${this.apiClient.config.baseUrl}`);
       console.error(`Available tools: ${toolDefinitions.length}`);
       console.error(`Available resources: ${resourceDefinitions.length}`);
       console.error(`Available prompts: ${promptDefinitions.length}`);
@@ -569,51 +574,25 @@ What aspect of your eCommerce strategy would you like to discuss? I can provide 
   }
 }
 
-// Start the server
+/**
+ * Main function to start the MCP server
+ */
 async function main() {
   try {
-    console.error('Starting Sun eCommerce MCP Server...');
-    
     const server = new SunEcommerceMCPServer();
-    console.error('Server instance created successfully');
-
-    // Handle graceful shutdown
-    process.on('SIGINT', async () => {
-      console.error('Received SIGINT, shutting down gracefully...');
-      process.exit(0);
-    });
-
-    process.on('SIGTERM', async () => {
-      console.error('Received SIGTERM, shutting down gracefully...');
-      process.exit(0);
-    });
-
-    // Handle unhandled promise rejections
-    process.on('unhandledRejection', (reason, promise) => {
-      console.error('Unhandled Promise Rejection at:', promise, 'reason:', reason);
-      process.exit(1);
-    });
-
-    // Handle uncaught exceptions
-    process.on('uncaughtException', (error) => {
-      console.error('Uncaught Exception:', error);
-      process.exit(1);
-    });
-
-    console.error('About to start server run...');
     await server.run();
-    console.error('Server run completed');
   } catch (error) {
-    console.error('Failed to start server:', error);
-    console.error('Error stack:', error instanceof Error ? error.stack : 'No stack trace');
+    console.error('Failed to start Sun eCommerce MCP Server:', error);
     process.exit(1);
   }
 }
 
-// Only run if this file is executed directly
+// Start the server if this file is run directly
 if (import.meta.url === `file://${process.argv[1]}`) {
   main().catch((error) => {
     console.error('Unhandled error:', error);
     process.exit(1);
   });
 }
+
+export { SunEcommerceMCPServer };

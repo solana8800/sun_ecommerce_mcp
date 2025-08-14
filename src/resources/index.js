@@ -1,6 +1,4 @@
-import { Resource } from '@modelcontextprotocol/sdk/types.js';
-
-export const resourceDefinitions: Resource[] = [
+export const resourceDefinitions = [
   {
     uri: 'sun-ecommerce://api/documentation',
     name: 'Tài liệu API',

@@ -1,6 +1,4 @@
-import { Prompt } from '@modelcontextprotocol/sdk/types.js';
-
-export const promptDefinitions: Prompt[] = [
+export const promptDefinitions = [
   {
     name: 'create-product-wizard',
     description: 'Trình hướng dẫn tương tác để hướng dẫn người dùng tạo sản phẩm',

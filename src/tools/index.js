@@ -1,6 +1,4 @@
-import { Tool } from '@modelcontextprotocol/sdk/types.js';
-
-export const toolDefinitions: Tool[] = [
+export const toolDefinitions = [
   // Product Management Tools
   {
     name: 'create_product',
@@ -178,7 +176,7 @@ export const toolDefinitions: Tool[] = [
     },
   },
 
-  // Pricing Rule Tools
+  // Pricing Rules Tools
   {
     name: 'create_pricing_rule',
     description: 'Tạo quy tắc định giá mới cho giảm giá và khuyến mãi',
@@ -360,7 +358,18 @@ export const toolDefinitions: Tool[] = [
   },
   {
     name: 'get_cart',
-    description: 'Lấy chi tiết giỏ hàng bao gồm sản phẩm và tổng tiền',
+    description: 'Lấy thông tin chi tiết về giỏ hàng',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        id: { type: 'string', description: 'UUID giỏ hàng' },
+      },
+      required: ['id'],
+    },
+  },
+  {
+    name: 'get_cart_summary',
+    description: 'Lấy tóm tắt giỏ hàng với tổng tiền',
     inputSchema: {
       type: 'object',
       properties: {
@@ -371,24 +380,13 @@ export const toolDefinitions: Tool[] = [
   },
   {
     name: 'get_cart_items',
-    description: 'Lấy danh sách sản phẩm trong giỏ hàng với phân trang',
+    description: 'Lấy danh sách sản phẩm trong giỏ hàng',
     inputSchema: {
       type: 'object',
       properties: {
         cartId: { type: 'string', description: 'UUID giỏ hàng' },
-        page: { type: 'number', default: 1, description: 'Số trang' },
-        pageSize: { type: 'number', default: 20, description: 'Số mục trên mỗi trang' },
-      },
-      required: ['cartId'],
-    },
-  },
-  {
-    name: 'get_cart_summary',
-    description: 'Lấy tóm tắt giỏ hàng với tính toán giá',
-    inputSchema: {
-      type: 'object',
-      properties: {
-        cartId: { type: 'string', description: 'UUID giỏ hàng' },
+        page: { type: 'number', default: 1 },
+        pageSize: { type: 'number', default: 20 },
       },
       required: ['cartId'],
     },
@@ -399,7 +397,7 @@ export const toolDefinitions: Tool[] = [
     inputSchema: {
       type: 'object',
       properties: {
-        cartId: { type: 'string', description: 'UUID giỏ hàng cần xóa sạch' },
+        cartId: { type: 'string', description: 'UUID giỏ hàng' },
       },
       required: ['cartId'],
     },
@@ -408,32 +406,55 @@ export const toolDefinitions: Tool[] = [
   // Inventory Management Tools
   {
     name: 'create_inventory',
-    description: 'Tạo bản ghi tồn kho mới cho sản phẩm',
+    description: 'Tạo bản ghi tồn kho mới',
     inputSchema: {
       type: 'object',
       properties: {
         productId: { type: 'string', description: 'UUID sản phẩm' },
         variantId: { type: 'string', description: 'UUID biến thể sản phẩm' },
+        locationId: { type: 'string', description: 'UUID địa điểm kho' },
         quantity: { type: 'number', minimum: 0, description: 'Số lượng tồn kho' },
         reservedQuantity: { type: 'number', minimum: 0, default: 0 },
-        lowStockThreshold: { type: 'number', minimum: 0, default: 10 },
-        location: { type: 'string', description: 'Vị trí kho' },
+        reorderLevel: { type: 'number', minimum: 0, description: 'Mức đặt hàng lại' },
+        maxStockLevel: { type: 'number', minimum: 0, description: 'Mức tồn kho tối đa' },
       },
-      required: ['productId', 'quantity'],
+      required: ['productId', 'locationId', 'quantity'],
     },
   },
   {
-    name: 'check_inventory',
-    description: 'Kiểm tra tình trạng tồn kho của sản phẩm',
+    name: 'get_inventory_by_product',
+    description: 'Lấy thông tin tồn kho theo sản phẩm',
     inputSchema: {
       type: 'object',
       properties: {
         productId: { type: 'string', description: 'UUID sản phẩm' },
         variantId: { type: 'string', description: 'UUID biến thể sản phẩm' },
-        quantity: { type: 'number', minimum: 1 },
-        location: { type: 'string', description: 'Vị trí kho' },
+        locationId: { type: 'string', description: 'UUID địa điểm kho' },
       },
-      required: ['productId', 'quantity'],
+      required: ['productId'],
+    },
+  },
+  {
+    name: 'check_inventory_availability',
+    description: 'Kiểm tra tình trạng có sẵn của tồn kho',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        items: {
+          type: 'array',
+          items: {
+            type: 'object',
+            properties: {
+              productId: { type: 'string' },
+              variantId: { type: 'string' },
+              quantity: { type: 'number', minimum: 1 },
+              locationId: { type: 'string' },
+            },
+            required: ['productId', 'quantity'],
+          },
+        },
+      },
+      required: ['items'],
     },
   },
   {
@@ -442,35 +463,44 @@ export const toolDefinitions: Tool[] = [
     inputSchema: {
       type: 'object',
       properties: {
-        productId: { type: 'string', description: 'UUID sản phẩm' },
-        variantId: { type: 'string', description: 'UUID biến thể sản phẩm' },
-        quantity: { type: 'number', minimum: 1 },
-        reservationId: { type: 'string', description: 'ID đặt trước duy nhất' },
-        expiresAt: { type: 'string', format: 'date-time' },
+        items: {
+          type: 'array',
+          items: {
+            type: 'object',
+            properties: {
+              productId: { type: 'string' },
+              variantId: { type: 'string' },
+              quantity: { type: 'number', minimum: 1 },
+              locationId: { type: 'string' },
+            },
+            required: ['productId', 'quantity'],
+          },
+        },
+        orderId: { type: 'string', description: 'UUID đơn hàng' },
+        expiresAt: { type: 'string', format: 'date-time', description: 'Thời gian hết hạn đặt trước' },
       },
-      required: ['productId', 'quantity', 'reservationId'],
+      required: ['items'],
     },
   },
   {
     name: 'get_inventory',
-    description: 'Lấy thông tin tồn kho của sản phẩm',
+    description: 'Lấy thông tin chi tiết về tồn kho',
     inputSchema: {
       type: 'object',
       properties: {
-        productId: { type: 'string', description: 'UUID sản phẩm' },
-        variantId: { type: 'string', description: 'UUID biến thể sản phẩm' },
+        id: { type: 'string', description: 'UUID bản ghi tồn kho' },
       },
-      required: ['productId'],
+      required: ['id'],
     },
   },
   {
     name: 'list_inventory',
-    description: 'Liệt kê tất cả bản ghi tồn kho với các bộ lọc',
+    description: 'Liệt kê tất cả bản ghi tồn kho',
     inputSchema: {
       type: 'object',
       properties: {
-        productId: { type: 'string', description: 'Lọc theo UUID sản phẩm' },
-        location: { type: 'string', description: 'Lọc theo vị trí kho' },
+        locationId: { type: 'string', description: 'Lọc theo địa điểm kho' },
+        productId: { type: 'string', description: 'Lọc theo sản phẩm' },
         lowStock: { type: 'boolean', description: 'Chỉ hiển thị sản phẩm sắp hết hàng' },
         page: { type: 'number', default: 1 },
         pageSize: { type: 'number', default: 20 },
@@ -483,66 +513,51 @@ export const toolDefinitions: Tool[] = [
     inputSchema: {
       type: 'object',
       properties: {
-        productId: { type: 'string', description: 'UUID sản phẩm' },
-        variantId: { type: 'string', description: 'UUID biến thể sản phẩm' },
+        id: { type: 'string', description: 'UUID bản ghi tồn kho' },
         quantity: { type: 'number', minimum: 0 },
         reservedQuantity: { type: 'number', minimum: 0 },
-        lowStockThreshold: { type: 'number', minimum: 0 },
-        location: { type: 'string', description: 'Vị trí kho' },
+        reorderLevel: { type: 'number', minimum: 0 },
+        maxStockLevel: { type: 'number', minimum: 0 },
       },
-      required: ['productId'],
+      required: ['id'],
     },
   },
 
   // Media Management Tools
   {
     name: 'upload_media',
-    description: 'Tải lên tệp đa phương tiện (hình ảnh, video, tài liệu)',
+    description: 'Tải lên tệp media (hình ảnh, video)',
     inputSchema: {
       type: 'object',
       properties: {
-        entityType: {
-          type: 'string',
-          enum: ['product', 'category', 'user', 'order']
-        },
-        entityId: { type: 'string', description: 'UUID thực thể' },
-        fileName: { type: 'string', description: 'Tên tệp' },
-        mediaType: {
-          type: 'string',
-          enum: ['image', 'video', 'document', 'audio']
-        },
-        altText: { type: 'string', description: 'Văn bản thay thế cho khả năng tiếp cận' },
-        title: { type: 'string', description: 'Tiêu đề phương tiện' },
+        file: { type: 'string', description: 'Dữ liệu tệp được mã hóa base64' },
+        filename: { type: 'string', description: 'Tên tệp' },
+        mimeType: { type: 'string', description: 'Loại MIME của tệp' },
+        alt: { type: 'string', description: 'Văn bản thay thế cho hình ảnh' },
+        tags: { type: 'array', items: { type: 'string' }, description: 'Thẻ tag cho tệp media' },
       },
-      required: ['entityType', 'entityId', 'fileName', 'mediaType'],
+      required: ['file', 'filename', 'mimeType'],
     },
   },
   {
     name: 'get_media',
-    description: 'Lấy thông tin chi tiết về một tệp đa phương tiện cụ thể',
+    description: 'Lấy thông tin chi tiết về tệp media',
     inputSchema: {
       type: 'object',
       properties: {
-        id: { type: 'string', description: 'UUID tệp đa phương tiện' },
+        id: { type: 'string', description: 'UUID tệp media' },
       },
       required: ['id'],
     },
   },
   {
     name: 'list_media',
-    description: 'Liệt kê tệp đa phương tiện với các bộ lọc tùy chọn',
+    description: 'Liệt kê tất cả tệp media',
     inputSchema: {
       type: 'object',
       properties: {
-        entityType: {
-          type: 'string',
-          enum: ['product', 'category', 'user', 'order']
-        },
-        entityId: { type: 'string', description: 'UUID thực thể' },
-        mediaType: {
-          type: 'string',
-          enum: ['image', 'video', 'document', 'audio']
-        },
+        type: { type: 'string', enum: ['image', 'video', 'document'], description: 'Lọc theo loại media' },
+        tags: { type: 'array', items: { type: 'string' }, description: 'Lọc theo thẻ tag' },
         page: { type: 'number', default: 1 },
         pageSize: { type: 'number', default: 20 },
       },
@@ -550,25 +565,26 @@ export const toolDefinitions: Tool[] = [
   },
   {
     name: 'update_media',
-    description: 'Cập nhật thông tin tệp đa phương tiện',
+    description: 'Cập nhật thông tin metadata của tệp media',
     inputSchema: {
       type: 'object',
       properties: {
-        id: { type: 'string', description: 'UUID tệp đa phương tiện' },
-        altText: { type: 'string', description: 'Văn bản thay thế' },
-        title: { type: 'string', description: 'Tiêu đề phương tiện' },
-        description: { type: 'string', description: 'Mô tả phương tiện' },
+        id: { type: 'string', description: 'UUID tệp media' },
+        alt: { type: 'string', description: 'Văn bản thay thế' },
+        tags: { type: 'array', items: { type: 'string' }, description: 'Thẻ tag' },
+        title: { type: 'string', description: 'Tiêu đề tệp media' },
+        description: { type: 'string', description: 'Mô tả tệp media' },
       },
       required: ['id'],
     },
   },
   {
     name: 'delete_media',
-    description: 'Xóa tệp đa phương tiện khỏi hệ thống',
+    description: 'Xóa tệp media khỏi hệ thống',
     inputSchema: {
       type: 'object',
       properties: {
-        id: { type: 'string', description: 'UUID tệp đa phương tiện cần xóa' },
+        id: { type: 'string', description: 'UUID tệp media cần xóa' },
       },
       required: ['id'],
     },
@@ -577,32 +593,32 @@ export const toolDefinitions: Tool[] = [
   // Partner Management Tools
   {
     name: 'create_partner',
-    description: 'Tạo đối tác kinh doanh mới',
+    description: 'Tạo đối tác mới',
     inputSchema: {
       type: 'object',
       properties: {
         name: { type: 'string', description: 'Tên đối tác' },
-        email: { type: 'string', description: 'Email đối tác' },
+        email: { type: 'string', format: 'email', description: 'Email đối tác' },
         phone: { type: 'string', description: 'Số điện thoại' },
         address: { type: 'string', description: 'Địa chỉ' },
-        tier: {
+        partnerType: {
           type: 'string',
-          enum: ['bronze', 'silver', 'gold', 'platinum'],
-          description: 'Cấp độ đối tác'
+          enum: ['supplier', 'distributor', 'retailer', 'affiliate'],
+          description: 'Loại đối tác'
         },
         status: {
           type: 'string',
-          enum: ['active', 'inactive', 'pending', 'suspended'],
-          description: 'Trạng thái đối tác'
+          enum: ['active', 'inactive', 'pending'],
+          default: 'pending'
         },
-        commissionRate: { type: 'number', description: 'Tỷ lệ hoa hồng (%)' },
+        commissionRate: { type: 'number', minimum: 0, maximum: 100, description: 'Tỷ lệ hoa hồng (%)' },
       },
-      required: ['name', 'email'],
+      required: ['name', 'email', 'partnerType'],
     },
   },
   {
     name: 'get_partner',
-    description: 'Lấy thông tin chi tiết về một đối tác cụ thể',
+    description: 'Lấy thông tin chi tiết về đối tác',
     inputSchema: {
       type: 'object',
       properties: {
@@ -613,54 +629,21 @@ export const toolDefinitions: Tool[] = [
   },
   {
     name: 'list_partners',
-    description: 'Liệt kê tất cả đối tác với các bộ lọc tùy chọn',
+    description: 'Liệt kê tất cả đối tác',
     inputSchema: {
       type: 'object',
       properties: {
+        partnerType: {
+          type: 'string',
+          enum: ['supplier', 'distributor', 'retailer', 'affiliate']
+        },
         status: {
           type: 'string',
-          enum: ['active', 'inactive', 'pending', 'suspended'],
-          description: 'Lọc theo trạng thái'
-        },
-        tier: {
-          type: 'string',
-          enum: ['bronze', 'silver', 'gold', 'platinum'],
-          description: 'Lọc theo cấp độ'
+          enum: ['active', 'inactive', 'pending']
         },
         page: { type: 'number', default: 1 },
         pageSize: { type: 'number', default: 20 },
       },
-    },
-  },
-  {
-    name: 'update_partner',
-    description: 'Cập nhật thông tin đối tác hiện có',
-    inputSchema: {
-      type: 'object',
-      properties: {
-        id: { type: 'string', description: 'UUID đối tác' },
-        name: { type: 'string', description: 'Tên đối tác' },
-        email: { type: 'string', description: 'Email đối tác' },
-        phone: { type: 'string', description: 'Số điện thoại' },
-        address: { type: 'string', description: 'Địa chỉ' },
-        tier: {
-          type: 'string',
-          enum: ['bronze', 'silver', 'gold', 'platinum']
-        },
-        commissionRate: { type: 'number', description: 'Tỷ lệ hoa hồng (%)' },
-      },
-      required: ['id'],
-    },
-  },
-  {
-    name: 'delete_partner',
-    description: 'Xóa đối tác khỏi hệ thống',
-    inputSchema: {
-      type: 'object',
-      properties: {
-        id: { type: 'string', description: 'UUID đối tác cần xóa' },
-      },
-      required: ['id'],
     },
   },
 
@@ -672,285 +655,23 @@ export const toolDefinitions: Tool[] = [
       type: 'object',
       properties: {
         name: { type: 'string', description: 'Tên kênh bán hàng' },
-        code: { type: 'string', description: 'Mã kênh bán hàng' },
-        type: {
+        code: { type: 'string', description: 'Mã kênh duy nhất' },
+        description: { type: 'string', description: 'Mô tả kênh' },
+        channelType: {
           type: 'string',
           enum: ['online', 'retail', 'wholesale', 'marketplace'],
           description: 'Loại kênh bán hàng'
         },
-        description: { type: 'string', description: 'Mô tả kênh bán hàng' },
         isActive: { type: 'boolean', default: true },
-        currency: { type: 'string', default: 'VND', description: 'Mã tiền tệ' },
-        taxRate: { type: 'number', description: 'Tỷ lệ thuế (%)' },
+        currency: { type: 'string', default: 'USD', description: 'Tiền tệ mặc định' },
+        taxRate: { type: 'number', minimum: 0, maximum: 100, description: 'Tỷ lệ thuế (%)' },
       },
-      required: ['name', 'code', 'type'],
+      required: ['name', 'code', 'channelType'],
     },
   },
   {
     name: 'get_sales_channel',
-    description: 'Lấy thông tin chi tiết về một kênh bán hàng cụ thể',
-    inputSchema: {
-      type: 'object',
-      properties: {
-        id: { type: 'string', description: 'UUID kênh bán hàng' },
-      },
-      required: ['id'],
-    },
-  },
-  {
-    name: 'list_sales_channels',
-    description: 'Liệt kê tất cả kênh bán hàng với các bộ lọc tùy chọn',
-    inputSchema: {
-      type: 'object',
-      properties: {
-        type: {
-          type: 'string',
-          enum: ['online', 'retail', 'wholesale', 'marketplace'],
-          description: 'Lọc theo loại kênh'
-        },
-        isActive: { type: 'boolean', description: 'Lọc theo trạng thái hoạt động' },
-        page: { type: 'number', default: 1 },
-        pageSize: { type: 'number', default: 20 },
-      },
-    },
-  },
-  {
-    name: 'update_sales_channel',
-    description: 'Cập nhật thông tin kênh bán hàng hiện có',
-    inputSchema: {
-      type: 'object',
-      properties: {
-        id: { type: 'string', description: 'UUID kênh bán hàng' },
-        name: { type: 'string', description: 'Tên kênh bán hàng' },
-        description: { type: 'string', description: 'Mô tả kênh bán hàng' },
-        isActive: { type: 'boolean' },
-        currency: { type: 'string', description: 'Mã tiền tệ' },
-        taxRate: { type: 'number', description: 'Tỷ lệ thuế (%)' },
-      },
-      required: ['id'],
-    },
-  },
-  {
-    name: 'delete_sales_channel',
-    description: 'Xóa kênh bán hàng khỏi hệ thống',
-    inputSchema: {
-      type: 'object',
-      properties: {
-        id: { type: 'string', description: 'UUID kênh bán hàng cần xóa' },
-      },
-      required: ['id'],
-    },
-  },
-
-  // Translation Management Tools
-  {
-    name: 'create_translation',
-    description: 'Tạo bản dịch mới cho sản phẩm hoặc danh mục',
-    inputSchema: {
-      type: 'object',
-      properties: {
-        entityType: {
-          type: 'string',
-          enum: ['product', 'category', 'attribute'],
-          description: 'Loại thực thể cần dịch'
-        },
-        entityId: { type: 'string', description: 'UUID thực thể' },
-        languageCode: {
-          type: 'string',
-          enum: ['en', 'vi', 'fr', 'de', 'ja', 'ko', 'zh'],
-          description: 'Mã ngôn ngữ'
-        },
-        fields: {
-          type: 'object',
-          description: 'Các trường cần dịch (name, description, v.v.)'
-        },
-      },
-      required: ['entityType', 'entityId', 'languageCode', 'fields'],
-    },
-  },
-  {
-    name: 'get_translation',
-    description: 'Lấy bản dịch cho một thực thể và ngôn ngữ cụ thể',
-    inputSchema: {
-      type: 'object',
-      properties: {
-        entityId: { type: 'string', description: 'UUID thực thể' },
-        languageCode: { type: 'string', description: 'Mã ngôn ngữ' },
-      },
-      required: ['entityId', 'languageCode'],
-    },
-  },
-  {
-    name: 'update_translation',
-    description: 'Cập nhật bản dịch hiện có',
-    inputSchema: {
-      type: 'object',
-      properties: {
-        entityId: { type: 'string', description: 'UUID thực thể' },
-        languageCode: { type: 'string', description: 'Mã ngôn ngữ' },
-        fields: {
-          type: 'object',
-          description: 'Các trường cần cập nhật'
-        },
-      },
-      required: ['entityId', 'languageCode', 'fields'],
-    },
-  },
-  {
-    name: 'delete_translation',
-    description: 'Xóa bản dịch khỏi hệ thống',
-    inputSchema: {
-      type: 'object',
-      properties: {
-        entityId: { type: 'string', description: 'UUID thực thể' },
-        languageCode: { type: 'string', description: 'Mã ngôn ngữ' },
-      },
-      required: ['entityId', 'languageCode'],
-    },
-  },
-  {
-    name: 'get_supported_languages',
-    description: 'Lấy danh sách các ngôn ngữ được hỗ trợ',
-    inputSchema: {
-      type: 'object',
-      properties: {},
-    },
-  },
-
-  // Product Attribute Management Tools
-  {
-    name: 'create_attribute',
-    description: 'Tạo thuộc tính sản phẩm mới',
-    inputSchema: {
-      type: 'object',
-      properties: {
-        name: { type: 'string', description: 'Tên thuộc tính' },
-        type: {
-          type: 'string',
-          enum: ['text', 'number', 'boolean', 'select', 'multiselect'],
-          description: 'Loại thuộc tính'
-        },
-        isRequired: { type: 'boolean', default: false },
-        isFilterable: { type: 'boolean', default: false },
-        description: { type: 'string', description: 'Mô tả thuộc tính' },
-      },
-      required: ['name', 'type'],
-    },
-  },
-  {
-    name: 'get_attribute',
-    description: 'Lấy thông tin chi tiết về một thuộc tính cụ thể',
-    inputSchema: {
-      type: 'object',
-      properties: {
-        id: { type: 'string', description: 'UUID thuộc tính' },
-      },
-      required: ['id'],
-    },
-  },
-  {
-    name: 'get_attribute_by_name',
-    description: 'Lấy thông tin thuộc tính theo tên',
-    inputSchema: {
-      type: 'object',
-      properties: {
-        name: { type: 'string', description: 'Tên thuộc tính' },
-      },
-      required: ['name'],
-    },
-  },
-  {
-    name: 'list_attributes',
-    description: 'Liệt kê tất cả thuộc tính sản phẩm',
-    inputSchema: {
-      type: 'object',
-      properties: {
-        type: {
-          type: 'string',
-          enum: ['text', 'number', 'boolean', 'select', 'multiselect'],
-          description: 'Lọc theo loại thuộc tính'
-        },
-        isRequired: { type: 'boolean', description: 'Lọc theo thuộc tính bắt buộc' },
-        page: { type: 'number', default: 1 },
-        pageSize: { type: 'number', default: 20 },
-      },
-    },
-  },
-  {
-    name: 'update_attribute',
-    description: 'Cập nhật thuộc tính sản phẩm hiện có',
-    inputSchema: {
-      type: 'object',
-      properties: {
-        id: { type: 'string', description: 'UUID thuộc tính' },
-        name: { type: 'string', description: 'Tên thuộc tính' },
-        isRequired: { type: 'boolean' },
-        isFilterable: { type: 'boolean' },
-        description: { type: 'string', description: 'Mô tả thuộc tính' },
-      },
-      required: ['id'],
-    },
-  },
-  {
-    name: 'delete_attribute',
-    description: 'Xóa thuộc tính sản phẩm khỏi hệ thống',
-    inputSchema: {
-      type: 'object',
-      properties: {
-        id: { type: 'string', description: 'UUID thuộc tính cần xóa' },
-      },
-      required: ['id'],
-    },
-  },
-  {
-    name: 'create_attribute_value',
-    description: 'Tạo giá trị mới cho thuộc tính',
-    inputSchema: {
-      type: 'object',
-      properties: {
-        attributeId: { type: 'string', description: 'UUID thuộc tính' },
-        value: { type: 'string', description: 'Giá trị thuộc tính' },
-        sortOrder: { type: 'number', default: 0, description: 'Thứ tự sắp xếp' },
-      },
-      required: ['attributeId', 'value'],
-    },
-  },
-  {
-    name: 'get_attribute_values',
-    description: 'Lấy tất cả giá trị của một thuộc tính',
-    inputSchema: {
-      type: 'object',
-      properties: {
-        attributeId: { type: 'string', description: 'UUID thuộc tính' },
-      },
-      required: ['attributeId'],
-    },
-  },
-
-  // Sales Channel Management Tools
-  {
-    name: 'create_sales_channel',
-    description: 'Tạo mới kênh bán hàng trong hệ thống',
-    inputSchema: {
-      type: 'object',
-      properties: {
-        name: { type: 'string', description: 'Tên kênh bán hàng' },
-        code: { type: 'string', description: 'Mã kênh bán hàng duy nhất' },
-        type: {
-          type: 'string',
-          enum: ['online', 'offline', 'mobile', 'marketplace'],
-          description: 'Loại kênh bán hàng'
-        },
-        description: { type: 'string', description: 'Mô tả kênh bán hàng' },
-        configuration: { type: 'object', description: 'Cấu hình kênh bán hàng' },
-        isActive: { type: 'boolean', default: true, description: 'Trạng thái hoạt động' },
-      },
-      required: ['name', 'code', 'type'],
-    },
-  },
-  {
-    name: 'get_sales_channel',
-    description: 'Lấy thông tin chi tiết về một kênh bán hàng cụ thể',
+    description: 'Lấy thông tin chi tiết về kênh bán hàng',
     inputSchema: {
       type: 'object',
       properties: {
@@ -961,7 +682,7 @@ export const toolDefinitions: Tool[] = [
   },
   {
     name: 'get_sales_channel_by_code',
-    description: 'Lấy thông tin kênh bán hàng theo mã code',
+    description: 'Lấy thông tin kênh bán hàng theo mã',
     inputSchema: {
       type: 'object',
       properties: {
@@ -972,16 +693,15 @@ export const toolDefinitions: Tool[] = [
   },
   {
     name: 'list_sales_channels',
-    description: 'Liệt kê tất cả kênh bán hàng với các bộ lọc',
+    description: 'Liệt kê tất cả kênh bán hàng',
     inputSchema: {
       type: 'object',
       properties: {
-        type: {
+        channelType: {
           type: 'string',
-          enum: ['online', 'offline', 'mobile', 'marketplace'],
-          description: 'Lọc theo loại kênh bán hàng'
+          enum: ['online', 'retail', 'wholesale', 'marketplace']
         },
-        isActive: { type: 'boolean', description: 'Lọc theo trạng thái hoạt động' },
+        isActive: { type: 'boolean' },
         page: { type: 'number', default: 1 },
         pageSize: { type: 'number', default: 20 },
       },
@@ -995,16 +715,17 @@ export const toolDefinitions: Tool[] = [
       properties: {
         id: { type: 'string', description: 'UUID kênh bán hàng' },
         name: { type: 'string', description: 'Tên kênh bán hàng' },
-        description: { type: 'string', description: 'Mô tả kênh bán hàng' },
-        configuration: { type: 'object', description: 'Cấu hình kênh bán hàng' },
-        isActive: { type: 'boolean', description: 'Trạng thái hoạt động' },
+        description: { type: 'string', description: 'Mô tả kênh' },
+        isActive: { type: 'boolean' },
+        currency: { type: 'string', description: 'Tiền tệ mặc định' },
+        taxRate: { type: 'number', minimum: 0, maximum: 100 },
       },
       required: ['id'],
     },
   },
   {
     name: 'delete_sales_channel',
-    description: 'Xóa kênh bán hàng khỏi hệ thống',
+    description: 'Xóa kênh bán hàng',
     inputSchema: {
       type: 'object',
       properties: {
@@ -1037,183 +758,13 @@ export const toolDefinitions: Tool[] = [
   },
   {
     name: 'get_sales_channel_statistics',
-    description: 'Lấy thống kê của kênh bán hàng',
+    description: 'Lấy thống kê kênh bán hàng',
     inputSchema: {
       type: 'object',
       properties: {
         id: { type: 'string', description: 'UUID kênh bán hàng' },
-      },
-      required: ['id'],
-    },
-  },
-
-  // Enhanced Pricing Rules Tools
-  {
-    name: 'get_pricing_rule_by_name',
-    description: 'Lấy thông tin quy tắc định giá theo tên',
-    inputSchema: {
-      type: 'object',
-      properties: {
-        name: { type: 'string', description: 'Tên quy tắc định giá' },
-      },
-      required: ['name'],
-    },
-  },
-  {
-    name: 'update_pricing_rule_status',
-    description: 'Cập nhật trạng thái quy tắc định giá',
-    inputSchema: {
-      type: 'object',
-      properties: {
-        id: { type: 'string', description: 'UUID quy tắc định giá' },
-        isActive: { type: 'boolean', description: 'Trạng thái hoạt động' },
-      },
-      required: ['id', 'isActive'],
-    },
-  },
-  {
-    name: 'get_active_pricing_rules',
-    description: 'Lấy danh sách quy tắc định giá đang hoạt động',
-    inputSchema: {
-      type: 'object',
-      properties: {
-        page: { type: 'number', default: 1 },
-        pageSize: { type: 'number', default: 20 },
-      },
-    },
-  },
-  {
-    name: 'bulk_calculate_price',
-    description: 'Tính toán giá hàng loạt cho nhiều sản phẩm',
-    inputSchema: {
-      type: 'object',
-      properties: {
-        items: {
-          type: 'array',
-          items: {
-            type: 'object',
-            properties: {
-              productId: { type: 'string' },
-              variantId: { type: 'string' },
-              quantity: { type: 'number', minimum: 1 },
-              basePrice: { type: 'number', minimum: 0 },
-            },
-            required: ['productId', 'quantity', 'basePrice'],
-          },
-        },
-        customerId: { type: 'string', description: 'UUID khách hàng' },
-        channelId: { type: 'string', description: 'UUID kênh bán hàng' },
-      },
-      required: ['items'],
-    },
-  },
-  {
-    name: 'get_pricing_rules_by_priority',
-    description: 'Lấy quy tắc định giá theo độ ưu tiên',
-    inputSchema: {
-      type: 'object',
-      properties: {
-        priority: { type: 'number', description: 'Độ ưu tiên' },
-      },
-      required: ['priority'],
-    },
-  },
-  {
-    name: 'bulk_update_pricing_rule_status',
-    description: 'Cập nhật trạng thái hàng loạt cho quy tắc định giá',
-    inputSchema: {
-      type: 'object',
-      properties: {
-        ruleIds: {
-          type: 'array',
-          items: { type: 'string' },
-          description: 'Danh sách UUID quy tắc định giá'
-        },
-        isActive: { type: 'boolean', description: 'Trạng thái hoạt động' },
-      },
-      required: ['ruleIds', 'isActive'],
-    },
-  },
-  {
-    name: 'get_pricing_rule_stats',
-    description: 'Lấy thống kê quy tắc định giá',
-    inputSchema: {
-      type: 'object',
-      properties: {
-        id: { type: 'string', description: 'UUID quy tắc định giá' },
-      },
-      required: ['id'],
-    },
-  },
-  {
-    name: 'duplicate_pricing_rule',
-    description: 'Sao chép quy tắc định giá',
-    inputSchema: {
-      type: 'object',
-      properties: {
-        id: { type: 'string', description: 'UUID quy tắc định giá gốc' },
-        newName: { type: 'string', description: 'Tên mới cho quy tắc sao chép' },
-      },
-      required: ['id', 'newName'],
-    },
-  },
-
-  // Enhanced Product Attribute Tools
-  {
-    name: 'update_attribute_value',
-    description: 'Cập nhật giá trị thuộc tính',
-    inputSchema: {
-      type: 'object',
-      properties: {
-        attributeId: { type: 'string', description: 'UUID thuộc tính' },
-        valueId: { type: 'string', description: 'UUID giá trị thuộc tính' },
-        value: { type: 'string', description: 'Giá trị mới' },
-        sortOrder: { type: 'number', description: 'Thứ tự sắp xếp' },
-      },
-      required: ['attributeId', 'valueId'],
-    },
-  },
-  {
-    name: 'delete_attribute_value',
-    description: 'Xóa giá trị thuộc tính',
-    inputSchema: {
-      type: 'object',
-      properties: {
-        attributeId: { type: 'string', description: 'UUID thuộc tính' },
-        valueId: { type: 'string', description: 'UUID giá trị thuộc tính cần xóa' },
-      },
-      required: ['attributeId', 'valueId'],
-    },
-  },
-  {
-    name: 'bulk_create_attribute_values',
-    description: 'Tạo hàng loạt giá trị thuộc tính',
-    inputSchema: {
-      type: 'object',
-      properties: {
-        attributeId: { type: 'string', description: 'UUID thuộc tính' },
-        values: {
-          type: 'array',
-          items: {
-            type: 'object',
-            properties: {
-              value: { type: 'string', description: 'Giá trị thuộc tính' },
-              sortOrder: { type: 'number', default: 0 },
-            },
-            required: ['value'],
-          },
-        },
-      },
-      required: ['attributeId', 'values'],
-    },
-  },
-  {
-    name: 'get_attribute_usage',
-    description: 'Lấy thông tin sử dụng thuộc tính',
-    inputSchema: {
-      type: 'object',
-      properties: {
-        id: { type: 'string', description: 'UUID thuộc tính' },
+        startDate: { type: 'string', format: 'date', description: 'Ngày bắt đầu' },
+        endDate: { type: 'string', format: 'date', description: 'Ngày kết thúc' },
       },
       required: ['id'],
     },
@@ -1221,19 +772,61 @@ export const toolDefinitions: Tool[] = [
 
   // Translation Management Tools
   {
+    name: 'create_translation',
+    description: 'Tạo bản dịch mới',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        entityType: {
+          type: 'string',
+          enum: ['product', 'category', 'product_attribute', 'product_variant'],
+          description: 'Loại thực thể'
+        },
+        entityId: { type: 'string', description: 'UUID thực thể' },
+        language: { type: 'string', description: 'Mã ngôn ngữ (ISO 639-1)' },
+        data: { type: 'object', description: 'Dữ liệu bản dịch' },
+      },
+      required: ['entityType', 'entityId', 'language', 'data'],
+    },
+  },
+  {
+    name: 'get_translation',
+    description: 'Lấy bản dịch theo thực thể và ngôn ngữ',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        entityId: { type: 'string', description: 'UUID thực thể' },
+        languageCode: { type: 'string', description: 'Mã ngôn ngữ' },
+      },
+      required: ['entityId', 'languageCode'],
+    },
+  },
+  {
+    name: 'get_supported_languages',
+    description: 'Lấy danh sách ngôn ngữ được hỗ trợ',
+    inputSchema: {
+      type: 'object',
+      properties: {},
+    },
+  },
+
+  // Product Translation Tools
+  {
     name: 'create_product_translation',
     description: 'Tạo bản dịch cho sản phẩm',
     inputSchema: {
       type: 'object',
       properties: {
         productId: { type: 'string', description: 'UUID sản phẩm' },
-        language: { type: 'string', description: 'Mã ngôn ngữ (ví dụ: en, vi)' },
-        title: { type: 'string', description: 'Tiêu đề sản phẩm' },
+        language: { type: 'string', description: 'Mã ngôn ngữ' },
+        name: { type: 'string', description: 'Tên sản phẩm' },
         description: { type: 'string', description: 'Mô tả sản phẩm' },
+        shortDescription: { type: 'string', description: 'Mô tả ngắn' },
         metaTitle: { type: 'string', description: 'Meta title cho SEO' },
         metaDescription: { type: 'string', description: 'Meta description cho SEO' },
+        slug: { type: 'string', description: 'Slug thân thiện với URL' },
       },
-      required: ['productId', 'language', 'title'],
+      required: ['productId', 'language', 'name'],
     },
   },
   {
@@ -1256,10 +849,12 @@ export const toolDefinitions: Tool[] = [
       properties: {
         productId: { type: 'string', description: 'UUID sản phẩm' },
         language: { type: 'string', description: 'Mã ngôn ngữ' },
-        title: { type: 'string', description: 'Tiêu đề sản phẩm' },
+        name: { type: 'string', description: 'Tên sản phẩm' },
         description: { type: 'string', description: 'Mô tả sản phẩm' },
+        shortDescription: { type: 'string', description: 'Mô tả ngắn' },
         metaTitle: { type: 'string', description: 'Meta title cho SEO' },
         metaDescription: { type: 'string', description: 'Meta description cho SEO' },
+        slug: { type: 'string', description: 'Slug thân thiện với URL' },
       },
       required: ['productId', 'language'],
     },
@@ -1287,6 +882,8 @@ export const toolDefinitions: Tool[] = [
       required: ['productId'],
     },
   },
+
+  // Category Translation Tools
   {
     name: 'create_category_translation',
     description: 'Tạo bản dịch cho danh mục',
@@ -1354,6 +951,8 @@ export const toolDefinitions: Tool[] = [
       required: ['categoryId'],
     },
   },
+
+  // Product Attribute Translation Tools
   {
     name: 'create_product_attribute_translation',
     description: 'Tạo bản dịch cho thuộc tính sản phẩm',
@@ -1417,6 +1016,8 @@ export const toolDefinitions: Tool[] = [
       required: ['attributeId'],
     },
   },
+
+  // Product Variant Translation Tools
   {
     name: 'create_product_variant_translation',
     description: 'Tạo bản dịch cho biến thể sản phẩm',
@@ -1480,6 +1081,8 @@ export const toolDefinitions: Tool[] = [
       required: ['variantId'],
     },
   },
+
+  // Bulk Translation Tools
   {
     name: 'bulk_create_translations',
     description: 'Tạo hàng loạt bản dịch',
@@ -1546,10 +1149,153 @@ export const toolDefinitions: Tool[] = [
     },
   },
 
+  // Attribute Management Tools
+  {
+    name: 'create_attribute',
+    description: 'Tạo thuộc tính sản phẩm mới',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        name: { type: 'string', description: 'Tên thuộc tính' },
+        code: { type: 'string', description: 'Mã thuộc tính duy nhất' },
+        type: {
+          type: 'string',
+          enum: ['text', 'number', 'boolean', 'select', 'multiselect', 'date'],
+          description: 'Loại dữ liệu thuộc tính'
+        },
+        isRequired: { type: 'boolean', default: false },
+        isFilterable: { type: 'boolean', default: false },
+        isSearchable: { type: 'boolean', default: false },
+        sortOrder: { type: 'number', default: 0 },
+        description: { type: 'string', description: 'Mô tả thuộc tính' },
+      },
+      required: ['name', 'code', 'type'],
+    },
+  },
+  {
+    name: 'get_attribute',
+    description: 'Lấy thông tin chi tiết về thuộc tính',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        id: { type: 'string', description: 'UUID thuộc tính' },
+      },
+      required: ['id'],
+    },
+  },
+  {
+    name: 'list_attributes',
+    description: 'Liệt kê tất cả thuộc tính sản phẩm',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        type: {
+          type: 'string',
+          enum: ['text', 'number', 'boolean', 'select', 'multiselect', 'date']
+        },
+        isRequired: { type: 'boolean' },
+        isFilterable: { type: 'boolean' },
+        page: { type: 'number', default: 1 },
+        pageSize: { type: 'number', default: 20 },
+      },
+    },
+  },
+  {
+    name: 'create_attribute_value',
+    description: 'Tạo giá trị cho thuộc tính select/multiselect',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        attributeId: { type: 'string', description: 'UUID thuộc tính' },
+        value: { type: 'string', description: 'Giá trị thuộc tính' },
+        label: { type: 'string', description: 'Nhãn hiển thị' },
+        sortOrder: { type: 'number', default: 0 },
+      },
+      required: ['attributeId', 'value', 'label'],
+    },
+  },
+  {
+    name: 'get_attribute_values',
+    description: 'Lấy tất cả giá trị của thuộc tính',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        attributeId: { type: 'string', description: 'UUID thuộc tính' },
+      },
+      required: ['attributeId'],
+    },
+  },
+  {
+    name: 'get_attribute_by_name',
+    description: 'Lấy thuộc tính theo tên',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        name: { type: 'string', description: 'Tên thuộc tính' },
+      },
+      required: ['name'],
+    },
+  },
+  {
+    name: 'update_attribute',
+    description: 'Cập nhật thông tin thuộc tính',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        id: { type: 'string', description: 'UUID thuộc tính' },
+        name: { type: 'string', description: 'Tên thuộc tính' },
+        isRequired: { type: 'boolean' },
+        isFilterable: { type: 'boolean' },
+        isSearchable: { type: 'boolean' },
+        sortOrder: { type: 'number' },
+        description: { type: 'string' },
+      },
+      required: ['id'],
+    },
+  },
+  {
+    name: 'delete_attribute',
+    description: 'Xóa thuộc tính sản phẩm',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        id: { type: 'string', description: 'UUID thuộc tính cần xóa' },
+      },
+      required: ['id'],
+    },
+  },
+  {
+    name: 'update_attribute_value',
+    description: 'Cập nhật giá trị thuộc tính',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        attributeId: { type: 'string', description: 'UUID thuộc tính' },
+        valueId: { type: 'string', description: 'UUID giá trị thuộc tính' },
+        value: { type: 'string', description: 'Giá trị thuộc tính' },
+        label: { type: 'string', description: 'Nhãn hiển thị' },
+        sortOrder: { type: 'number' },
+      },
+      required: ['attributeId', 'valueId'],
+    },
+  },
+  {
+    name: 'delete_attribute_value',
+    description: 'Xóa giá trị thuộc tính',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        attributeId: { type: 'string', description: 'UUID thuộc tính' },
+        valueId: { type: 'string', description: 'UUID giá trị thuộc tính cần xóa' },
+      },
+      required: ['attributeId', 'valueId'],
+    },
+  },
+
   // System Tools
   {
-    name: 'health_check',
-    description: 'Kiểm tra tình trạng sức khỏe của nền tảng thương mại điện tử',
+    name: 'get_system_health',
+    description: 'Kiểm tra tình trạng hệ thống',
     inputSchema: {
       type: 'object',
       properties: {},
@@ -1557,7 +1303,7 @@ export const toolDefinitions: Tool[] = [
   },
   {
     name: 'get_system_info',
-    description: 'Lấy thông tin hệ thống và khả năng',
+    description: 'Lấy thông tin hệ thống',
     inputSchema: {
       type: 'object',
       properties: {},
