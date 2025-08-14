@@ -1,6 +1,6 @@
 {
   "name": "@solana8800/sun_ecommerce_mcp",
-  "version": "1.0.0",
+  "version": "1.0.5",
   "description": "Model Context Protocol server for Sun eCommerce Platform (Pure JavaScript) - enables AI assistants to understand and control the complete eCommerce system",
   "main": "src/index.js",
   "type": "module",
