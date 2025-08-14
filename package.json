@@ -1,12 +1,13 @@
 {
   "name": "@solana8800/sun_ecommerce_mcp",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Model Context Protocol server for Sun eCommerce Platform - enables AI assistants to understand and control the complete eCommerce system",
   "main": "dist/index.js",
   "type": "module",
   "scripts": {
     "build": "tsc",
     "start": "node dist/index.js",
+    "start:ts": "node run-ts.js",
     "dev": "tsx src/index.ts",
     "test": "jest",
     "lint": "eslint src/**/*.ts",
@@ -61,7 +62,8 @@
     "node": ">=18.0.0"
   },
   "bin": {
-    "sun-ecommerce-mcp": "./dist/index.js"
+    "sun-ecommerce-mcp": "./dist/index.js",
+    "sun-ecommerce-mcp-ts": "./run-ts.js"
   },
   "files": [
     "dist/",

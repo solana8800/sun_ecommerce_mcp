@@ -70,7 +70,12 @@ Một máy chủ Model Context Protocol (MCP) toàn diện giúp AI assistant hi
 ```
 
 #### Dành cho phát triển
-1. Sử dụng đường dẫn local
+
+**⚠️ Lưu ý quan trọng về TypeScript vs JavaScript:**
+
+Claude MCP chỉ có thể chạy JavaScript đã compile, không thể chạy TypeScript trực tiếp. Có 3 cách để giải quyết:
+
+**Cách 1: Sử dụng JavaScript đã build (Khuyến nghị)**
 ```json
 {
   "mcpServers": {
@@ -86,6 +91,37 @@ Một máy chủ Model Context Protocol (MCP) toàn diện giúp AI assistant hi
 }
 ```
 
+**Cách 2: Sử dụng script tự động (TypeScript + fallback)**
+```json
+{
+  "mcpServers": {
+    "sun-ecommerce": {
+      "command": "node",
+      "args": ["/Users/aloha/Documents/projects/sun_ecommerce_product/mcp-server/run-ts.js"],
+      "env": {
+        "SUN_ECOMMERCE_API_URL": "http://42.96.60.253:8080",
+        "SUN_ECOMMERCE_API_TOKEN": "sun-ecommerce"
+      }
+    }
+  }
+}
+```
+
+**Cách 3: Sử dụng npm script**
+```json
+{
+  "mcpServers": {
+    "sun-ecommerce": {
+      "command": "npm",
+      "args": ["run", "start:ts"],
+      "cwd": "/Users/aloha/Documents/projects/sun_ecommerce_product/mcp-server",
+      "env": {
+        "SUN_ECOMMERCE_API_URL": "http://42.96.60.253:8080",
+        "SUN_ECOMMERCE_API_TOKEN": "sun-ecommerce"
+      }
+    }
+  }
+}
 2. Chạy local
 ```bash
 # Clone và cài đặt
@@ -398,6 +434,54 @@ Chào mừng mọi đóng góp! Xem [Contributing Guide](./CONTRIBUTING.md) đ�
 3. Thực hiện thay đổi
 4. Thêm test
 5. Gửi pull request
+
+## 🔧 Troubleshooting
+
+### Vấn đề TypeScript vs JavaScript với Claude MCP
+
+**Vấn đề**: Claude MCP không thể chạy TypeScript trực tiếp, chỉ có thể chạy JavaScript đã compile.
+
+**Nguyên nhân**:
+- Claude MCP sử dụng Node.js runtime thuần túy
+- TypeScript cần được transpile thành JavaScript trước khi chạy
+- Các tool như `tsx` hoặc `ts-node` không được hỗ trợ trực tiếp
+
+**Giải pháp**:
+
+1. **Build trước khi chạy** (Khuyến nghị):
+   ```bash
+   npm run build
+   npm start
+   ```
+
+2. **Sử dụng script tự động** (`run-ts.js`):
+   - Tự động kiểm tra và sử dụng `tsx` nếu có
+   - Fallback về build + run JavaScript nếu không có `tsx`
+   - Sử dụng: `node run-ts.js`
+
+3. **Convert sang Node.js thuần**:
+   - Nếu muốn tránh hoàn toàn việc build
+   - Viết lại code bằng JavaScript ES modules
+   - Loại bỏ TypeScript dependencies
+
+### Khuyến nghị
+
+- **Cho production**: Luôn sử dụng JavaScript đã build (`dist/index.js`)
+- **Cho development**: Sử dụng `npm run dev` với `tsx`
+- **Cho Claude MCP**: Sử dụng `run-ts.js` hoặc build trước
+
+### Kiểm tra hoạt động
+
+```bash
+# Kiểm tra TypeScript
+npm run dev
+
+# Kiểm tra JavaScript build
+npm run build && npm start
+
+# Kiểm tra script tự động
+node run-ts.js
+```
 
 ## 📄 Giấy phép
 

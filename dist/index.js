@@ -12,27 +12,40 @@ class SunEcommerceMCPServer {
     apiClient;
     toolHandler;
     constructor() {
-        this.server = new Server({
-            name: '@sun-ecommerce/mcp-server',
-            version: '1.0.0',
-        }, {
-            capabilities: {
-                tools: {},
-                resources: {},
-                prompts: {},
-            },
-        });
-        // Initialize API client with environment variables
-        this.apiClient = new SunEcommerceApiClient({
-            baseUrl: process.env.SUN_ECOMMERCE_API_URL || 'http://42.96.60.253:8080',
-            apiVersion: process.env.SUN_ECOMMERCE_API_VERSION || 'v1',
-            timeout: parseInt(process.env.SUN_ECOMMERCE_API_TIMEOUT || '30000'),
-            retries: parseInt(process.env.SUN_ECOMMERCE_API_RETRIES || '3'),
-            authToken: process.env.SUN_ECOMMERCE_API_TOKEN || 'sun-ecommerce',
-            enableLogging: process.env.SUN_ECOMMERCE_ENABLE_LOGGING !== 'false',
-        });
-        this.toolHandler = new ToolHandler(this.apiClient);
-        this.setupHandlers();
+        try {
+            console.error('Creating MCP Server instance...');
+            this.server = new Server({
+                name: '@sun-ecommerce/mcp-server',
+                version: '1.0.0',
+            }, {
+                capabilities: {
+                    tools: {},
+                    resources: {},
+                    prompts: {},
+                },
+            });
+            console.error('MCP Server created successfully');
+            // Initialize API client with environment variables
+            const config = {
+                baseUrl: process.env.SUN_ECOMMERCE_API_URL || 'http://42.96.60.253:8080',
+                apiVersion: process.env.SUN_ECOMMERCE_API_VERSION || 'v1',
+                timeout: parseInt(process.env.SUN_ECOMMERCE_API_TIMEOUT || '30000'),
+                retries: parseInt(process.env.SUN_ECOMMERCE_API_RETRIES || '3'),
+                authToken: process.env.SUN_ECOMMERCE_API_TOKEN || 'sun-ecommerce',
+                enableLogging: process.env.SUN_ECOMMERCE_ENABLE_LOGGING !== 'false',
+            };
+            console.error('API Client config:', JSON.stringify(config, null, 2));
+            this.apiClient = new SunEcommerceApiClient(config);
+            console.error('API Client created successfully');
+            this.toolHandler = new ToolHandler(this.apiClient);
+            console.error('Tool Handler created successfully');
+            this.setupHandlers();
+            console.error('Handlers setup completed');
+        }
+        catch (error) {
+            console.error('Error in constructor:', error);
+            throw error;
+        }
     }
     setupHandlers() {
         // List available tools
@@ -513,21 +526,36 @@ What aspect of your eCommerce strategy would you like to discuss? I can provide 
 }
 // Start the server
 async function main() {
-    const server = new SunEcommerceMCPServer();
-    // Handle graceful shutdown
-    process.on('SIGINT', async () => {
-        console.error('Received SIGINT, shutting down gracefully...');
-        process.exit(0);
-    });
-    process.on('SIGTERM', async () => {
-        console.error('Received SIGTERM, shutting down gracefully...');
-        process.exit(0);
-    });
     try {
+        console.error('Starting Sun eCommerce MCP Server...');
+        const server = new SunEcommerceMCPServer();
+        console.error('Server instance created successfully');
+        // Handle graceful shutdown
+        process.on('SIGINT', async () => {
+            console.error('Received SIGINT, shutting down gracefully...');
+            process.exit(0);
+        });
+        process.on('SIGTERM', async () => {
+            console.error('Received SIGTERM, shutting down gracefully...');
+            process.exit(0);
+        });
+        // Handle unhandled promise rejections
+        process.on('unhandledRejection', (reason, promise) => {
+            console.error('Unhandled Promise Rejection at:', promise, 'reason:', reason);
+            process.exit(1);
+        });
+        // Handle uncaught exceptions
+        process.on('uncaughtException', (error) => {
+            console.error('Uncaught Exception:', error);
+            process.exit(1);
+        });
+        console.error('About to start server run...');
         await server.run();
+        console.error('Server run completed');
     }
     catch (error) {
         console.error('Failed to start server:', error);
+        console.error('Error stack:', error instanceof Error ? error.stack : 'No stack trace');
         process.exit(1);
     }
 }
