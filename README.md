@@ -34,7 +34,7 @@ Một máy chủ Model Context Protocol (MCP) toàn diện được viết bằn
 
 ### Cài đặt
 
-#### Dành cho Claude Desktop
+#### Dành cho Claude Desktop (Từ npm package - Khuyến nghị)
 1. Thêm vào `claude_desktop_config.json`:
 ```json
 {
@@ -51,7 +51,7 @@ Một máy chủ Model Context Protocol (MCP) toàn diện được viết bằn
 }
 ```
 
-#### Dành cho Cursor
+#### Dành cho Cursor (Từ npm package - Khuyến nghị)
 1. Vào Cursor Settings > Tools & Integrations > New MCP Server
 2. Thêm cấu hình:
 ```json
@@ -75,7 +75,7 @@ Một máy chủ Model Context Protocol (MCP) toàn diện được viết bằn
 
 Dự án này đã được chuyển đổi sang JavaScript thuần, không cần build hay compile:
 
-**Cách 1: Chạy trực tiếp từ source (Khuyến nghị)**
+**Cách 1: Chạy trực tiếp từ source (Khuyến nghị cho development)**
 ```json
 {
   "mcpServers": {
@@ -108,6 +108,30 @@ Dự án này đã được chuyển đổi sang JavaScript thuần, không cầ
 }
 ```
 
+**Cách 3: Từ GitHub repository (Cho testing)**
+```json
+{
+  "mcpServers": {
+    "sun-ecommerce": {
+      "command": "npx",
+      "args": ["-y", "git+https://github.com/solana8800/sun_ecommerce_mcp.git"],
+      "env": {
+        "SUN_ECOMMERCE_API_URL": "http://42.96.60.253:8080",
+        "SUN_ECOMMERCE_API_TOKEN": "sun-ecommerce"
+      }
+    }
+  }
+}
+```
+
+### 📋 So sánh các tùy chọn cấu hình
+
+| Tùy chọn | Ưu điểm | Nhược điểm | Khi nào sử dụng |
+|----------|---------|------------|------------------|
+| **NPM Package** | ✅ Ổn định, tự động cập nhật<br>✅ Dễ cài đặt | ❌ Cần publish package | Production, End users |
+| **Source Code** | ✅ Có thể chỉnh sửa code<br>✅ Debug dễ dàng | ❌ Cần clone repo<br>❌ Phải quản lý dependencies | Development, Customization |
+| **GitHub Direct** | ✅ Luôn có phiên bản mới nhất<br>✅ Không cần clone | ❌ Phụ thuộc internet<br>❌ Có thể không ổn định | Testing, Quick trial |
+
 ### Thiết lập local
 
 ```bash
@@ -119,6 +143,22 @@ npm install
 # Chạy ngay (không cần build)
 npm start
 ```
+
+### ⚠️ Lưu ý quan trọng cho JavaScript
+
+**✅ Ưu điểm của phiên bản JavaScript thuần:**
+- Không cần TypeScript compiler
+- Không cần build step
+- Chạy trực tiếp với Node.js
+- Tương thích hoàn hảo với Claude Desktop
+- Dễ debug và modify
+
+**🎯 Khuyến nghị sử dụng:**
+- **Claude Desktop/Cursor**: Sử dụng NPM package (`npx -y @solana8800/sun_ecommerce_mcp`)
+- **Development**: Chạy trực tiếp từ source code (`node src/index.js`)
+- **Testing**: Sử dụng GitHub direct (`npx -y git+https://...`)
+
+**⚡ Tất cả các cấu hình trên đều hợp lệ và hoạt động với JavaScript thuần!**
 
 ### Command local
 ```bash
