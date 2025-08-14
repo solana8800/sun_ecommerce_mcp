@@ -1,7 +1,7 @@
 
-# Sun eCommerce Platform MCP Server
+# Sun eCommerce Platform MCP Server (JavaScript)
 
-Một máy chủ Model Context Protocol (MCP) toàn diện giúp AI assistant hiểu và điều khiển toàn bộ nền tảng Sun eCommerce. MCP server này cung cấp giao diện ngôn ngữ tự nhiên cho quản lý sản phẩm, quy tắc giá, kiểm soát tồn kho và tất cả API của nền tảng.
+Một máy chủ Model Context Protocol (MCP) toàn diện được viết bằng JavaScript thuần, giúp AI assistant hiểu và điều khiển toàn bộ nền tảng Sun eCommerce. MCP server này cung cấp giao diện ngôn ngữ tự nhiên cho quản lý sản phẩm, quy tắc giá, kiểm soát tồn kho và tất cả API của nền tảng.
 
 ## 🌟 Tính năng nổi bật
 
@@ -27,7 +27,7 @@ Một máy chủ Model Context Protocol (MCP) toàn diện giúp AI assistant hi
 - **Comprehensive Documentation**: Tài liệu API đầy đủ, hướng dẫn tích hợp
 - **Real-world Examples**: Ví dụ thực tế, workflow minh họa
 - **Error Handling**: Thông báo lỗi chi tiết, hướng dẫn xử lý
-- **Schema Validation**: Kiểm tra kiểu dữ liệu với Zod
+- **Data Validation**: Kiểm tra và xử lý dữ liệu đầu vào
 - **Retry Logic**: Tự động retry với exponential backoff tăng độ tin cậy
 
 ## 🚀 Bắt đầu nhanh
@@ -71,17 +71,17 @@ Một máy chủ Model Context Protocol (MCP) toàn diện giúp AI assistant hi
 
 #### Dành cho phát triển
 
-**⚠️ Lưu ý quan trọng về TypeScript vs JavaScript:**
+**✅ Phiên bản JavaScript thuần - Sẵn sàng chạy ngay!**
 
-Claude MCP chỉ có thể chạy JavaScript đã compile, không thể chạy TypeScript trực tiếp. Có 3 cách để giải quyết:
+Dự án này đã được chuyển đổi sang JavaScript thuần, không cần build hay compile:
 
-**Cách 1: Sử dụng JavaScript đã build (Khuyến nghị)**
+**Cách 1: Chạy trực tiếp từ source (Khuyến nghị)**
 ```json
 {
   "mcpServers": {
     "sun-ecommerce": {
       "command": "node",
-      "args": ["/Users/aloha/Documents/projects/sun_ecommerce_product/mcp-server/dist/index.js"],
+      "args": ["/Users/aloha/Documents/projects/sun_ecommerce_product/mcp-server/src/index.js"],
       "env": {
         "SUN_ECOMMERCE_API_URL": "http://42.96.60.253:8080",
         "SUN_ECOMMERCE_API_TOKEN": "sun-ecommerce"
@@ -91,29 +91,13 @@ Claude MCP chỉ có thể chạy JavaScript đã compile, không thể chạy T
 }
 ```
 
-**Cách 2: Sử dụng script tự động (TypeScript + fallback)**
-```json
-{
-  "mcpServers": {
-    "sun-ecommerce": {
-      "command": "node",
-      "args": ["/Users/aloha/Documents/projects/sun_ecommerce_product/mcp-server/run-ts.js"],
-      "env": {
-        "SUN_ECOMMERCE_API_URL": "http://42.96.60.253:8080",
-        "SUN_ECOMMERCE_API_TOKEN": "sun-ecommerce"
-      }
-    }
-  }
-}
-```
-
-**Cách 3: Sử dụng npm script**
+**Cách 2: Sử dụng npm script**
 ```json
 {
   "mcpServers": {
     "sun-ecommerce": {
       "command": "npm",
-      "args": ["run", "start:ts"],
+      "args": ["start"],
       "cwd": "/Users/aloha/Documents/projects/sun_ecommerce_product/mcp-server",
       "env": {
         "SUN_ECOMMERCE_API_URL": "http://42.96.60.253:8080",
@@ -122,21 +106,21 @@ Claude MCP chỉ có thể chạy JavaScript đã compile, không thể chạy T
     }
   }
 }
-2. Chạy local
+```
+
+### Thiết lập local
+
 ```bash
 # Clone và cài đặt
 git clone git@github.com:solana8800/sun_ecommerce_mcp.git
 cd mcp-server
 npm install
 
-# Build
-npm run build
-
-# Chạy local
+# Chạy ngay (không cần build)
 npm start
 ```
 
-3. Command local
+### Command local
 ```bash
 SUN_ECOMMERCE_API_URL="http://42.96.60.253:8080" \
 SUN_ECOMMERCE_API_TOKEN="sun-ecommerce" \
@@ -344,31 +328,39 @@ can you help me troubleshoot this authentication issue?"
 
 MCP server được xây dựng với:
 
-- **TypeScript** - Phát triển an toàn kiểu dữ liệu
-- **Zod** - Kiểm tra schema runtime
+- **JavaScript (ES Modules)** - Phát triển nhanh chóng, dễ bảo trì
+- **Native Validation** - Kiểm tra dữ liệu tích hợp
 - **Axios** - HTTP client với retry logic
 - **MCP SDK** - Triển khai Model Context Protocol
 
 ### Cấu trúc dự án
 ```
-mcp/
+mcp-server/
 ├── src/
 │   ├── client/          # API client implementation
+│   │   └── api-client.js
 │   ├── tools/           # MCP tool definitions and handlers
+│   │   ├── index.js
+│   │   ├── missing-tools.js
+│   │   └── tool-handler.js
 │   ├── resources/       # Documentation and guide resources
+│   │   └── index.js
 │   ├── prompts/         # Interactive prompt definitions
-│   ├── types/           # TypeScript type definitions
-│   └── index.ts         # Main server implementation
+│   │   └── index.js
+│   ├── types/           # JavaScript utility functions
+│   │   └── index.js
+│   ├── index.js         # Main server implementation
+│   ├── simple-test.js   # Simple test script
+│   └── test-api.js      # API test script
 ├── docs/                # Additional documentation
 ├── examples/            # Usage examples
-└── tests/               # Test suites
+└── package.json         # Dependencies and scripts
 ```
 
 ## 🔧 Phát triển
 
 ### Yêu cầu
 - Node.js 18.0.0 trở lên
-- TypeScript 5.0 trở lên
 - Có quyền truy cập Sun eCommerce Platform
 
 ### Thiết lập
@@ -376,11 +368,11 @@ mcp/
 # Cài dependencies
 npm install
 
-# Chạy chế độ dev
-npm run dev
+# Chạy server
+npm start
 
-# Build production
-npm run build
+# Chạy chế độ dev (tương tự start)
+npm run dev
 
 # Chạy test
 npm test
@@ -394,14 +386,14 @@ npm run format
 
 ### Kiểm thử
 ```bash
-# Chạy toàn bộ test
+# Chạy test đơn giản
+node src/simple-test.js
+
+# Chạy test API đầy đủ
+node src/test-api.js
+
+# Chạy test với Node.js test runner
 npm test
-
-# Chạy test suite cụ thể
-npm test -- --grep "Product Management"
-
-# Chạy với coverage
-npm run test:coverage
 ```
 
 ## 📖 Tài liệu chi tiết
@@ -437,50 +429,69 @@ Chào mừng mọi đóng góp! Xem [Contributing Guide](./CONTRIBUTING.md) đ�
 
 ## 🔧 Troubleshooting
 
-### Vấn đề TypeScript vs JavaScript với Claude MCP
+### Vấn đề kết nối API
 
-**Vấn đề**: Claude MCP không thể chạy TypeScript trực tiếp, chỉ có thể chạy JavaScript đã compile.
+**Vấn đề**: Không thể kết nối đến Sun eCommerce API
 
 **Nguyên nhân**:
-- Claude MCP sử dụng Node.js runtime thuần túy
-- TypeScript cần được transpile thành JavaScript trước khi chạy
-- Các tool như `tsx` hoặc `ts-node` không được hỗ trợ trực tiếp
+- URL API không đúng hoặc server không hoạt động
+- Token xác thực không hợp lệ
+- Firewall hoặc network blocking
 
 **Giải pháp**:
 
-1. **Build trước khi chạy** (Khuyến nghị):
+1. **Kiểm tra cấu hình môi trường**:
    ```bash
-   npm run build
+   echo $SUN_ECOMMERCE_API_URL
+   echo $SUN_ECOMMERCE_API_TOKEN
+   ```
+
+2. **Test kết nối trực tiếp**:
+   ```bash
+   curl -H "Authorization: Bearer sun-ecommerce" http://42.96.60.253:8080/api/v1/health
+   ```
+
+3. **Chạy test script**:
+   ```bash
+   node src/simple-test.js
+   ```
+
+### Vấn đề với MCP Client
+
+**Vấn đề**: Claude Desktop không nhận diện MCP server
+
+**Giải pháp**:
+
+1. **Kiểm tra cấu hình Claude Desktop**:
+   - Đảm bảo đường dẫn file đúng
+   - Restart Claude Desktop sau khi thay đổi config
+
+2. **Kiểm tra server hoạt động**:
+   ```bash
    npm start
    ```
 
-2. **Sử dụng script tự động** (`run-ts.js`):
-   - Tự động kiểm tra và sử dụng `tsx` nếu có
-   - Fallback về build + run JavaScript nếu không có `tsx`
-   - Sử dụng: `node run-ts.js`
-
-3. **Convert sang Node.js thuần**:
-   - Nếu muốn tránh hoàn toàn việc build
-   - Viết lại code bằng JavaScript ES modules
-   - Loại bỏ TypeScript dependencies
+3. **Kiểm tra logs**:
+   - Xem console output khi chạy server
+   - Kiểm tra error messages
 
 ### Khuyến nghị
 
-- **Cho production**: Luôn sử dụng JavaScript đã build (`dist/index.js`)
-- **Cho development**: Sử dụng `npm run dev` với `tsx`
-- **Cho Claude MCP**: Sử dụng `run-ts.js` hoặc build trước
+- **Cho production**: Sử dụng npm package đã publish
+- **Cho development**: Chạy trực tiếp từ source code
+- **Cho debugging**: Sử dụng test scripts để kiểm tra
 
 ### Kiểm tra hoạt động
 
 ```bash
-# Kiểm tra TypeScript
-npm run dev
+# Kiểm tra server
+npm start
 
-# Kiểm tra JavaScript build
-npm run build && npm start
+# Kiểm tra API connection
+node src/simple-test.js
 
-# Kiểm tra script tự động
-node run-ts.js
+# Kiểm tra đầy đủ
+node src/test-api.js
 ```
 
 ## 📄 Giấy phép
@@ -497,9 +508,12 @@ Dự án này theo giấy phép MIT - xem [LICENSE](./LICENSE) để biết chi 
 ## 🎉 Ghi nhận
 
 - Xây dựng với [Model Context Protocol](https://modelcontextprotocol.io/)
+- Phiên bản JavaScript thuần được chuyển đổi từ TypeScript để tối ưu hiệu năng
 - Lấy cảm hứng từ OpenBnB Airbnb MCP implementation
 - Cảm ơn đội ngũ Sun eCommerce Platform đã thiết kế và kiểm thử API
 
 ---
 
 **Sẵn sàng nâng tầm phát triển eCommerce với AI? Bắt đầu ngay hôm nay!** 🚀
+
+> **Lưu ý**: Đây là phiên bản JavaScript thuần, sẵn sàng chạy ngay mà không cần build hay compile. Phù hợp hoàn hảo với Claude Desktop và các MCP client khác.
