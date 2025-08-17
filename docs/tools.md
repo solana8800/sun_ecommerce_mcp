@@ -30,6 +30,20 @@ Sun eCommerce MCP Server cung cấp hơn 80 tools được tổ chức theo các
 - Tạo sản phẩm có biến thể (configurable product)
 - Thiết lập sản phẩm bundle/combo
 
+**Product Types**:
+- `simple`: Sản phẩm đơn giản
+- `configurable`: Sản phẩm có biến thể
+- `bundle`: Gói sản phẩm
+- `grouped`: Nhóm sản phẩm liên quan
+- `virtual`: Sản phẩm ảo (không cần vận chuyển)
+- `combo`: Sản phẩm combo
+- `gift_card`: Thẻ quà tặng
+- `flight_ticket`: Vé máy bay
+- `park_ticket`: Vé công viên/khu vui chơi
+- `hotel_room`: Phòng khách sạn
+- `souvenir`: Quà lưu niệm
+- `gift_item`: Sản phẩm quà tặng
+
 **Best Practices**:
 ```typescript
 // Sản phẩm đơn giản
@@ -165,6 +179,119 @@ const softDelete = {
 const hardDelete = {
   product_id: "prod_123",
   force: true // Xóa vĩnh viễn
+};
+```
+
+### Tourism Product Examples
+
+#### Flight Ticket Product
+```typescript
+const flightTicket = {
+  name: "Vé máy bay Hà Nội - TP.HCM",
+  product_type: "flight_ticket",
+  sku: "FLIGHT-HN-HCM-001",
+  base_price: 2500000,
+  currency: "VND",
+  description: "Vé máy bay khứ hồi Hà Nội - TP.HCM, hãng Vietnam Airlines",
+  attributes: {
+    departure_city: "Hà Nội",
+    arrival_city: "TP.HCM",
+    airline: "Vietnam Airlines",
+    flight_class: "Economy",
+    departure_time: "08:00",
+    arrival_time: "10:15",
+    flight_duration: "2h 15m"
+  },
+  tags: ["flight", "domestic", "vietnam-airlines"]
+};
+```
+
+#### Park Ticket Product
+```typescript
+const parkTicket = {
+  name: "Vé vào cửa Vinpearl Land",
+  product_type: "park_ticket",
+  sku: "PARK-VPL-ADULT-001",
+  base_price: 750000,
+  currency: "VND",
+  description: "Vé vào cửa Vinpearl Land Nha Trang dành cho người lớn",
+  attributes: {
+    park_name: "Vinpearl Land Nha Trang",
+    ticket_type: "Adult",
+    valid_days: 1,
+    includes: ["All rides", "Water park", "Aquarium"],
+    age_range: "12+ years"
+  },
+  tags: ["amusement-park", "nha-trang", "vinpearl"]
+};
+```
+
+#### Hotel Room Product
+```typescript
+const hotelRoom = {
+  name: "Phòng Deluxe Ocean View - Sheraton Nha Trang",
+  product_type: "hotel_room",
+  sku: "HOTEL-SHERATON-DELUXE-001",
+  base_price: 3200000,
+  currency: "VND",
+  description: "Phòng Deluxe với view biển tại Sheraton Nha Trang Hotel & Spa",
+  attributes: {
+    hotel_name: "Sheraton Nha Trang Hotel & Spa",
+    room_type: "Deluxe Ocean View",
+    bed_type: "King Bed",
+    max_occupancy: 2,
+    room_size: "45 sqm",
+    amenities: ["Ocean view", "Balcony", "Mini bar", "WiFi", "Air conditioning"],
+    check_in: "15:00",
+    check_out: "12:00"
+  },
+  tags: ["hotel", "nha-trang", "ocean-view", "luxury"]
+};
+```
+
+#### Souvenir Product
+```typescript
+const souvenir = {
+  name: "Áo thun in hình Vịnh Hạ Long",
+  product_type: "souvenir",
+  sku: "SOUVENIR-TSHIRT-HALONG-001",
+  base_price: 250000,
+  currency: "VND",
+  description: "Áo thun cotton in hình Vịnh Hạ Long, quà lưu niệm đặc trưng",
+  attributes: {
+    material: "100% Cotton",
+    origin: "Quảng Ninh",
+    design: "Hạ Long Bay Print",
+    care_instructions: "Machine wash cold",
+    cultural_significance: "UNESCO World Heritage Site"
+  },
+  variants: [
+    { size: "S", color: "White", sku: "SOUVENIR-TSHIRT-HALONG-S-WHITE" },
+    { size: "M", color: "Blue", sku: "SOUVENIR-TSHIRT-HALONG-M-BLUE" },
+    { size: "L", color: "Green", sku: "SOUVENIR-TSHIRT-HALONG-L-GREEN" }
+  ],
+  tags: ["souvenir", "halong-bay", "clothing", "vietnam"]
+};
+```
+
+#### Gift Item Product
+```typescript
+const giftItem = {
+  name: "Hộp quà đặc sản Đà Lạt",
+  product_type: "gift_item",
+  sku: "GIFT-DALAT-SPECIALTY-001",
+  base_price: 450000,
+  currency: "VND",
+  description: "Hộp quà đặc sản Đà Lạt gồm mứt dâu, rượu sim, cà phê hạt",
+  attributes: {
+    gift_occasion: "Tourism souvenir",
+    contents: ["Strawberry jam 200g", "Sim wine 375ml", "Coffee beans 250g"],
+    packaging: "Wooden gift box",
+    shelf_life: "12 months",
+    origin: "Đà Lạt, Lâm Đồng",
+    gift_message_available: true
+  },
+  tags: ["gift", "dalat", "specialty", "food", "souvenir"]
 };
 ```
 
@@ -614,6 +741,32 @@ const bulkTranslations = {
 5. get_system_info (kiểm tra trạng thái)
 ```
 
+### Tourism Product Best Practices
+
+#### Flight Tickets
+- Luôn bao gồm thông tin chuyến bay chi tiết trong attributes
+- Sử dụng SKU format: `FLIGHT-{ORIGIN}-{DEST}-{ID}`
+- Cập nhật giá theo thời gian thực từ airline APIs
+- Kiểm tra tính khả dụng trước khi bán
+
+#### Park/Attraction Tickets
+- Xác định rõ loại vé (adult, child, senior)
+- Bao gồm thông tin về các dịch vụ đi kèm
+- Thiết lập ngày hết hạn cho vé
+- Tích hợp với hệ thống booking của công viên
+
+#### Hotel Rooms
+- Cập nhật tình trạng phòng theo thời gian thực
+- Bao gồm đầy đủ thông tin tiện nghi
+- Thiết lập pricing rules theo mùa
+- Tích hợp với hotel management systems
+
+#### Souvenirs & Gifts
+- Quản lý inventory theo location
+- Bao gồm thông tin văn hóa/lịch sử
+- Hỗ trợ personalization options
+- Thiết lập shipping rules phù hợp
+
 ### Performance Tips
 
 #### Batch Operations
@@ -625,11 +778,20 @@ const bulkTranslations = {
 - Cache kết quả `list_categories`
 - Cache thông tin sản phẩm ít thay đổi
 - Invalidate cache khi có update
+- Cache pricing rules cho tourism products
 
 #### Error Handling
 - Luôn kiểm tra response.success
 - Implement retry logic cho network errors
 - Log errors để debug
+- Handle booking conflicts cho tourism products
+
+#### Tourism-Specific Considerations
+- Implement real-time availability checks
+- Handle time zone differences for bookings
+- Support multiple currencies for international tourists
+- Integrate with third-party tourism APIs
+- Implement cancellation and refund policies
 
 ---
 

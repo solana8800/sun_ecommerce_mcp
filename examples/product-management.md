@@ -85,6 +85,251 @@ Tài liệu này cung cấp các ví dụ thực tế sử dụng MCP server Sun
 }
 ```
 
+## 🏖️ Sản phẩm du lịch
+
+### Tạo vé máy bay (flight_ticket)
+
+**Yêu cầu ngôn ngữ tự nhiên:**
+```
+"Tạo vé máy bay từ Hà Nội đi TP.HCM, khởi hành 15/03/2024, hạng phổ thông, giá $150"
+```
+
+**Gọi tool MCP:**
+```json
+{
+  "tool": "create_product",
+  "arguments": {
+    "name": "Vé máy bay HAN-SGN - 15/03/2024",
+    "sku": "FLIGHT-HAN-SGN-20240315",
+    "productType": "flight_ticket",
+    "price": 150.00,
+    "description": "Vé máy bay từ Hà Nội (HAN) đến TP.HCM (SGN), khởi hành 15/03/2024 lúc 08:30",
+    "categoryId": "flight-tickets-uuid",
+    "status": "active",
+    "attributes": {
+      "departure_airport": "HAN",
+      "arrival_airport": "SGN",
+      "departure_date": "2024-03-15",
+      "departure_time": "08:30",
+      "flight_class": "economy",
+      "airline": "Vietnam Airlines",
+      "flight_number": "VN213"
+    },
+    "tags": ["flight", "domestic", "vietnam-airlines"]
+  }
+}
+```
+
+### Tạo vé công viên (park_ticket)
+
+**Yêu cầu ngôn ngữ tự nhiên:**
+```
+"Tạo vé vào cửa Vinpearl Land Nha Trang, vé người lớn, có hiệu lực 1 ngày, giá $25"
+```
+
+**Gọi tool MCP:**
+```json
+{
+  "tool": "create_product",
+  "arguments": {
+    "name": "Vé Vinpearl Land Nha Trang - Người lớn",
+    "sku": "PARK-VINPEARL-NT-ADULT",
+    "productType": "park_ticket",
+    "price": 25.00,
+    "description": "Vé vào cửa Vinpearl Land Nha Trang dành cho người lớn, có hiệu lực 1 ngày",
+    "categoryId": "park-tickets-uuid",
+    "status": "active",
+    "attributes": {
+      "park_name": "Vinpearl Land Nha Trang",
+      "ticket_type": "adult",
+      "validity_days": 1,
+      "location": "Nha Trang",
+      "includes": ["All rides", "Water park", "Aquarium"]
+    },
+    "tags": ["theme-park", "nha-trang", "vinpearl", "adult"]
+  }
+}
+```
+
+### Tạo phòng khách sạn (hotel_room)
+
+**Yêu cầu ngôn ngữ tự nhiên:**
+```
+"Tạo phòng Superior Double tại Sheraton Hanoi, 2 người, bao gồm ăn sáng, giá $120/đêm"
+```
+
+**Gọi tool MCP:**
+```json
+{
+  "tool": "create_product",
+  "arguments": {
+    "name": "Sheraton Hanoi - Superior Double Room",
+    "sku": "HOTEL-SHERATON-HN-SUP-DBL",
+    "productType": "hotel_room",
+    "price": 120.00,
+    "description": "Phòng Superior Double tại Sheraton Hanoi với view thành phố, bao gồm ăn sáng buffet",
+    "categoryId": "hotel-rooms-uuid",
+    "status": "active",
+    "attributes": {
+      "hotel_name": "Sheraton Hanoi",
+      "room_type": "Superior Double",
+      "max_occupancy": 2,
+      "bed_type": "1 King bed or 2 Twin beds",
+      "room_size": "32 sqm",
+      "amenities": ["Free WiFi", "Air conditioning", "Minibar", "City view"],
+      "includes_breakfast": true,
+      "location": "Hanoi",
+      "star_rating": 5
+    },
+    "tags": ["hotel", "hanoi", "sheraton", "5-star", "breakfast-included"]
+  }
+}
+```
+
+### Tạo sản phẩm lưu niệm (souvenir)
+
+**Yêu cầu ngôn ngữ tự nhiên:**
+```
+"Tạo sản phẩm lưu niệm áo thun in hình Vịnh Hạ Long, size S-XL, giá $15"
+```
+
+**Gọi tool MCP:**
+```json
+{
+  "tool": "create_product",
+  "arguments": {
+    "name": "Áo thun lưu niệm Vịnh Hạ Long",
+    "sku": "SOUVENIR-HALONG-TSHIRT",
+    "productType": "souvenir",
+    "price": 15.00,
+    "description": "Áo thun cotton in hình Vịnh Hạ Long, thiết kế độc đáo, chất liệu thoáng mát",
+    "categoryId": "souvenirs-uuid",
+    "status": "active",
+    "variants": [
+      {
+        "attributes": {"size": "S"},
+        "sku": "SOUVENIR-HALONG-TSHIRT-S",
+        "price": 15.00
+      },
+      {
+        "attributes": {"size": "M"},
+        "sku": "SOUVENIR-HALONG-TSHIRT-M",
+        "price": 15.00
+      },
+      {
+        "attributes": {"size": "L"},
+        "sku": "SOUVENIR-HALONG-TSHIRT-L",
+        "price": 15.00
+      },
+      {
+        "attributes": {"size": "XL"},
+        "sku": "SOUVENIR-HALONG-TSHIRT-XL",
+        "price": 15.00
+      }
+    ],
+    "attributes": {
+      "destination": "Ha Long Bay",
+      "material": "100% Cotton",
+      "design": "Ha Long Bay landscape print",
+      "origin": "Vietnam"
+    },
+    "tags": ["souvenir", "halong-bay", "t-shirt", "vietnam", "cotton"]
+  }
+}
+```
+
+### Tạo quà tặng (gift_item)
+
+**Yêu cầu ngôn ngữ tự nhiên:**
+```
+"Tạo set quà tặng đặc sản Việt Nam gồm cà phê, trà sen, bánh kẹo, giá $35"
+```
+
+**Gọi tool MCP:**
+```json
+{
+  "tool": "create_product",
+  "arguments": {
+    "name": "Set quà tặng đặc sản Việt Nam",
+    "sku": "GIFT-VIETNAM-SPECIALTY-SET",
+    "productType": "gift_item",
+    "price": 35.00,
+    "description": "Bộ quà tặng đặc sản Việt Nam cao cấp gồm cà phê Arabica, trà sen Hồ Tây, bánh kẹo truyền thống",
+    "categoryId": "gift-items-uuid",
+    "status": "active",
+    "attributes": {
+      "gift_type": "Specialty food set",
+      "contents": [
+        "Cà phê Arabica Đà Lạt 200g",
+        "Trà sen Hồ Tây 100g",
+        "Bánh đậu xanh 300g",
+        "Kẹo dừa Bến Tre 200g"
+      ],
+      "packaging": "Premium gift box with Vietnamese traditional design",
+      "weight": "800g",
+      "origin": "Vietnam",
+      "shelf_life": "12 months"
+    },
+    "tags": ["gift", "vietnam", "specialty", "food", "premium", "traditional"]
+  }
+}
+```
+
+### Tạo gói combo du lịch (combo)
+
+**Yêu cầu ngôn ngữ tự nhiên:**
+```
+"Tạo gói combo tour Hạ Long 2N1Đ gồm vé máy bay, khách sạn, tour thuyền, giá $280"
+```
+
+**Gọi tool MCP:**
+```json
+{
+  "tool": "create_product",
+  "arguments": {
+    "name": "Combo Tour Hạ Long 2N1Đ",
+    "sku": "COMBO-HALONG-2D1N",
+    "productType": "combo",
+    "price": 280.00,
+    "description": "Gói combo tour Hạ Long 2 ngày 1 đêm bao gồm vé máy bay khứ hồi, khách sạn 4 sao, tour thuyền ngắm cảnh",
+    "categoryId": "tour-packages-uuid",
+    "status": "active",
+    "attributes": {
+      "duration": "2 days 1 night",
+      "destination": "Ha Long Bay",
+      "includes": [
+        "Round-trip flight tickets",
+        "4-star hotel accommodation",
+        "Cruise tour with meals",
+        "Professional tour guide",
+        "Transportation"
+      ],
+      "departure_cities": ["Hanoi", "Ho Chi Minh City"],
+      "group_size": "2-20 people",
+      "difficulty_level": "Easy"
+    },
+    "bundledProducts": [
+      {
+        "productId": "flight-ticket-uuid",
+        "quantity": 1,
+        "description": "Round-trip flight"
+      },
+      {
+        "productId": "hotel-room-uuid",
+        "quantity": 1,
+        "description": "1 night hotel stay"
+      },
+      {
+        "productId": "cruise-tour-uuid",
+        "quantity": 1,
+        "description": "Ha Long Bay cruise"
+      }
+    ],
+    "tags": ["combo", "tour", "halong-bay", "2d1n", "cruise", "vietnam"]
+  }
+}
+```
+
 ## 🔍 Tìm kiếm & khám phá sản phẩm
 
 ### Tìm kiếm nâng cao
@@ -105,6 +350,57 @@ Tài liệu này cung cấp các ví dụ thực tế sử dụng MCP server Sun
     "priceMax": 500,
     "page": 1,
     "pageSize": 20
+  }
+}
+```
+
+### Tìm kiếm sản phẩm du lịch
+
+**Yêu cầu ngôn ngữ tự nhiên:**
+```
+"Tìm tất cả vé máy bay từ Hà Nội đi Đà Nẵng trong tháng 3, giá dưới $200"
+```
+
+**Gọi tool MCP:**
+```json
+{
+  "tool": "search_products",
+  "arguments": {
+    "productType": "flight_ticket",
+    "search": "HAN DAN",
+    "priceMax": 200,
+    "attributes": {
+      "departure_airport": "HAN",
+      "arrival_airport": "DAN",
+      "departure_month": "2024-03"
+    },
+    "page": 1,
+    "pageSize": 10
+  }
+}
+```
+
+**Yêu cầu ngôn ngữ tự nhiên:**
+```
+"Tìm phòng khách sạn 4-5 sao ở Hội An, giá từ $80-150/đêm, có bao gồm ăn sáng"
+```
+
+**Gọi tool MCP:**
+```json
+{
+  "tool": "search_products",
+  "arguments": {
+    "productType": "hotel_room",
+    "search": "Hoi An",
+    "priceMin": 80,
+    "priceMax": 150,
+    "attributes": {
+      "location": "Hoi An",
+      "star_rating": [4, 5],
+      "includes_breakfast": true
+    },
+    "page": 1,
+    "pageSize": 15
   }
 }
 ```
@@ -491,24 +787,35 @@ Sau đó thêm giá trị thuộc tính:
 - Đưa thuộc tính chính vào tên
 - Giữ nhất quán giữa các sản phẩm cùng loại
 - Lưu ý yếu tố SEO
+- **Sản phẩm du lịch**: Bao gồm điểm đến, ngày tháng, loại dịch vụ
 
 ### Quản lý SKU
 - Đặt SKU có hệ thống
 - Bao gồm mã danh mục/thương hiệu
 - Dễ đọc, dễ nhớ
 - Đảm bảo duy nhất trên toàn hệ thống
+- **Sản phẩm du lịch**: Sử dụng mã sân bay, mã khách sạn, ngày tháng
 
 ### Tổ chức danh mục
 - Tạo cây phân cấp hợp lý
 - Không quá 3-4 cấp
 - Tên rõ ràng, mô tả
 - Xem xét hành vi điều hướng của khách
+- **Danh mục du lịch**: Phân theo loại dịch vụ (Flights, Hotels, Tours, Attractions)
 
 ### Chiến lược thuộc tính
 - Định nghĩa thuộc tính trước khi tạo sản phẩm
 - Dùng tên thuộc tính nhất quán
 - Thuộc tính quan trọng nên filterable
 - Hỗ trợ đa ngôn ngữ nếu cần
+- **Thuộc tính du lịch**: Ngày giờ, địa điểm, loại phòng, hạng vé, tiện ích
+
+### Quản lý sản phẩm du lịch đặc biệt
+- **Vé máy bay**: Quản lý theo chuyến bay, hạng vé, ngày khởi hành
+- **Phòng khách sạn**: Theo loại phòng, ngày checkin/checkout, số người
+- **Tour/Combo**: Quản lý inventory theo ngày khởi hành, số chỗ
+- **Vé tham quan**: Theo ngày sử dụng, loại vé (người lớn/trẻ em)
+- **Lưu niệm**: Quản lý như sản phẩm thông thường với thuộc tính địa điểm
 
 ## 🚨 Lỗi thường gặp
 
@@ -529,6 +836,33 @@ Sau đó thêm giá trị thuộc tính:
     "Use a different SKU",
     "Check existing products",
     "Update existing product instead"
+  ]
+}
+```
+
+### Lỗi đặc biệt với sản phẩm du lịch
+```json
+{
+  "success": false,
+  "error": "Invalid flight date",
+  "details": "Departure date cannot be in the past",
+  "suggestions": [
+    "Use future date for departure",
+    "Check date format (YYYY-MM-DD)",
+    "Verify timezone settings"
+  ]
+}
+```
+
+```json
+{
+  "success": false,
+  "error": "Hotel room capacity exceeded",
+  "details": "Room type 'Single' cannot accommodate 3 guests",
+  "suggestions": [
+    "Use appropriate room type for guest count",
+    "Create separate bookings",
+    "Check room specifications"
   ]
 }
 ```

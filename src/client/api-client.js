@@ -575,44 +575,6 @@ export class SunEcommerceApiClient {
   }
 
   /**
-   * Gets inventory by product ID
-   * @param {string} productId - Product ID
-   * @returns {Promise<any>} Inventory data
-   */
-  async getInventoryByProduct(productId) {
-    return this.request({
-      method: 'GET',
-      url: `/inventory/product/${productId}`,
-    });
-  }
-
-  /**
-   * Checks inventory availability
-   * @param {Object} data - Availability check data
-   * @returns {Promise<any>} Availability result
-   */
-  async checkInventoryAvailability(data) {
-    return this.request({
-      method: 'POST',
-      url: '/inventory/check-availability',
-      data,
-    });
-  }
-
-  /**
-   * Reserves inventory
-   * @param {Object} data - Reservation data
-   * @returns {Promise<any>} Reservation result
-   */
-  async reserveInventory(data) {
-    return this.request({
-      method: 'POST',
-      url: '/inventory/reserve',
-      data,
-    });
-  }
-
-  /**
    * Gets inventory by ID
    * @param {string} id - Inventory ID
    * @returns {Promise<any>} Inventory data
@@ -648,6 +610,109 @@ export class SunEcommerceApiClient {
       method: 'PUT',
       url: `/inventory/${id}`,
       data,
+    });
+  }
+
+  /**
+   * Deletes inventory record
+   * @param {string} id - Inventory ID
+   * @returns {Promise<any>} Deletion result
+   */
+  async deleteInventory(id) {
+    return this.request({
+      method: 'DELETE',
+      url: `/inventory/${id}`,
+    });
+  }
+
+  /**
+   * Bulk updates inventory records
+   * @param {Object} data - Bulk update data
+   * @returns {Promise<any>} Update result
+   */
+  async bulkUpdateInventory(data) {
+    return this.request({
+      method: 'PUT',
+      url: '/inventory/bulk-update',
+      data,
+    });
+  }
+
+  /**
+   * Reserves inventory
+   * @param {Object} data - Reservation data
+   * @returns {Promise<any>} Reservation result
+   */
+  async reserveInventory(data) {
+    return this.request({
+      method: 'POST',
+      url: '/inventory/reserve',
+      data,
+    });
+  }
+
+  /**
+   * Releases inventory reservation
+   * @param {Object} data - Release data
+   * @returns {Promise<any>} Release result
+   */
+  async releaseInventoryReservation(data) {
+    return this.request({
+      method: 'POST',
+      url: '/inventory/release',
+      data,
+    });
+  }
+
+  /**
+   * Checks inventory availability
+   * @param {Object} data - Availability check data
+   * @returns {Promise<any>} Availability result
+   */
+  async checkInventoryAvailability(data) {
+    return this.request({
+      method: 'POST',
+      url: '/inventory/check-availability',
+      data,
+    });
+  }
+
+  /**
+   * Gets inventory movements
+   * @param {string} inventoryId - Inventory ID
+   * @param {Object} params - Query parameters
+   * @returns {Promise<any>} Inventory movements
+   */
+  async getInventoryMovements(inventoryId, params) {
+    return this.request({
+      method: 'GET',
+      url: `/inventory/${inventoryId}/movements`,
+      params,
+    });
+  }
+
+  /**
+   * Gets inventory statistics
+   * @param {Object} params - Query parameters
+   * @returns {Promise<any>} Inventory statistics
+   */
+  async getInventoryStatistics(params) {
+    return this.request({
+      method: 'GET',
+      url: '/inventory/statistics',
+      params,
+    });
+  }
+
+  /**
+   * Gets inventory by product ID
+   * @param {string} productId - Product ID
+   * @returns {Promise<any>} Inventory data
+   */
+  async getInventoryByProduct(productId) {
+    return this.request({
+      method: 'GET',
+      url: `/inventory/product/${productId}`,
     });
   }
 
@@ -757,6 +822,271 @@ export class SunEcommerceApiClient {
       method: 'GET',
       url: '/partners',
       params,
+    });
+  }
+
+  /**
+   * Updates a partner
+   * @param {string} id - Partner ID
+   * @param {Object} data - Updated partner data
+   * @returns {Promise<any>} Updated partner
+   */
+  async updatePartner(id, data) {
+    return this.request({
+      method: 'PUT',
+      url: `/partners/${id}`,
+      data,
+    });
+  }
+
+  /**
+   * Deletes a partner
+   * @param {string} id - Partner ID
+   * @returns {Promise<any>} Deletion result
+   */
+  async deletePartner(id) {
+    return this.request({
+      method: 'DELETE',
+      url: `/partners/${id}`,
+    });
+  }
+
+  /**
+   * Gets partner by code
+   * @param {string} code - Partner code
+   * @returns {Promise<any>} Partner data
+   */
+  async getPartnerByCode(code) {
+    return this.request({
+      method: 'GET',
+      url: `/partners/code/${code}`,
+    });
+  }
+
+  /**
+   * Activates a partner
+   * @param {string} id - Partner ID
+   * @returns {Promise<any>} Activated partner
+   */
+  async activatePartner(id) {
+    return this.request({
+      method: 'POST',
+      url: `/partners/${id}/activate`,
+    });
+  }
+
+  /**
+   * Deactivates a partner
+   * @param {string} id - Partner ID
+   * @returns {Promise<any>} Deactivated partner
+   */
+  async deactivatePartner(id) {
+    return this.request({
+      method: 'POST',
+      url: `/partners/${id}/deactivate`,
+    });
+  }
+
+  /**
+   * Gets partner statistics
+   * @param {string} id - Partner ID
+   * @returns {Promise<any>} Partner statistics
+   */
+  async getPartnerStatistics(id) {
+    return this.request({
+      method: 'GET',
+      url: `/partners/${id}/statistics`,
+    });
+  }
+
+  /**
+   * Gets partner balance
+   * @param {string} id - Partner ID
+   * @returns {Promise<any>} Partner balance
+   */
+  async getPartnerBalance(id) {
+    return this.request({
+      method: 'GET',
+      url: `/partners/${id}/balance`,
+    });
+  }
+
+  /**
+   * Gets partner tier benefits
+   * @param {string} id - Partner ID
+   * @returns {Promise<any>} Partner tier benefits
+   */
+  async getPartnerTierBenefits(id) {
+    return this.request({
+      method: 'GET',
+      url: `/partners/${id}/tier-benefits`,
+    });
+  }
+
+  /**
+   * Searches partners
+   * @param {Object} params - Search parameters
+   * @returns {Promise<any>} Search results
+   */
+  async searchPartners(params) {
+    return this.request({
+      method: 'GET',
+      url: '/partners/search',
+      params,
+    });
+  }
+
+  /**
+   * Gets partners by type
+   * @param {string} type - Partner type
+   * @param {Object} params - Query parameters
+   * @returns {Promise<any>} Partners by type
+   */
+  async getPartnersByType(type, params) {
+    return this.request({
+      method: 'GET',
+      url: `/partners/type/${type}`,
+      params,
+    });
+  }
+
+  /**
+   * Gets partners by tier
+   * @param {string} tier - Partner tier
+   * @param {Object} params - Query parameters
+   * @returns {Promise<any>} Partners by tier
+   */
+  async getPartnersByTier(tier, params) {
+    return this.request({
+      method: 'GET',
+      url: `/partners/tier/${tier}`,
+      params,
+    });
+  }
+
+  // ==================== LAND API METHODS ====================
+
+  /**
+   * Creates a new land
+   * @param {Object} data - Land data
+   * @returns {Promise<any>} Created land
+   */
+  async createLand(data) {
+    return this.request({
+      method: 'POST',
+      url: '/lands',
+      data,
+    });
+  }
+
+  /**
+   * Gets a land by ID
+   * @param {string} id - Land ID
+   * @returns {Promise<any>} Land data
+   */
+  async getLand(id) {
+    return this.request({
+      method: 'GET',
+      url: `/lands/${id}`,
+    });
+  }
+
+  /**
+   * Lists all lands
+   * @param {Object} params - Query parameters
+   * @returns {Promise<any>} Lands list
+   */
+  async listLands(params) {
+    return this.request({
+      method: 'GET',
+      url: '/lands',
+      params,
+    });
+  }
+
+  /**
+   * Updates a land
+   * @param {string} id - Land ID
+   * @param {Object} data - Updated land data
+   * @returns {Promise<any>} Updated land
+   */
+  async updateLand(id, data) {
+    return this.request({
+      method: 'PUT',
+      url: `/lands/${id}`,
+      data,
+    });
+  }
+
+  /**
+   * Deletes a land
+   * @param {string} id - Land ID
+   * @returns {Promise<any>} Deletion result
+   */
+  async deleteLand(id) {
+    return this.request({
+      method: 'DELETE',
+      url: `/lands/${id}`,
+    });
+  }
+
+  /**
+   * Gets land by code
+   * @param {string} code - Land code
+   * @returns {Promise<any>} Land data
+   */
+  async getLandByCode(code) {
+    return this.request({
+      method: 'GET',
+      url: `/lands/code/${code}`,
+    });
+  }
+
+  /**
+   * Gets lands by partner
+   * @param {string} partnerId - Partner ID
+   * @returns {Promise<any>} Lands data
+   */
+  async getLandsByPartner(partnerId) {
+    return this.request({
+      method: 'GET',
+      url: `/lands/partner/${partnerId}`,
+    });
+  }
+
+  /**
+   * Gets land statistics
+   * @param {string} id - Land ID
+   * @returns {Promise<any>} Land statistics
+   */
+  async getLandStatistics(id) {
+    return this.request({
+      method: 'GET',
+      url: `/lands/${id}/statistics`,
+    });
+  }
+
+  /**
+   * Activates a land
+   * @param {string} id - Land ID
+   * @returns {Promise<any>} Activated land
+   */
+  async activateLand(id) {
+    return this.request({
+      method: 'POST',
+      url: `/lands/${id}/activate`,
+    });
+  }
+
+  /**
+   * Deactivates a land
+   * @param {string} id - Land ID
+   * @returns {Promise<any>} Deactivated land
+   */
+  async deactivateLand(id) {
+    return this.request({
+      method: 'POST',
+      url: `/lands/${id}/deactivate`,
     });
   }
 
@@ -871,6 +1201,72 @@ export class SunEcommerceApiClient {
     return this.request({
       method: 'GET',
       url: `/sales-channels/${id}/statistics`,
+    });
+  }
+
+  /**
+   * Gets sales channels by type
+   * @param {string} type - Channel type
+   * @param {Object} params - Query parameters
+   * @returns {Promise<any>} Sales channels by type
+   */
+  async getSalesChannelsByType(type, params) {
+    return this.request({
+      method: 'GET',
+      url: `/sales-channels/type/${type}`,
+      params,
+    });
+  }
+
+  /**
+   * Gets active sales channels
+   * @param {Object} params - Query parameters
+   * @returns {Promise<any>} Active sales channels
+   */
+  async getActiveSalesChannels(params) {
+    return this.request({
+      method: 'GET',
+      url: '/sales-channels/active',
+      params,
+    });
+  }
+
+  /**
+   * Searches sales channels
+   * @param {Object} params - Search parameters
+   * @returns {Promise<any>} Search results
+   */
+  async searchSalesChannels(params) {
+    return this.request({
+      method: 'GET',
+      url: '/sales-channels/search',
+      params,
+    });
+  }
+
+  /**
+   * Gets sales channel configuration
+   * @param {string} id - Sales channel ID
+   * @returns {Promise<any>} Channel configuration
+   */
+  async getSalesChannelConfiguration(id) {
+    return this.request({
+      method: 'GET',
+      url: `/sales-channels/${id}/configuration`,
+    });
+  }
+
+  /**
+   * Updates sales channel configuration
+   * @param {string} id - Sales channel ID
+   * @param {Object} data - Configuration data
+   * @returns {Promise<any>} Updated configuration
+   */
+  async updateSalesChannelConfiguration(id, data) {
+    return this.request({
+      method: 'PUT',
+      url: `/sales-channels/${id}/configuration`,
+      data,
     });
   }
 

@@ -70,18 +70,28 @@ export class ToolHandler {
       // Inventory Management
       case 'create_inventory':
         return this.createInventory(args);
-      case 'get_inventory_by_product':
-        return this.getInventoryByProduct(args);
-      case 'check_inventory_availability':
-        return this.checkInventoryAvailability(args);
-      case 'reserve_inventory':
-        return this.reserveInventory(args);
       case 'get_inventory':
         return this.getInventory(args);
       case 'list_inventory':
         return this.listInventory(args);
       case 'update_inventory':
         return this.updateInventory(args);
+      case 'delete_inventory':
+        return this.deleteInventory(args);
+      case 'bulk_update_inventory':
+        return this.bulkUpdateInventory(args);
+      case 'reserve_inventory':
+        return this.reserveInventory(args);
+      case 'release_inventory_reservation':
+        return this.releaseInventoryReservation(args);
+      case 'check_inventory_availability':
+        return this.checkInventoryAvailability(args);
+      case 'get_inventory_movements':
+        return this.getInventoryMovements(args);
+      case 'get_inventory_statistics':
+        return this.getInventoryStatistics(args);
+      case 'get_inventory_by_product':
+        return this.getInventoryByProduct(args);
 
       // Media Management
       case 'upload_media':
@@ -102,6 +112,50 @@ export class ToolHandler {
         return this.getPartner(args);
       case 'list_partners':
         return this.listPartners(args);
+      case 'update_partner':
+        return this.updatePartner(args);
+      case 'delete_partner':
+        return this.deletePartner(args);
+      case 'get_partner_by_code':
+        return this.getPartnerByCode(args);
+      case 'activate_partner':
+        return this.activatePartner(args);
+      case 'deactivate_partner':
+        return this.deactivatePartner(args);
+      case 'get_partner_balance':
+        return this.getPartnerBalance(args);
+      case 'get_partner_statistics':
+        return this.getPartnerStatistics(args);
+      case 'get_partner_tier_benefits':
+        return this.getPartnerTierBenefits(args);
+      case 'search_partners':
+        return this.searchPartners(args);
+      case 'get_partners_by_type':
+        return this.getPartnersByType(args);
+      case 'get_partners_by_tier':
+        return this.getPartnersByTier(args);
+
+      // Land Management
+      case 'create_land':
+        return this.createLand(args);
+      case 'get_land':
+        return this.getLand(args);
+      case 'list_lands':
+        return this.listLands(args);
+      case 'update_land':
+        return this.updateLand(args);
+      case 'delete_land':
+        return this.deleteLand(args);
+      case 'get_land_by_code':
+        return this.getLandByCode(args);
+      case 'get_lands_by_partner':
+        return this.getLandsByPartner(args);
+      case 'get_land_statistics':
+        return this.getLandStatistics(args);
+      case 'activate_land':
+        return this.activateLand(args);
+      case 'deactivate_land':
+        return this.deactivateLand(args);
 
       // Sales Channel Management
       case 'create_sales_channel':
@@ -122,6 +176,16 @@ export class ToolHandler {
         return this.deactivateSalesChannel(args);
       case 'get_sales_channel_statistics':
         return this.getSalesChannelStatistics(args);
+      case 'get_sales_channels_by_type':
+        return this.getSalesChannelsByType(args);
+      case 'get_active_sales_channels':
+        return this.getActiveSalesChannels(args);
+      case 'search_sales_channels':
+        return this.searchSalesChannels(args);
+      case 'get_sales_channel_configuration':
+        return this.getSalesChannelConfiguration(args);
+      case 'update_sales_channel_configuration':
+        return this.updateSalesChannelConfiguration(args);
 
       // Translation Management
       case 'create_translation':
@@ -1660,6 +1724,506 @@ export class ToolHandler {
       return {
         success: false,
         error: error.message || 'Failed to delete attribute value'
+      };
+    }
+  }
+
+  // New Inventory Management Methods
+  async deleteInventory(args) {
+    try {
+      const response = await this.apiClient.deleteInventory(args);
+      return {
+        success: true,
+        data: response.data,
+        message: 'Inventory deleted successfully'
+      };
+    } catch (error) {
+      return {
+        success: false,
+        error: error.message || 'Failed to delete inventory'
+      };
+    }
+  }
+
+  async bulkUpdateInventory(args) {
+    try {
+      const response = await this.apiClient.bulkUpdateInventory(args);
+      return {
+        success: true,
+        data: response.data,
+        message: 'Inventory bulk updated successfully'
+      };
+    } catch (error) {
+      return {
+        success: false,
+        error: error.message || 'Failed to bulk update inventory'
+      };
+    }
+  }
+
+  async releaseInventoryReservation(args) {
+    try {
+      const response = await this.apiClient.releaseInventoryReservation(args);
+      return {
+        success: true,
+        data: response.data,
+        message: 'Inventory reservation released successfully'
+      };
+    } catch (error) {
+      return {
+        success: false,
+        error: error.message || 'Failed to release inventory reservation'
+      };
+    }
+  }
+
+  async getInventoryMovements(args) {
+    try {
+      const response = await this.apiClient.getInventoryMovements(args);
+      return {
+        success: true,
+        data: response.data,
+        message: 'Inventory movements retrieved successfully'
+      };
+    } catch (error) {
+      return {
+        success: false,
+        error: error.message || 'Failed to get inventory movements'
+      };
+    }
+  }
+
+  async getInventoryStatistics(args) {
+    try {
+      const response = await this.apiClient.getInventoryStatistics(args);
+      return {
+        success: true,
+        data: response.data,
+        message: 'Inventory statistics retrieved successfully'
+      };
+    } catch (error) {
+      return {
+        success: false,
+        error: error.message || 'Failed to get inventory statistics'
+      };
+    }
+  }
+
+  // Land Management Methods
+  async createLand(args) {
+    try {
+      const response = await this.apiClient.createLand(args);
+      return {
+        success: true,
+        data: response.data,
+        message: 'Land created successfully'
+      };
+    } catch (error) {
+      return {
+        success: false,
+        error: error.message || 'Failed to create land'
+      };
+    }
+  }
+
+  async getLand(args) {
+    try {
+      const response = await this.apiClient.getLand(args);
+      return {
+        success: true,
+        data: response.data,
+        message: 'Land retrieved successfully'
+      };
+    } catch (error) {
+      return {
+        success: false,
+        error: error.message || 'Failed to get land'
+      };
+    }
+  }
+
+  async getLandByCode(args) {
+    try {
+      const response = await this.apiClient.getLandByCode(args);
+      return {
+        success: true,
+        data: response.data,
+        message: 'Land retrieved by code successfully'
+      };
+    } catch (error) {
+      return {
+        success: false,
+        error: error.message || 'Failed to get land by code'
+      };
+    }
+  }
+
+  async listLands(args) {
+    try {
+      const response = await this.apiClient.listLands(args);
+      return {
+        success: true,
+        data: response.data,
+        message: 'Lands listed successfully'
+      };
+    } catch (error) {
+      return {
+        success: false,
+        error: error.message || 'Failed to list lands'
+      };
+    }
+  }
+
+  async updateLand(args) {
+    try {
+      const response = await this.apiClient.updateLand(args);
+      return {
+        success: true,
+        data: response.data,
+        message: 'Land updated successfully'
+      };
+    } catch (error) {
+      return {
+        success: false,
+        error: error.message || 'Failed to update land'
+      };
+    }
+  }
+
+  async deleteLand(args) {
+    try {
+      const response = await this.apiClient.deleteLand(args);
+      return {
+        success: true,
+        data: response.data,
+        message: 'Land deleted successfully'
+      };
+    } catch (error) {
+      return {
+        success: false,
+        error: error.message || 'Failed to delete land'
+      };
+    }
+  }
+
+  async activateLand(args) {
+    try {
+      const response = await this.apiClient.activateLand(args);
+      return {
+        success: true,
+        data: response.data,
+        message: 'Land activated successfully'
+      };
+    } catch (error) {
+      return {
+        success: false,
+        error: error.message || 'Failed to activate land'
+      };
+    }
+  }
+
+  async deactivateLand(args) {
+    try {
+      const response = await this.apiClient.deactivateLand(args);
+      return {
+        success: true,
+        data: response.data,
+        message: 'Land deactivated successfully'
+      };
+    } catch (error) {
+      return {
+        success: false,
+        error: error.message || 'Failed to deactivate land'
+      };
+    }
+  }
+
+  async getLandsByPartner(args) {
+    try {
+      const response = await this.apiClient.getLandsByPartner(args);
+      return {
+        success: true,
+        data: response.data,
+        message: 'Lands by partner retrieved successfully'
+      };
+    } catch (error) {
+      return {
+        success: false,
+        error: error.message || 'Failed to get lands by partner'
+      };
+    }
+  }
+
+  async getLandStatistics(args) {
+    try {
+      const response = await this.apiClient.getLandStatistics(args);
+      return {
+        success: true,
+        data: response.data,
+        message: 'Land statistics retrieved successfully'
+      };
+    } catch (error) {
+      return {
+        success: false,
+        error: error.message || 'Failed to get land statistics'
+      };
+    }
+  }
+
+  // Partner Management Methods
+  async updatePartner(args) {
+    try {
+      const response = await this.apiClient.updatePartner(args);
+      return {
+        success: true,
+        data: response.data,
+        message: 'Partner updated successfully'
+      };
+    } catch (error) {
+      return {
+        success: false,
+        error: error.message || 'Failed to update partner'
+      };
+    }
+  }
+
+  async deletePartner(args) {
+    try {
+      const response = await this.apiClient.deletePartner(args);
+      return {
+        success: true,
+        data: response.data,
+        message: 'Partner deleted successfully'
+      };
+    } catch (error) {
+      return {
+        success: false,
+        error: error.message || 'Failed to delete partner'
+      };
+    }
+  }
+
+  async getPartnerByCode(args) {
+    try {
+      const response = await this.apiClient.getPartnerByCode(args);
+      return {
+        success: true,
+        data: response.data,
+        message: 'Partner retrieved by code successfully'
+      };
+    } catch (error) {
+      return {
+        success: false,
+        error: error.message || 'Failed to get partner by code'
+      };
+    }
+  }
+
+  async activatePartner(args) {
+    try {
+      const response = await this.apiClient.activatePartner(args);
+      return {
+        success: true,
+        data: response.data,
+        message: 'Partner activated successfully'
+      };
+    } catch (error) {
+      return {
+        success: false,
+        error: error.message || 'Failed to activate partner'
+      };
+    }
+  }
+
+  async deactivatePartner(args) {
+    try {
+      const response = await this.apiClient.deactivatePartner(args);
+      return {
+        success: true,
+        data: response.data,
+        message: 'Partner deactivated successfully'
+      };
+    } catch (error) {
+      return {
+        success: false,
+        error: error.message || 'Failed to deactivate partner'
+      };
+    }
+  }
+
+  async getPartnerBalance(args) {
+    try {
+      const response = await this.apiClient.getPartnerBalance(args);
+      return {
+        success: true,
+        data: response.data,
+        message: 'Partner balance retrieved successfully'
+      };
+    } catch (error) {
+      return {
+        success: false,
+        error: error.message || 'Failed to get partner balance'
+      };
+    }
+  }
+
+  async getPartnerStatistics(args) {
+    try {
+      const response = await this.apiClient.getPartnerStatistics(args);
+      return {
+        success: true,
+        data: response.data,
+        message: 'Partner statistics retrieved successfully'
+      };
+    } catch (error) {
+      return {
+        success: false,
+        error: error.message || 'Failed to get partner statistics'
+      };
+    }
+  }
+
+  async getPartnerTierBenefits(args) {
+    try {
+      const response = await this.apiClient.getPartnerTierBenefits(args);
+      return {
+        success: true,
+        data: response.data,
+        message: 'Partner tier benefits retrieved successfully'
+      };
+    } catch (error) {
+      return {
+        success: false,
+        error: error.message || 'Failed to get partner tier benefits'
+      };
+    }
+  }
+
+  async searchPartners(args) {
+    try {
+      const response = await this.apiClient.searchPartners(args);
+      return {
+        success: true,
+        data: response.data,
+        message: 'Partners searched successfully'
+      };
+    } catch (error) {
+      return {
+        success: false,
+        error: error.message || 'Failed to search partners'
+      };
+    }
+  }
+
+  async getPartnersByType(args) {
+    try {
+      const response = await this.apiClient.getPartnersByType(args);
+      return {
+        success: true,
+        data: response.data,
+        message: 'Partners by type retrieved successfully'
+      };
+    } catch (error) {
+      return {
+        success: false,
+        error: error.message || 'Failed to get partners by type'
+      };
+    }
+  }
+
+  async getPartnersByTier(args) {
+    try {
+      const response = await this.apiClient.getPartnersByTier(args);
+      return {
+        success: true,
+        data: response.data,
+        message: 'Partners by tier retrieved successfully'
+      };
+    } catch (error) {
+      return {
+        success: false,
+        error: error.message || 'Failed to get partners by tier'
+      };
+    }
+  }
+
+  // Sales Channel Management Methods
+  async getSalesChannelsByType(args) {
+    try {
+      const response = await this.apiClient.getSalesChannelsByType(args);
+      return {
+        success: true,
+        data: response.data,
+        message: 'Sales channels by type retrieved successfully'
+      };
+    } catch (error) {
+      return {
+        success: false,
+        error: error.message || 'Failed to get sales channels by type'
+      };
+    }
+  }
+
+  async getActiveSalesChannels(args) {
+    try {
+      const response = await this.apiClient.getActiveSalesChannels(args);
+      return {
+        success: true,
+        data: response.data,
+        message: 'Active sales channels retrieved successfully'
+      };
+    } catch (error) {
+      return {
+        success: false,
+        error: error.message || 'Failed to get active sales channels'
+      };
+    }
+  }
+
+  async searchSalesChannels(args) {
+    try {
+      const response = await this.apiClient.searchSalesChannels(args);
+      return {
+        success: true,
+        data: response.data,
+        message: 'Sales channels searched successfully'
+      };
+    } catch (error) {
+      return {
+        success: false,
+        error: error.message || 'Failed to search sales channels'
+      };
+    }
+  }
+
+  async getSalesChannelConfiguration(args) {
+    try {
+      const response = await this.apiClient.getSalesChannelConfiguration(args);
+      return {
+        success: true,
+        data: response.data,
+        message: 'Sales channel configuration retrieved successfully'
+      };
+    } catch (error) {
+      return {
+        success: false,
+        error: error.message || 'Failed to get sales channel configuration'
+      };
+    }
+  }
+
+  async updateSalesChannelConfiguration(args) {
+    try {
+      const response = await this.apiClient.updateSalesChannelConfiguration(args);
+      return {
+        success: true,
+        data: response.data,
+        message: 'Sales channel configuration updated successfully'
+      };
+    } catch (error) {
+      return {
+        success: false,
+        error: error.message || 'Failed to update sales channel configuration'
       };
     }
   }

@@ -11,7 +11,7 @@ export const toolDefinitions = [
         sku: { type: 'string', description: 'Mã SKU duy nhất của sản phẩm' },
         productType: {
           type: 'string',
-          enum: ['simple', 'configurable', 'bundle', 'grouped', 'virtual'],
+          enum: ['simple', 'configurable', 'grouped', 'bundle', 'combo', 'virtual', 'gift_card', 'flight_ticket', 'park_ticket', 'hotel_room', 'souvenir', 'gift_item'],
           description: 'Loại sản phẩm'
         },
         categoryId: { type: 'string', description: 'UUID danh mục' },
@@ -37,7 +37,7 @@ export const toolDefinitions = [
         categoryId: { type: 'string', description: 'Lọc theo UUID danh mục' },
         productType: {
           type: 'string',
-          enum: ['simple', 'configurable', 'bundle', 'grouped', 'virtual']
+          enum: ['simple', 'configurable', 'grouped', 'bundle', 'combo', 'virtual', 'gift_card', 'flight_ticket', 'park_ticket', 'hotel_room', 'souvenir', 'gift_item']
         },
         status: {
           type: 'string',
@@ -1292,7 +1292,768 @@ export const toolDefinitions = [
     },
   },
 
-  // System Tools
+  // Inventory Management Tools
+  {
+    name: 'list_inventories',
+    description: 'Lấy danh sách tồn kho có phân trang và bộ lọc',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        page: { type: 'number', default: 1, description: 'Số trang' },
+        limit: { type: 'number', default: 10, description: 'Số bản ghi mỗi trang' },
+        product_id: { type: 'string', description: 'Lọc theo ID sản phẩm' },
+        variant_id: { type: 'string', description: 'Lọc theo ID variant' },
+        channel_id: { type: 'string', description: 'Lọc theo ID kênh bán' },
+        partner_id: { type: 'string', description: 'Lọc theo ID đối tác' },
+        allocation_type: { type: 'string', description: 'Lọc theo loại phân bổ' },
+        location: { type: 'string', description: 'Lọc theo vị trí kho' },
+      },
+    },
+  },
+  {
+    name: 'create_inventory',
+    description: 'Tạo mới bản ghi quản lý tồn kho cho sản phẩm',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        product_id: { type: 'string', description: 'UUID sản phẩm' },
+        variant_id: { type: 'string', description: 'UUID variant sản phẩm' },
+        quantity: { type: 'number', minimum: 0, description: 'Số lượng tồn kho' },
+        location: { type: 'string', description: 'Vị trí kho' },
+        allocation_type: { type: 'string', enum: ['GENERAL', 'CHANNEL', 'PARTNER'], description: 'Loại phân bổ' },
+        channel_id: { type: 'string', description: 'UUID kênh bán (nếu allocation_type = CHANNEL)' },
+        partner_id: { type: 'string', description: 'UUID đối tác (nếu allocation_type = PARTNER)' },
+      },
+      required: ['product_id', 'quantity', 'location', 'allocation_type'],
+    },
+  },
+  {
+    name: 'get_inventory',
+    description: 'Lấy thông tin chi tiết về một bản ghi tồn kho',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        id: { type: 'string', description: 'UUID bản ghi tồn kho' },
+      },
+      required: ['id'],
+    },
+  },
+  {
+    name: 'update_inventory',
+    description: 'Cập nhật thông tin tồn kho',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        id: { type: 'string', description: 'UUID bản ghi tồn kho' },
+        quantity: { type: 'number', minimum: 0, description: 'Số lượng tồn kho mới' },
+        location: { type: 'string', description: 'Vị trí kho' },
+        reserved_quantity: { type: 'number', minimum: 0, description: 'Số lượng đã đặt trước' },
+      },
+      required: ['id'],
+    },
+  },
+  {
+    name: 'delete_inventory',
+    description: 'Xóa bản ghi tồn kho',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        id: { type: 'string', description: 'UUID bản ghi tồn kho cần xóa' },
+      },
+      required: ['id'],
+    },
+  },
+  {
+    name: 'bulk_update_inventory',
+    description: 'Cập nhật nhiều bản ghi tồn kho cùng một lúc',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        updates: {
+          type: 'array',
+          items: {
+            type: 'object',
+            properties: {
+              id: { type: 'string', description: 'UUID bản ghi tồn kho' },
+              quantity: { type: 'number', minimum: 0 },
+              location: { type: 'string' },
+              reserved_quantity: { type: 'number', minimum: 0 },
+            },
+            required: ['id'],
+          },
+        },
+      },
+      required: ['updates'],
+    },
+  },
+  {
+    name: 'get_inventory_by_allocation',
+    description: 'Lấy danh sách tồn kho được nhóm theo loại phân bổ',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        allocation_type: { type: 'string', enum: ['GENERAL', 'CHANNEL', 'PARTNER'], description: 'Loại phân bổ' },
+        page: { type: 'number', default: 1, description: 'Số trang' },
+        page_size: { type: 'number', default: 10, description: 'Số bản ghi mỗi trang' },
+      },
+      required: ['allocation_type'],
+    },
+  },
+  {
+    name: 'check_inventory_availability',
+    description: 'Kiểm tra xem có đủ tồn kho cho sản phẩm/variant hay không',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        variant_id: { type: 'string', description: 'UUID variant sản phẩm' },
+        quantity: { type: 'number', minimum: 1, description: 'Số lượng cần kiểm tra' },
+        channel_id: { type: 'string', description: 'UUID kênh bán' },
+        partner_id: { type: 'string', description: 'UUID đối tác' },
+        location: { type: 'string', description: 'Vị trí kho' },
+      },
+      required: ['variant_id', 'quantity'],
+    },
+  },
+  {
+    name: 'create_inventory_movement',
+    description: 'Ghi nhận các biến động tồn kho (nhập/xuất/chuyển kho)',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        inventory_id: { type: 'string', description: 'UUID bản ghi tồn kho' },
+        type: { type: 'string', enum: ['IN', 'OUT', 'TRANSFER'], description: 'Loại biến động' },
+        quantity: { type: 'number', description: 'Số lượng biến động (dương cho IN, âm cho OUT)' },
+        reason: { type: 'string', description: 'Lý do biến động' },
+        reference_id: { type: 'string', description: 'ID tham chiếu (đơn hàng, phiếu nhập, v.v.)' },
+        notes: { type: 'string', description: 'Ghi chú thêm' },
+      },
+      required: ['inventory_id', 'type', 'quantity', 'reason'],
+    },
+  },
+  {
+    name: 'get_inventory_by_product',
+    description: 'Lấy danh sách tồn kho của tất cả variant thuộc sản phẩm',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        product_id: { type: 'string', description: 'UUID sản phẩm' },
+      },
+      required: ['product_id'],
+    },
+  },
+  {
+    name: 'get_inventory_by_variant',
+    description: 'Lấy danh sách tồn kho của một variant cụ thể',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        variant_id: { type: 'string', description: 'UUID variant sản phẩm' },
+      },
+      required: ['variant_id'],
+    },
+  },
+  {
+    name: 'reserve_inventory',
+    description: 'Đặt trước tồn kho cho kênh bán hoặc đối tác cụ thể',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        variant_id: { type: 'string', description: 'UUID variant sản phẩm' },
+        quantity: { type: 'number', minimum: 1, description: 'Số lượng cần đặt trước' },
+        channel_id: { type: 'string', description: 'UUID kênh bán' },
+        partner_id: { type: 'string', description: 'UUID đối tác' },
+        reservation_expires_at: { type: 'string', format: 'date-time', description: 'Thời gian hết hạn đặt trước' },
+        reference_id: { type: 'string', description: 'ID tham chiếu (đơn hàng, giỏ hàng)' },
+      },
+      required: ['variant_id', 'quantity'],
+    },
+  },
+  {
+    name: 'release_inventory_reservation',
+    description: 'Hủy việc đặt trước tồn kho đã thực hiện trước đó',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        variant_id: { type: 'string', description: 'UUID variant sản phẩm' },
+        quantity: { type: 'number', minimum: 1, description: 'Số lượng cần hủy đặt trước' },
+        channel_id: { type: 'string', description: 'UUID kênh bán' },
+        partner_id: { type: 'string', description: 'UUID đối tác' },
+        reference_id: { type: 'string', description: 'ID tham chiếu (đơn hàng, giỏ hàng)' },
+      },
+      required: ['variant_id', 'quantity'],
+    },
+  },
+  {
+    name: 'get_inventory_statistics',
+    description: 'Lấy thống kê tồn kho tổng quan',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        product_id: { type: 'string', description: 'Lọc theo UUID sản phẩm' },
+        category_id: { type: 'string', description: 'Lọc theo UUID danh mục' },
+        location: { type: 'string', description: 'Lọc theo vị trí kho' },
+        allocation_type: { type: 'string', enum: ['GENERAL', 'CHANNEL', 'PARTNER'], description: 'Lọc theo loại phân bổ' },
+      },
+    },
+  },
+
+  // Land Management Tools
+  {
+    name: 'list_lands',
+    description: 'Lấy danh sách các vùng đất/khu vực với phân trang và bộ lọc',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        page: { type: 'number', default: 1, description: 'Số trang' },
+        limit: { type: 'number', default: 10, description: 'Số bản ghi mỗi trang' },
+        country: { type: 'string', description: 'Lọc theo quốc gia' },
+        province: { type: 'string', description: 'Lọc theo tỉnh/thành' },
+        is_active: { type: 'boolean', description: 'Lọc theo trạng thái hoạt động' },
+        search: { type: 'string', description: 'Tìm kiếm theo tên hoặc mô tả' },
+      },
+    },
+  },
+  {
+    name: 'create_land',
+    description: 'Tạo mới một vùng đất/khu vực',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        name: { type: 'string', description: 'Tên vùng đất' },
+        code: { type: 'string', description: 'Mã vùng đất duy nhất' },
+        description: { type: 'string', description: 'Mô tả vùng đất' },
+        country: { type: 'string', description: 'Quốc gia' },
+        province: { type: 'string', description: 'Tỉnh/thành phố' },
+        district: { type: 'string', description: 'Quận/huyện' },
+        address: { type: 'string', description: 'Địa chỉ chi tiết' },
+        latitude: { type: 'number', description: 'Vĩ độ' },
+        longitude: { type: 'number', description: 'Kinh độ' },
+        area_size: { type: 'number', description: 'Diện tích (m²)' },
+        is_active: { type: 'boolean', default: true, description: 'Trạng thái hoạt động' },
+        metadata: { type: 'object', description: 'Thông tin bổ sung' },
+      },
+      required: ['name', 'code', 'country', 'province'],
+    },
+  },
+  {
+    name: 'get_land',
+    description: 'Lấy thông tin chi tiết về một vùng đất',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        id: { type: 'string', description: 'UUID vùng đất' },
+      },
+      required: ['id'],
+    },
+  },
+  {
+    name: 'get_land_by_code',
+    description: 'Lấy thông tin vùng đất theo mã code',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        code: { type: 'string', description: 'Mã vùng đất' },
+      },
+      required: ['code'],
+    },
+  },
+  {
+    name: 'update_land',
+    description: 'Cập nhật thông tin vùng đất',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        id: { type: 'string', description: 'UUID vùng đất' },
+        name: { type: 'string', description: 'Tên vùng đất' },
+        description: { type: 'string', description: 'Mô tả vùng đất' },
+        country: { type: 'string', description: 'Quốc gia' },
+        province: { type: 'string', description: 'Tỉnh/thành phố' },
+        district: { type: 'string', description: 'Quận/huyện' },
+        address: { type: 'string', description: 'Địa chỉ chi tiết' },
+        latitude: { type: 'number', description: 'Vĩ độ' },
+        longitude: { type: 'number', description: 'Kinh độ' },
+        area_size: { type: 'number', description: 'Diện tích (m²)' },
+        is_active: { type: 'boolean', description: 'Trạng thái hoạt động' },
+        metadata: { type: 'object', description: 'Thông tin bổ sung' },
+      },
+      required: ['id'],
+    },
+  },
+  {
+    name: 'delete_land',
+    description: 'Xóa vùng đất khỏi hệ thống',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        id: { type: 'string', description: 'UUID vùng đất cần xóa' },
+      },
+      required: ['id'],
+    },
+  },
+  {
+    name: 'search_lands',
+    description: 'Tìm kiếm vùng đất theo từ khóa',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        query: { type: 'string', description: 'Từ khóa tìm kiếm' },
+        country: { type: 'string', description: 'Lọc theo quốc gia' },
+        province: { type: 'string', description: 'Lọc theo tỉnh/thành' },
+        page: { type: 'number', default: 1, description: 'Số trang' },
+        limit: { type: 'number', default: 10, description: 'Số bản ghi mỗi trang' },
+      },
+      required: ['query'],
+    },
+  },
+  {
+    name: 'get_lands_by_country',
+    description: 'Lấy danh sách vùng đất theo quốc gia',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        country: { type: 'string', description: 'Tên quốc gia' },
+        page: { type: 'number', default: 1, description: 'Số trang' },
+        limit: { type: 'number', default: 10, description: 'Số bản ghi mỗi trang' },
+      },
+      required: ['country'],
+    },
+  },
+  {
+    name: 'get_lands_by_province',
+    description: 'Lấy danh sách vùng đất theo tỉnh/thành phố',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        province: { type: 'string', description: 'Tên tỉnh/thành phố' },
+        page: { type: 'number', default: 1, description: 'Số trang' },
+        limit: { type: 'number', default: 10, description: 'Số bản ghi mỗi trang' },
+      },
+      required: ['province'],
+    },
+  },
+  {
+    name: 'activate_land',
+    description: 'Kích hoạt vùng đất',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        id: { type: 'string', description: 'UUID vùng đất' },
+      },
+      required: ['id'],
+    },
+  },
+  {
+    name: 'deactivate_land',
+    description: 'Vô hiệu hóa vùng đất',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        id: { type: 'string', description: 'UUID vùng đất' },
+      },
+      required: ['id'],
+    },
+  },
+  {
+    name: 'get_land_parks',
+    description: 'Lấy danh sách công viên thuộc vùng đất',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        id: { type: 'string', description: 'UUID vùng đất' },
+        page: { type: 'number', default: 1, description: 'Số trang' },
+        limit: { type: 'number', default: 10, description: 'Số bản ghi mỗi trang' },
+      },
+      required: ['id'],
+    },
+  },
+  {
+    name: 'get_land_statistics',
+    description: 'Lấy thống kê của vùng đất',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        id: { type: 'string', description: 'UUID vùng đất' },
+      },
+      required: ['id'],
+    },
+  },
+
+  // Partner Management Tools
+  {
+    name: 'list_partners',
+    description: 'Lấy danh sách đối tác với phân trang và bộ lọc',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        page: { type: 'number', default: 1, description: 'Số trang' },
+        limit: { type: 'number', default: 10, description: 'Số bản ghi mỗi trang' },
+        name: { type: 'string', description: 'Lọc theo tên đối tác' },
+        type: { type: 'string', description: 'Lọc theo loại đối tác' },
+        tier: { type: 'string', description: 'Lọc theo cấp độ đối tác' },
+        is_active: { type: 'boolean', description: 'Lọc theo trạng thái hoạt động' },
+        country: { type: 'string', description: 'Lọc theo quốc gia' },
+        search: { type: 'string', description: 'Tìm kiếm theo tên hoặc mã đối tác' },
+      },
+    },
+  },
+  {
+    name: 'create_partner',
+    description: 'Tạo mới đối tác trong hệ thống',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        name: { type: 'string', description: 'Tên đối tác' },
+        code: { type: 'string', description: 'Mã đối tác duy nhất' },
+        type: { type: 'string', description: 'Loại đối tác (DISTRIBUTOR, RETAILER, SUPPLIER)' },
+        tier: { type: 'string', description: 'Cấp độ đối tác (BRONZE, SILVER, GOLD, PLATINUM)' },
+        email: { type: 'string', description: 'Email liên hệ' },
+        phone: { type: 'string', description: 'Số điện thoại' },
+        address: { type: 'string', description: 'Địa chỉ' },
+        country: { type: 'string', description: 'Quốc gia' },
+        province: { type: 'string', description: 'Tỉnh/thành phố' },
+        contact_person: { type: 'string', description: 'Người liên hệ' },
+        tax_code: { type: 'string', description: 'Mã số thuế' },
+        commission_rate: { type: 'number', description: 'Tỷ lệ hoa hồng (%)' },
+        credit_limit: { type: 'number', description: 'Hạn mức tín dụng' },
+        payment_terms: { type: 'string', description: 'Điều khoản thanh toán' },
+        is_active: { type: 'boolean', default: true, description: 'Trạng thái hoạt động' },
+        metadata: { type: 'object', description: 'Thông tin bổ sung' },
+      },
+      required: ['name', 'code', 'type', 'tier'],
+    },
+  },
+  {
+    name: 'get_partner',
+    description: 'Lấy thông tin chi tiết về một đối tác',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        id: { type: 'string', description: 'UUID đối tác' },
+      },
+      required: ['id'],
+    },
+  },
+  {
+    name: 'get_partner_by_code',
+    description: 'Lấy thông tin đối tác theo mã code',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        code: { type: 'string', description: 'Mã đối tác' },
+      },
+      required: ['code'],
+    },
+  },
+  {
+    name: 'update_partner',
+    description: 'Cập nhật thông tin đối tác',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        id: { type: 'string', description: 'UUID đối tác' },
+        name: { type: 'string', description: 'Tên đối tác' },
+        type: { type: 'string', description: 'Loại đối tác' },
+        tier: { type: 'string', description: 'Cấp độ đối tác' },
+        email: { type: 'string', description: 'Email liên hệ' },
+        phone: { type: 'string', description: 'Số điện thoại' },
+        address: { type: 'string', description: 'Địa chỉ' },
+        country: { type: 'string', description: 'Quốc gia' },
+        province: { type: 'string', description: 'Tỉnh/thành phố' },
+        contact_person: { type: 'string', description: 'Người liên hệ' },
+        tax_code: { type: 'string', description: 'Mã số thuế' },
+        commission_rate: { type: 'number', description: 'Tỷ lệ hoa hồng (%)' },
+        credit_limit: { type: 'number', description: 'Hạn mức tín dụng' },
+        payment_terms: { type: 'string', description: 'Điều khoản thanh toán' },
+        is_active: { type: 'boolean', description: 'Trạng thái hoạt động' },
+        metadata: { type: 'object', description: 'Thông tin bổ sung' },
+      },
+      required: ['id'],
+    },
+  },
+  {
+    name: 'delete_partner',
+    description: 'Xóa đối tác khỏi hệ thống',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        id: { type: 'string', description: 'UUID đối tác cần xóa' },
+      },
+      required: ['id'],
+    },
+  },
+  {
+    name: 'activate_partner',
+    description: 'Kích hoạt đối tác',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        id: { type: 'string', description: 'UUID đối tác' },
+      },
+      required: ['id'],
+    },
+  },
+  {
+    name: 'deactivate_partner',
+    description: 'Vô hiệu hóa đối tác',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        id: { type: 'string', description: 'UUID đối tác' },
+      },
+      required: ['id'],
+    },
+  },
+  {
+    name: 'get_partner_balance',
+    description: 'Lấy thông tin số dư tài khoản của đối tác',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        id: { type: 'string', description: 'UUID đối tác' },
+      },
+      required: ['id'],
+    },
+  },
+  {
+    name: 'get_partner_statistics',
+    description: 'Lấy thống kê hoạt động của đối tác',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        id: { type: 'string', description: 'UUID đối tác' },
+        from_date: { type: 'string', description: 'Ngày bắt đầu (YYYY-MM-DD)' },
+        to_date: { type: 'string', description: 'Ngày kết thúc (YYYY-MM-DD)' },
+      },
+      required: ['id'],
+    },
+  },
+  {
+    name: 'get_partner_tier_benefits',
+    description: 'Lấy danh sách quyền lợi theo cấp độ đối tác',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        tier: { type: 'string', description: 'Cấp độ đối tác (BRONZE, SILVER, GOLD, PLATINUM)' },
+      },
+      required: ['tier'],
+    },
+  },
+  {
+    name: 'search_partners',
+    description: 'Tìm kiếm đối tác theo từ khóa',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        query: { type: 'string', description: 'Từ khóa tìm kiếm' },
+        type: { type: 'string', description: 'Lọc theo loại đối tác' },
+        tier: { type: 'string', description: 'Lọc theo cấp độ' },
+        country: { type: 'string', description: 'Lọc theo quốc gia' },
+        page: { type: 'number', default: 1, description: 'Số trang' },
+        limit: { type: 'number', default: 10, description: 'Số bản ghi mỗi trang' },
+      },
+      required: ['query'],
+    },
+  },
+  {
+    name: 'get_partners_by_type',
+    description: 'Lấy danh sách đối tác theo loại',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        type: { type: 'string', description: 'Loại đối tác (DISTRIBUTOR, RETAILER, SUPPLIER)' },
+        page: { type: 'number', default: 1, description: 'Số trang' },
+        limit: { type: 'number', default: 10, description: 'Số bản ghi mỗi trang' },
+      },
+      required: ['type'],
+    },
+  },
+  {
+    name: 'get_partners_by_tier',
+    description: 'Lấy danh sách đối tác theo cấp độ',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        tier: { type: 'string', description: 'Cấp độ đối tác (BRONZE, SILVER, GOLD, PLATINUM)' },
+        page: { type: 'number', default: 1, description: 'Số trang' },
+        limit: { type: 'number', default: 10, description: 'Số bản ghi mỗi trang' },
+      },
+      required: ['tier'],
+    },
+  },
+
+  // Sales Channel Management Tools
+  {
+    name: 'list_sales_channels',
+    description: 'Lấy danh sách kênh bán hàng với phân trang và bộ lọc',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        page: { type: 'number', default: 1, description: 'Số trang' },
+        limit: { type: 'number', default: 10, description: 'Số bản ghi mỗi trang' },
+        name: { type: 'string', description: 'Lọc theo tên kênh bán' },
+        type: { type: 'string', description: 'Lọc theo loại kênh bán' },
+        is_active: { type: 'boolean', description: 'Lọc theo trạng thái hoạt động' },
+        country: { type: 'string', description: 'Lọc theo quốc gia' },
+        search: { type: 'string', description: 'Tìm kiếm theo tên hoặc mã kênh' },
+      },
+    },
+  },
+  {
+    name: 'create_sales_channel',
+    description: 'Tạo mới kênh bán hàng',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        name: { type: 'string', description: 'Tên kênh bán hàng' },
+        code: { type: 'string', description: 'Mã kênh bán duy nhất' },
+        type: { type: 'string', description: 'Loại kênh bán (ONLINE, OFFLINE, MARKETPLACE, MOBILE_APP)' },
+        description: { type: 'string', description: 'Mô tả kênh bán' },
+        url: { type: 'string', description: 'URL kênh bán (nếu có)' },
+        country: { type: 'string', description: 'Quốc gia hoạt động' },
+        currency: { type: 'string', description: 'Đơn vị tiền tệ' },
+        language: { type: 'string', description: 'Ngôn ngữ mặc định' },
+        commission_rate: { type: 'number', description: 'Tỷ lệ hoa hồng (%)' },
+        is_active: { type: 'boolean', default: true, description: 'Trạng thái hoạt động' },
+        settings: { type: 'object', description: 'Cài đặt kênh bán' },
+        metadata: { type: 'object', description: 'Thông tin bổ sung' },
+      },
+      required: ['name', 'code', 'type'],
+    },
+  },
+  {
+    name: 'get_sales_channel',
+    description: 'Lấy thông tin chi tiết về một kênh bán hàng',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        id: { type: 'string', description: 'UUID kênh bán hàng' },
+      },
+      required: ['id'],
+    },
+  },
+  {
+    name: 'get_sales_channel_by_code',
+    description: 'Lấy thông tin kênh bán hàng theo mã code',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        code: { type: 'string', description: 'Mã kênh bán hàng' },
+      },
+      required: ['code'],
+    },
+  },
+  {
+    name: 'update_sales_channel',
+    description: 'Cập nhật thông tin kênh bán hàng',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        id: { type: 'string', description: 'UUID kênh bán hàng' },
+        name: { type: 'string', description: 'Tên kênh bán hàng' },
+        type: { type: 'string', description: 'Loại kênh bán' },
+        description: { type: 'string', description: 'Mô tả kênh bán' },
+        url: { type: 'string', description: 'URL kênh bán' },
+        country: { type: 'string', description: 'Quốc gia hoạt động' },
+        currency: { type: 'string', description: 'Đơn vị tiền tệ' },
+        language: { type: 'string', description: 'Ngôn ngữ mặc định' },
+        commission_rate: { type: 'number', description: 'Tỷ lệ hoa hồng (%)' },
+        is_active: { type: 'boolean', description: 'Trạng thái hoạt động' },
+        settings: { type: 'object', description: 'Cài đặt kênh bán' },
+        metadata: { type: 'object', description: 'Thông tin bổ sung' },
+      },
+      required: ['id'],
+    },
+  },
+  {
+    name: 'delete_sales_channel',
+    description: 'Xóa kênh bán hàng khỏi hệ thống',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        id: { type: 'string', description: 'UUID kênh bán hàng cần xóa' },
+      },
+      required: ['id'],
+    },
+  },
+  {
+    name: 'activate_sales_channel',
+    description: 'Kích hoạt kênh bán hàng',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        id: { type: 'string', description: 'UUID kênh bán hàng' },
+      },
+      required: ['id'],
+    },
+  },
+  {
+    name: 'deactivate_sales_channel',
+    description: 'Vô hiệu hóa kênh bán hàng',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        id: { type: 'string', description: 'UUID kênh bán hàng' },
+      },
+      required: ['id'],
+    },
+  },
+  {
+    name: 'get_sales_channel_statistics',
+    description: 'Lấy thống kê hoạt động của kênh bán hàng',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        id: { type: 'string', description: 'UUID kênh bán hàng' },
+        from_date: { type: 'string', description: 'Ngày bắt đầu (YYYY-MM-DD)' },
+        to_date: { type: 'string', description: 'Ngày kết thúc (YYYY-MM-DD)' },
+        metrics: { type: 'array', items: { type: 'string' }, description: 'Các chỉ số cần thống kê' },
+      },
+      required: ['id'],
+    },
+  },
+  {
+    name: 'search_sales_channels',
+    description: 'Tìm kiếm kênh bán hàng theo từ khóa',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        query: { type: 'string', description: 'Từ khóa tìm kiếm' },
+        type: { type: 'string', description: 'Lọc theo loại kênh bán' },
+        country: { type: 'string', description: 'Lọc theo quốc gia' },
+        page: { type: 'number', default: 1, description: 'Số trang' },
+        limit: { type: 'number', default: 10, description: 'Số bản ghi mỗi trang' },
+      },
+      required: ['query'],
+    },
+  },
+  {
+    name: 'get_sales_channels_by_type',
+    description: 'Lấy danh sách kênh bán hàng theo loại',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        type: { type: 'string', description: 'Loại kênh bán (ONLINE, OFFLINE, MARKETPLACE, MOBILE_APP)' },
+        page: { type: 'number', default: 1, description: 'Số trang' },
+        limit: { type: 'number', default: 10, description: 'Số bản ghi mỗi trang' },
+      },
+      required: ['type'],
+    },
+  },
+  {
+    name: 'get_sales_channels_by_country',
+    description: 'Lấy danh sách kênh bán hàng theo quốc gia',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        country: { type: 'string', description: 'Tên quốc gia' },
+        page: { type: 'number', default: 1, description: 'Số trang' },
+        limit: { type: 'number', default: 10, description: 'Số bản ghi mỗi trang' },
+      },
+      required: ['country'],
+    },
+  },
+
+  // System Health Tools
   {
     name: 'get_system_health',
     description: 'Kiểm tra tình trạng hệ thống',
