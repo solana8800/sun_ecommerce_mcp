@@ -1,7 +1,7 @@
 // Base configuration defaults
 export const defaultConfig = {
-  baseUrl: 'http://42.96.60.253:8080',
-  apiVersion: 'v1',
+  baseUrl: "http://42.96.60.253:8080",
+  apiVersion: "v1",
   timeout: 30000,
   retries: 3,
   enableLogging: true,
@@ -9,79 +9,79 @@ export const defaultConfig = {
 
 // Enum constants
 export const ProductType = {
-  SIMPLE: 'simple',
-  CONFIGURABLE: 'configurable',
-  BUNDLE: 'bundle',
-  GROUPED: 'grouped',
-  VIRTUAL: 'virtual',
+  SIMPLE: "simple",
+  CONFIGURABLE: "configurable",
+  BUNDLE: "bundle",
+  GROUPED: "grouped",
+  VIRTUAL: "virtual",
 };
 
 export const ProductStatus = {
-  ACTIVE: 'active',
-  INACTIVE: 'inactive',
-  DRAFT: 'draft',
-  ARCHIVED: 'archived',
+  ACTIVE: "active",
+  INACTIVE: "inactive",
+  DRAFT: "draft",
+  ARCHIVED: "archived",
 };
 
 export const PricingRuleType = {
-  PERCENTAGE_DISCOUNT: 'percentage_discount',
-  FIXED_DISCOUNT: 'fixed_discount',
-  BUY_X_GET_Y: 'buy_x_get_y',
-  TIER_PRICING: 'tier_pricing',
-  BULK_DISCOUNT: 'bulk_discount',
+  PERCENTAGE_DISCOUNT: "percentage_discount",
+  FIXED_DISCOUNT: "fixed_discount",
+  BUY_X_GET_Y: "buy_x_get_y",
+  TIER_PRICING: "tier_pricing",
+  BULK_DISCOUNT: "bulk_discount",
 };
 
 export const DiscountType = {
-  PERCENTAGE: 'percentage',
-  FIXED_AMOUNT: 'fixed_amount',
+  PERCENTAGE: "percentage",
+  FIXED_AMOUNT: "fixed_amount",
 };
 
 export const MediaType = {
-  IMAGE: 'image',
-  VIDEO: 'video',
-  DOCUMENT: 'document',
-  AUDIO: 'audio',
+  IMAGE: "image",
+  VIDEO: "video",
+  DOCUMENT: "document",
+  AUDIO: "audio",
 };
 
 export const EntityType = {
-  PRODUCT: 'product',
-  CATEGORY: 'category',
-  USER: 'user',
-  ORDER: 'order',
+  PRODUCT: "product",
+  CATEGORY: "category",
+  USER: "user",
+  ORDER: "order",
 };
 
 export const PartnerTier = {
-  BRONZE: 'bronze',
-  SILVER: 'silver',
-  GOLD: 'gold',
-  PLATINUM: 'platinum',
+  BRONZE: "bronze",
+  SILVER: "silver",
+  GOLD: "gold",
+  PLATINUM: "platinum",
 };
 
 export const PartnerStatus = {
-  ACTIVE: 'active',
-  INACTIVE: 'inactive',
-  PENDING: 'pending',
-  SUSPENDED: 'suspended',
+  ACTIVE: "active",
+  INACTIVE: "inactive",
+  PENDING: "pending",
+  SUSPENDED: "suspended",
 };
 
 export const ChannelType = {
-  ONLINE: 'online',
-  RETAIL: 'retail',
-  WHOLESALE: 'wholesale',
-  MARKETPLACE: 'marketplace',
+  ONLINE: "online",
+  RETAIL: "retail",
+  WHOLESALE: "wholesale",
+  MARKETPLACE: "marketplace",
 };
 
 export const LanguageCode = {
-  EN: 'en',
-  ES: 'es',
-  FR: 'fr',
-  DE: 'de',
-  IT: 'it',
-  PT: 'pt',
-  JA: 'ja',
-  KO: 'ko',
-  ZH: 'zh',
-  AR: 'ar',
+  EN: "en",
+  ES: "es",
+  FR: "fr",
+  DE: "de",
+  IT: "it",
+  PT: "pt",
+  JA: "ja",
+  KO: "ko",
+  ZH: "zh",
+  AR: "ar",
 };
 
 // Default values for common objects
@@ -93,7 +93,7 @@ export const defaultPagination = {
 export const defaultProductStatus = ProductStatus.DRAFT;
 export const defaultPartnerTier = PartnerTier.BRONZE;
 export const defaultPartnerStatus = PartnerStatus.PENDING;
-export const defaultChannelCurrency = 'USD';
+export const defaultChannelCurrency = "USD";
 export const defaultCommissionRate = 5;
 export const defaultTaxRate = 0;
 export const defaultLowStockThreshold = 10;
@@ -102,7 +102,8 @@ export const defaultPriority = 0;
 
 // Utility functions for validation (basic)
 export const isValidUUID = (str) => {
-  const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+  const uuidRegex =
+    /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
   return uuidRegex.test(str);
 };
 
@@ -122,8 +123,8 @@ export const isValidUrl = (url) => {
 
 // Helper functions for creating default objects
 export const createDefaultProduct = (overrides = {}) => ({
-  name: '',
-  sku: '',
+  name: "",
+  sku: "",
   productType: ProductType.SIMPLE,
   status: ProductStatus.DRAFT,
   tags: [],
@@ -131,15 +132,15 @@ export const createDefaultProduct = (overrides = {}) => ({
 });
 
 export const createDefaultCategory = (overrides = {}) => ({
-  name: '',
-  slug: '',
+  name: "",
+  slug: "",
   isActive: true,
   sortOrder: defaultSortOrder,
   ...overrides,
 });
 
 export const createDefaultPricingRule = (overrides = {}) => ({
-  name: '',
+  name: "",
   ruleType: PricingRuleType.PERCENTAGE_DISCOUNT,
   discountType: DiscountType.PERCENTAGE,
   discountValue: 0,
@@ -160,8 +161,8 @@ export const createDefaultInventory = (overrides = {}) => ({
 });
 
 export const createDefaultPartner = (overrides = {}) => ({
-  name: '',
-  email: '',
+  name: "",
+  email: "",
   tier: PartnerTier.BRONZE,
   status: PartnerStatus.PENDING,
   commissionRate: defaultCommissionRate,
@@ -169,8 +170,8 @@ export const createDefaultPartner = (overrides = {}) => ({
 });
 
 export const createDefaultSalesChannel = (overrides = {}) => ({
-  name: '',
-  code: '',
+  name: "",
+  code: "",
   type: ChannelType.ONLINE,
   isActive: true,
   currency: defaultChannelCurrency,
