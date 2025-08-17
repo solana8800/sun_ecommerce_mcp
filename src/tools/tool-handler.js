@@ -1,5 +1,3 @@
-import { SunEcommerceApiClient } from "../client/api-client.js";
-
 export class ToolHandler {
   constructor(apiClient) {
     this.apiClient = apiClient;
@@ -7,282 +5,282 @@ export class ToolHandler {
 
   async handleTool(name, args) {
     switch (name) {
-      // Product Management
-      case "create_product":
-        return this.createProduct(args);
-      case "search_products":
-        return this.searchProducts(args);
-      case "get_product":
-        return this.getProduct(args);
-      case "update_product":
-        return this.updateProduct(args);
-      case "delete_product":
-        return this.deleteProduct(args);
-      case "get_product_by_handle":
-        return this.getProductByHandle(args);
+    // Product Management
+    case 'create_product':
+      return this.createProduct(args);
+    case 'search_products':
+      return this.searchProducts(args);
+    case 'get_product':
+      return this.getProduct(args);
+    case 'update_product':
+      return this.updateProduct(args);
+    case 'delete_product':
+      return this.deleteProduct(args);
+    case 'get_product_by_handle':
+      return this.getProductByHandle(args);
 
       // Category Management
-      case "create_category":
-        return this.createCategory(args);
-      case "list_categories":
-        return this.listCategories(args);
-      case "get_category":
-        return this.getCategory(args);
-      case "update_category":
-        return this.updateCategory(args);
-      case "delete_category":
-        return this.deleteCategory(args);
+    case 'create_category':
+      return this.createCategory(args);
+    case 'list_categories':
+      return this.listCategories(args);
+    case 'get_category':
+      return this.getCategory(args);
+    case 'update_category':
+      return this.updateCategory(args);
+    case 'delete_category':
+      return this.deleteCategory(args);
 
       // Pricing Rules
-      case "create_pricing_rule":
-        return this.createPricingRule(args);
-      case "get_pricing_rule":
-        return this.getPricingRule(args);
-      case "update_pricing_rule":
-        return this.updatePricingRule(args);
-      case "delete_pricing_rule":
-        return this.deletePricingRule(args);
-      case "apply_pricing_rules":
-        return this.applyPricingRules(args);
-      case "list_pricing_rules":
-        return this.listPricingRules(args);
-      case "validate_pricing_rule":
-        return this.validatePricingRule(args);
+    case 'create_pricing_rule':
+      return this.createPricingRule(args);
+    case 'get_pricing_rule':
+      return this.getPricingRule(args);
+    case 'update_pricing_rule':
+      return this.updatePricingRule(args);
+    case 'delete_pricing_rule':
+      return this.deletePricingRule(args);
+    case 'apply_pricing_rules':
+      return this.applyPricingRules(args);
+    case 'list_pricing_rules':
+      return this.listPricingRules(args);
+    case 'validate_pricing_rule':
+      return this.validatePricingRule(args);
 
       // Cart Management
-      case "create_cart":
-        return this.createCart(args);
-      case "add_cart_item":
-        return this.addCartItem(args);
-      case "update_cart_item":
-        return this.updateCartItem(args);
-      case "remove_cart_item":
-        return this.removeCartItem(args);
-      case "get_cart":
-        return this.getCart(args);
-      case "get_cart_summary":
-        return this.getCartSummary(args);
-      case "get_cart_items":
-        return this.getCartItems(args);
-      case "clear_cart":
-        return this.clearCart(args);
+    case 'create_cart':
+      return this.createCart(args);
+    case 'add_cart_item':
+      return this.addCartItem(args);
+    case 'update_cart_item':
+      return this.updateCartItem(args);
+    case 'remove_cart_item':
+      return this.removeCartItem(args);
+    case 'get_cart':
+      return this.getCart(args);
+    case 'get_cart_summary':
+      return this.getCartSummary(args);
+    case 'get_cart_items':
+      return this.getCartItems(args);
+    case 'clear_cart':
+      return this.clearCart(args);
 
       // Inventory Management
-      case "create_inventory":
-        return this.createInventory(args);
-      case "get_inventory":
-        return this.getInventory(args);
-      case "list_inventory":
-        return this.listInventory(args);
-      case "update_inventory":
-        return this.updateInventory(args);
-      case "delete_inventory":
-        return this.deleteInventory(args);
-      case "bulk_update_inventory":
-        return this.bulkUpdateInventory(args);
-      case "reserve_inventory":
-        return this.reserveInventory(args);
-      case "release_inventory_reservation":
-        return this.releaseInventoryReservation(args);
-      case "check_inventory_availability":
-        return this.checkInventoryAvailability(args);
-      case "get_inventory_movements":
-        return this.getInventoryMovements(args);
-      case "get_inventory_statistics":
-        return this.getInventoryStatistics(args);
-      case "get_inventory_by_product":
-        return this.getInventoryByProduct(args);
+    case 'create_inventory':
+      return this.createInventory(args);
+    case 'get_inventory':
+      return this.getInventory(args);
+    case 'list_inventory':
+      return this.listInventory(args);
+    case 'update_inventory':
+      return this.updateInventory(args);
+    case 'delete_inventory':
+      return this.deleteInventory(args);
+    case 'bulk_update_inventory':
+      return this.bulkUpdateInventory(args);
+    case 'reserve_inventory':
+      return this.reserveInventory(args);
+    case 'release_inventory_reservation':
+      return this.releaseInventoryReservation(args);
+    case 'check_inventory_availability':
+      return this.checkInventoryAvailability(args);
+    case 'get_inventory_movements':
+      return this.getInventoryMovements(args);
+    case 'get_inventory_statistics':
+      return this.getInventoryStatistics(args);
+    case 'get_inventory_by_product':
+      return this.getInventoryByProduct(args);
 
       // Media Management
-      case "upload_media":
-        return this.uploadMedia(args);
-      case "get_media":
-        return this.getMedia(args);
-      case "list_media":
-        return this.listMedia(args);
-      case "update_media":
-        return this.updateMedia(args);
-      case "delete_media":
-        return this.deleteMedia(args);
+    case 'upload_media':
+      return this.uploadMedia(args);
+    case 'get_media':
+      return this.getMedia(args);
+    case 'list_media':
+      return this.listMedia(args);
+    case 'update_media':
+      return this.updateMedia(args);
+    case 'delete_media':
+      return this.deleteMedia(args);
 
       // Partner Management
-      case "create_partner":
-        return this.createPartner(args);
-      case "get_partner":
-        return this.getPartner(args);
-      case "list_partners":
-        return this.listPartners(args);
-      case "update_partner":
-        return this.updatePartner(args);
-      case "delete_partner":
-        return this.deletePartner(args);
-      case "get_partner_by_code":
-        return this.getPartnerByCode(args);
-      case "activate_partner":
-        return this.activatePartner(args);
-      case "deactivate_partner":
-        return this.deactivatePartner(args);
-      case "get_partner_balance":
-        return this.getPartnerBalance(args);
-      case "get_partner_statistics":
-        return this.getPartnerStatistics(args);
-      case "get_partner_tier_benefits":
-        return this.getPartnerTierBenefits(args);
-      case "search_partners":
-        return this.searchPartners(args);
-      case "get_partners_by_type":
-        return this.getPartnersByType(args);
-      case "get_partners_by_tier":
-        return this.getPartnersByTier(args);
+    case 'create_partner':
+      return this.createPartner(args);
+    case 'get_partner':
+      return this.getPartner(args);
+    case 'list_partners':
+      return this.listPartners(args);
+    case 'update_partner':
+      return this.updatePartner(args);
+    case 'delete_partner':
+      return this.deletePartner(args);
+    case 'get_partner_by_code':
+      return this.getPartnerByCode(args);
+    case 'activate_partner':
+      return this.activatePartner(args);
+    case 'deactivate_partner':
+      return this.deactivatePartner(args);
+    case 'get_partner_balance':
+      return this.getPartnerBalance(args);
+    case 'get_partner_statistics':
+      return this.getPartnerStatistics(args);
+    case 'get_partner_tier_benefits':
+      return this.getPartnerTierBenefits(args);
+    case 'search_partners':
+      return this.searchPartners(args);
+    case 'get_partners_by_type':
+      return this.getPartnersByType(args);
+    case 'get_partners_by_tier':
+      return this.getPartnersByTier(args);
 
       // Land Management
-      case "create_land":
-        return this.createLand(args);
-      case "get_land":
-        return this.getLand(args);
-      case "list_lands":
-        return this.listLands(args);
-      case "update_land":
-        return this.updateLand(args);
-      case "delete_land":
-        return this.deleteLand(args);
-      case "get_land_by_code":
-        return this.getLandByCode(args);
-      case "get_lands_by_partner":
-        return this.getLandsByPartner(args);
-      case "get_land_statistics":
-        return this.getLandStatistics(args);
-      case "activate_land":
-        return this.activateLand(args);
-      case "deactivate_land":
-        return this.deactivateLand(args);
+    case 'create_land':
+      return this.createLand(args);
+    case 'get_land':
+      return this.getLand(args);
+    case 'list_lands':
+      return this.listLands(args);
+    case 'update_land':
+      return this.updateLand(args);
+    case 'delete_land':
+      return this.deleteLand(args);
+    case 'get_land_by_code':
+      return this.getLandByCode(args);
+    case 'get_lands_by_partner':
+      return this.getLandsByPartner(args);
+    case 'get_land_statistics':
+      return this.getLandStatistics(args);
+    case 'activate_land':
+      return this.activateLand(args);
+    case 'deactivate_land':
+      return this.deactivateLand(args);
 
       // Sales Channel Management
-      case "create_sales_channel":
-        return this.createSalesChannel(args);
-      case "get_sales_channel":
-        return this.getSalesChannel(args);
-      case "get_sales_channel_by_code":
-        return this.getSalesChannelByCode(args);
-      case "list_sales_channels":
-        return this.listSalesChannels(args);
-      case "update_sales_channel":
-        return this.updateSalesChannel(args);
-      case "delete_sales_channel":
-        return this.deleteSalesChannel(args);
-      case "activate_sales_channel":
-        return this.activateSalesChannel(args);
-      case "deactivate_sales_channel":
-        return this.deactivateSalesChannel(args);
-      case "get_sales_channel_statistics":
-        return this.getSalesChannelStatistics(args);
-      case "get_sales_channels_by_type":
-        return this.getSalesChannelsByType(args);
-      case "get_active_sales_channels":
-        return this.getActiveSalesChannels(args);
-      case "search_sales_channels":
-        return this.searchSalesChannels(args);
-      case "get_sales_channel_configuration":
-        return this.getSalesChannelConfiguration(args);
-      case "update_sales_channel_configuration":
-        return this.updateSalesChannelConfiguration(args);
+    case 'create_sales_channel':
+      return this.createSalesChannel(args);
+    case 'get_sales_channel':
+      return this.getSalesChannel(args);
+    case 'get_sales_channel_by_code':
+      return this.getSalesChannelByCode(args);
+    case 'list_sales_channels':
+      return this.listSalesChannels(args);
+    case 'update_sales_channel':
+      return this.updateSalesChannel(args);
+    case 'delete_sales_channel':
+      return this.deleteSalesChannel(args);
+    case 'activate_sales_channel':
+      return this.activateSalesChannel(args);
+    case 'deactivate_sales_channel':
+      return this.deactivateSalesChannel(args);
+    case 'get_sales_channel_statistics':
+      return this.getSalesChannelStatistics(args);
+    case 'get_sales_channels_by_type':
+      return this.getSalesChannelsByType(args);
+    case 'get_active_sales_channels':
+      return this.getActiveSalesChannels(args);
+    case 'search_sales_channels':
+      return this.searchSalesChannels(args);
+    case 'get_sales_channel_configuration':
+      return this.getSalesChannelConfiguration(args);
+    case 'update_sales_channel_configuration':
+      return this.updateSalesChannelConfiguration(args);
 
       // Translation Management
-      case "create_translation":
-        return this.createTranslation(args);
-      case "get_translation":
-        return this.getTranslation(args);
-      case "get_supported_languages":
-        return this.getSupportedLanguages(args);
+    case 'create_translation':
+      return this.createTranslation(args);
+    case 'get_translation':
+      return this.getTranslation(args);
+    case 'get_supported_languages':
+      return this.getSupportedLanguages();
 
       // Product Translation
-      case "create_product_translation":
-        return this.createProductTranslation(args);
-      case "get_product_translation":
-        return this.getProductTranslation(args);
-      case "update_product_translation":
-        return this.updateProductTranslation(args);
-      case "delete_product_translation":
-        return this.deleteProductTranslation(args);
-      case "list_product_translations":
-        return this.listProductTranslations(args);
+    case 'create_product_translation':
+      return this.createProductTranslation(args);
+    case 'get_product_translation':
+      return this.getProductTranslation(args);
+    case 'update_product_translation':
+      return this.updateProductTranslation(args);
+    case 'delete_product_translation':
+      return this.deleteProductTranslation(args);
+    case 'list_product_translations':
+      return this.listProductTranslations(args);
 
       // Category Translation
-      case "create_category_translation":
-        return this.createCategoryTranslation(args);
-      case "get_category_translation":
-        return this.getCategoryTranslation(args);
-      case "update_category_translation":
-        return this.updateCategoryTranslation(args);
-      case "delete_category_translation":
-        return this.deleteCategoryTranslation(args);
-      case "list_category_translations":
-        return this.listCategoryTranslations(args);
+    case 'create_category_translation':
+      return this.createCategoryTranslation(args);
+    case 'get_category_translation':
+      return this.getCategoryTranslation(args);
+    case 'update_category_translation':
+      return this.updateCategoryTranslation(args);
+    case 'delete_category_translation':
+      return this.deleteCategoryTranslation(args);
+    case 'list_category_translations':
+      return this.listCategoryTranslations(args);
 
       // Product Attribute Translation
-      case "create_product_attribute_translation":
-        return this.createProductAttributeTranslation(args);
-      case "get_product_attribute_translation":
-        return this.getProductAttributeTranslation(args);
-      case "update_product_attribute_translation":
-        return this.updateProductAttributeTranslation(args);
-      case "delete_product_attribute_translation":
-        return this.deleteProductAttributeTranslation(args);
-      case "list_product_attribute_translations":
-        return this.listProductAttributeTranslations(args);
+    case 'create_product_attribute_translation':
+      return this.createProductAttributeTranslation(args);
+    case 'get_product_attribute_translation':
+      return this.getProductAttributeTranslation(args);
+    case 'update_product_attribute_translation':
+      return this.updateProductAttributeTranslation(args);
+    case 'delete_product_attribute_translation':
+      return this.deleteProductAttributeTranslation(args);
+    case 'list_product_attribute_translations':
+      return this.listProductAttributeTranslations(args);
 
       // Product Variant Translation
-      case "create_product_variant_translation":
-        return this.createProductVariantTranslation(args);
-      case "get_product_variant_translation":
-        return this.getProductVariantTranslation(args);
-      case "update_product_variant_translation":
-        return this.updateProductVariantTranslation(args);
-      case "delete_product_variant_translation":
-        return this.deleteProductVariantTranslation(args);
-      case "list_product_variant_translations":
-        return this.listProductVariantTranslations(args);
+    case 'create_product_variant_translation':
+      return this.createProductVariantTranslation(args);
+    case 'get_product_variant_translation':
+      return this.getProductVariantTranslation(args);
+    case 'update_product_variant_translation':
+      return this.updateProductVariantTranslation(args);
+    case 'delete_product_variant_translation':
+      return this.deleteProductVariantTranslation(args);
+    case 'list_product_variant_translations':
+      return this.listProductVariantTranslations(args);
 
       // Bulk Translation
-      case "bulk_create_translations":
-        return this.bulkCreateTranslations(args);
-      case "bulk_delete_translations":
-        return this.bulkDeleteTranslations(args);
-      case "get_translation_stats":
-        return this.getTranslationStats(args);
+    case 'bulk_create_translations':
+      return this.bulkCreateTranslations(args);
+    case 'bulk_delete_translations':
+      return this.bulkDeleteTranslations(args);
+    case 'get_translation_stats':
+      return this.getTranslationStats(args);
 
       // Attribute Management
-      case "create_attribute":
-        return this.createAttribute(args);
-      case "get_attribute":
-        return this.getAttribute(args);
-      case "list_attributes":
-        return this.listAttributes(args);
-      case "create_attribute_value":
-        return this.createAttributeValue(args);
-      case "get_attribute_values":
-        return this.getAttributeValues(args);
-      case "get_attribute_by_name":
-        return this.getAttributeByName(args);
-      case "update_attribute":
-        return this.updateAttribute(args);
-      case "delete_attribute":
-        return this.deleteAttribute(args);
-      case "update_attribute_value":
-        return this.updateAttributeValue(args);
-      case "delete_attribute_value":
-        return this.deleteAttributeValue(args);
+    case 'create_attribute':
+      return this.createAttribute(args);
+    case 'get_attribute':
+      return this.getAttribute(args);
+    case 'list_attributes':
+      return this.listAttributes(args);
+    case 'create_attribute_value':
+      return this.createAttributeValue(args);
+    case 'get_attribute_values':
+      return this.getAttributeValues(args);
+    case 'get_attribute_by_name':
+      return this.getAttributeByName(args);
+    case 'update_attribute':
+      return this.updateAttribute(args);
+    case 'delete_attribute':
+      return this.deleteAttribute(args);
+    case 'update_attribute_value':
+      return this.updateAttributeValue(args);
+    case 'delete_attribute_value':
+      return this.deleteAttributeValue(args);
 
       // System
-      case "health_check":
-        return this.healthCheck(args);
-      case "get_system_health":
-        return this.getSystemHealth(args);
-      case "get_system_info":
-        return this.getSystemInfo(args);
+    case 'health_check':
+      return this.healthCheck();
+    case 'get_system_health':
+      return this.getSystemHealth();
+    case 'get_system_info':
+      return this.getSystemInfo();
 
-      default:
-        throw new Error(`Unknown tool: ${name}`);
+    default:
+      throw new Error(`Unknown tool: ${name}`);
     }
   }
 
@@ -293,12 +291,12 @@ export class ToolHandler {
       return {
         success: true,
         data: response.data,
-        message: "Product created successfully",
+        message: 'Product created successfully',
       };
     } catch (error) {
       return {
         success: false,
-        error: error.message || "Failed to create product",
+        error: error.message || 'Failed to create product',
       };
     }
   }
@@ -310,12 +308,12 @@ export class ToolHandler {
         success: true,
         data: response.data,
         pagination: response.pagination,
-        message: "Products retrieved successfully",
+        message: 'Products retrieved successfully',
       };
     } catch (error) {
       return {
         success: false,
-        error: error.message || "Failed to search products",
+        error: error.message || 'Failed to search products',
       };
     }
   }
@@ -336,12 +334,12 @@ export class ToolHandler {
       return {
         success: true,
         data: response.data,
-        message: "Product retrieved successfully",
+        message: 'Product retrieved successfully',
       };
     } catch (error) {
       return {
         success: false,
-        error: error.message || "Failed to get product",
+        error: error.message || 'Failed to get product',
       };
     }
   }
@@ -353,12 +351,12 @@ export class ToolHandler {
       return {
         success: true,
         data: response.data,
-        message: "Product updated successfully",
+        message: 'Product updated successfully',
       };
     } catch (error) {
       return {
         success: false,
-        error: error.message || "Failed to update product",
+        error: error.message || 'Failed to update product',
       };
     }
   }
@@ -369,12 +367,12 @@ export class ToolHandler {
       await this.apiClient.deleteProduct(id);
       return {
         success: true,
-        message: "Product deleted successfully",
+        message: 'Product deleted successfully',
       };
     } catch (error) {
       return {
         success: false,
-        error: error.message || "Failed to delete product",
+        error: error.message || 'Failed to delete product',
       };
     }
   }
@@ -386,12 +384,12 @@ export class ToolHandler {
       return {
         success: true,
         data: response.data,
-        message: "Product retrieved successfully",
+        message: 'Product retrieved successfully',
       };
     } catch (error) {
       return {
         success: false,
-        error: error.message || "Failed to get product by handle",
+        error: error.message || 'Failed to get product by handle',
       };
     }
   }
@@ -403,12 +401,12 @@ export class ToolHandler {
       return {
         success: true,
         data: response.data,
-        message: "Category created successfully",
+        message: 'Category created successfully',
       };
     } catch (error) {
       return {
         success: false,
-        error: error.message || "Failed to create category",
+        error: error.message || 'Failed to create category',
       };
     }
   }
@@ -421,7 +419,7 @@ export class ToolHandler {
         return {
           success: true,
           data: response.data,
-          message: "Category tree retrieved successfully",
+          message: 'Category tree retrieved successfully',
         };
       } else {
         const response = await this.apiClient.listCategories({
@@ -432,13 +430,13 @@ export class ToolHandler {
           success: true,
           data: response.data,
           pagination: response.pagination,
-          message: "Categories retrieved successfully",
+          message: 'Categories retrieved successfully',
         };
       }
     } catch (error) {
       return {
         success: false,
-        error: error.message || "Failed to list categories",
+        error: error.message || 'Failed to list categories',
       };
     }
   }
@@ -450,12 +448,12 @@ export class ToolHandler {
       return {
         success: true,
         data: response.data,
-        message: "Category retrieved successfully",
+        message: 'Category retrieved successfully',
       };
     } catch (error) {
       return {
         success: false,
-        error: error.message || "Failed to get category",
+        error: error.message || 'Failed to get category',
       };
     }
   }
@@ -467,12 +465,12 @@ export class ToolHandler {
       return {
         success: true,
         data: response.data,
-        message: "Category updated successfully",
+        message: 'Category updated successfully',
       };
     } catch (error) {
       return {
         success: false,
-        error: error.message || "Failed to update category",
+        error: error.message || 'Failed to update category',
       };
     }
   }
@@ -483,12 +481,12 @@ export class ToolHandler {
       await this.apiClient.deleteCategory(id);
       return {
         success: true,
-        message: "Category deleted successfully",
+        message: 'Category deleted successfully',
       };
     } catch (error) {
       return {
         success: false,
-        error: error.message || "Failed to delete category",
+        error: error.message || 'Failed to delete category',
       };
     }
   }
@@ -500,12 +498,12 @@ export class ToolHandler {
       return {
         success: true,
         data: response.data,
-        message: "Pricing rule created successfully",
+        message: 'Pricing rule created successfully',
       };
     } catch (error) {
       return {
         success: false,
-        error: error.message || "Failed to create pricing rule",
+        error: error.message || 'Failed to create pricing rule',
       };
     }
   }
@@ -517,12 +515,12 @@ export class ToolHandler {
       return {
         success: true,
         data: response.data,
-        message: "Pricing rule retrieved successfully",
+        message: 'Pricing rule retrieved successfully',
       };
     } catch (error) {
       return {
         success: false,
-        error: error.message || "Failed to get pricing rule",
+        error: error.message || 'Failed to get pricing rule',
       };
     }
   }
@@ -534,12 +532,12 @@ export class ToolHandler {
       return {
         success: true,
         data: response.data,
-        message: "Pricing rule updated successfully",
+        message: 'Pricing rule updated successfully',
       };
     } catch (error) {
       return {
         success: false,
-        error: error.message || "Failed to update pricing rule",
+        error: error.message || 'Failed to update pricing rule',
       };
     }
   }
@@ -550,12 +548,12 @@ export class ToolHandler {
       await this.apiClient.deletePricingRule(id);
       return {
         success: true,
-        message: "Pricing rule deleted successfully",
+        message: 'Pricing rule deleted successfully',
       };
     } catch (error) {
       return {
         success: false,
-        error: error.message || "Failed to delete pricing rule",
+        error: error.message || 'Failed to delete pricing rule',
       };
     }
   }
@@ -566,12 +564,12 @@ export class ToolHandler {
       return {
         success: true,
         data: response.data,
-        message: "Pricing rules applied successfully",
+        message: 'Pricing rules applied successfully',
       };
     } catch (error) {
       return {
         success: false,
-        error: error.message || "Failed to apply pricing rules",
+        error: error.message || 'Failed to apply pricing rules',
       };
     }
   }
@@ -583,12 +581,12 @@ export class ToolHandler {
         success: true,
         data: response.data,
         pagination: response.pagination,
-        message: "Pricing rules retrieved successfully",
+        message: 'Pricing rules retrieved successfully',
       };
     } catch (error) {
       return {
         success: false,
-        error: error.message || "Failed to list pricing rules",
+        error: error.message || 'Failed to list pricing rules',
       };
     }
   }
@@ -599,12 +597,12 @@ export class ToolHandler {
       return {
         success: true,
         data: response.data,
-        message: "Pricing rule validation completed",
+        message: 'Pricing rule validation completed',
       };
     } catch (error) {
       return {
         success: false,
-        error: error.message || "Failed to validate pricing rule",
+        error: error.message || 'Failed to validate pricing rule',
       };
     }
   }
@@ -616,12 +614,12 @@ export class ToolHandler {
       return {
         success: true,
         data: response.data,
-        message: "Cart created successfully",
+        message: 'Cart created successfully',
       };
     } catch (error) {
       return {
         success: false,
-        error: error.message || "Failed to create cart",
+        error: error.message || 'Failed to create cart',
       };
     }
   }
@@ -632,12 +630,12 @@ export class ToolHandler {
       return {
         success: true,
         data: response.data,
-        message: "Item added to cart successfully",
+        message: 'Item added to cart successfully',
       };
     } catch (error) {
       return {
         success: false,
-        error: error.message || "Failed to add item to cart",
+        error: error.message || 'Failed to add item to cart',
       };
     }
   }
@@ -648,12 +646,12 @@ export class ToolHandler {
       return {
         success: true,
         data: response.data,
-        message: "Cart item updated successfully",
+        message: 'Cart item updated successfully',
       };
     } catch (error) {
       return {
         success: false,
-        error: error.message || "Failed to update cart item",
+        error: error.message || 'Failed to update cart item',
       };
     }
   }
@@ -664,12 +662,12 @@ export class ToolHandler {
       await this.apiClient.removeCartItem(cartId, itemId);
       return {
         success: true,
-        message: "Item removed from cart successfully",
+        message: 'Item removed from cart successfully',
       };
     } catch (error) {
       return {
         success: false,
-        error: error.message || "Failed to remove cart item",
+        error: error.message || 'Failed to remove cart item',
       };
     }
   }
@@ -681,12 +679,12 @@ export class ToolHandler {
       return {
         success: true,
         data: response.data,
-        message: "Cart retrieved successfully",
+        message: 'Cart retrieved successfully',
       };
     } catch (error) {
       return {
         success: false,
-        error: error.message || "Failed to get cart",
+        error: error.message || 'Failed to get cart',
       };
     }
   }
@@ -698,12 +696,12 @@ export class ToolHandler {
       return {
         success: true,
         data: response.data,
-        message: "Cart summary retrieved successfully",
+        message: 'Cart summary retrieved successfully',
       };
     } catch (error) {
       return {
         success: false,
-        error: error.message || "Failed to get cart summary",
+        error: error.message || 'Failed to get cart summary',
       };
     }
   }
@@ -719,12 +717,12 @@ export class ToolHandler {
         success: true,
         data: response.data,
         pagination: response.pagination,
-        message: "Cart items retrieved successfully",
+        message: 'Cart items retrieved successfully',
       };
     } catch (error) {
       return {
         success: false,
-        error: error.message || "Failed to get cart items",
+        error: error.message || 'Failed to get cart items',
       };
     }
   }
@@ -735,12 +733,12 @@ export class ToolHandler {
       await this.apiClient.clearCart(cartId);
       return {
         success: true,
-        message: "Cart cleared successfully",
+        message: 'Cart cleared successfully',
       };
     } catch (error) {
       return {
         success: false,
-        error: error.message || "Failed to clear cart",
+        error: error.message || 'Failed to clear cart',
       };
     }
   }
@@ -752,12 +750,12 @@ export class ToolHandler {
       return {
         success: true,
         data: response.data,
-        message: "Inventory created successfully",
+        message: 'Inventory created successfully',
       };
     } catch (error) {
       return {
         success: false,
-        error: error.message || "Failed to create inventory",
+        error: error.message || 'Failed to create inventory',
       };
     }
   }
@@ -768,12 +766,12 @@ export class ToolHandler {
       return {
         success: true,
         data: response.data,
-        message: "Inventory retrieved successfully",
+        message: 'Inventory retrieved successfully',
       };
     } catch (error) {
       return {
         success: false,
-        error: error.message || "Failed to get inventory by product",
+        error: error.message || 'Failed to get inventory by product',
       };
     }
   }
@@ -784,12 +782,12 @@ export class ToolHandler {
       return {
         success: true,
         data: response.data,
-        message: "Inventory availability checked successfully",
+        message: 'Inventory availability checked successfully',
       };
     } catch (error) {
       return {
         success: false,
-        error: error.message || "Failed to check inventory availability",
+        error: error.message || 'Failed to check inventory availability',
       };
     }
   }
@@ -800,12 +798,12 @@ export class ToolHandler {
       return {
         success: true,
         data: response.data,
-        message: "Inventory reserved successfully",
+        message: 'Inventory reserved successfully',
       };
     } catch (error) {
       return {
         success: false,
-        error: error.message || "Failed to reserve inventory",
+        error: error.message || 'Failed to reserve inventory',
       };
     }
   }
@@ -817,12 +815,12 @@ export class ToolHandler {
       return {
         success: true,
         data: response.data,
-        message: "Inventory retrieved successfully",
+        message: 'Inventory retrieved successfully',
       };
     } catch (error) {
       return {
         success: false,
-        error: error.message || "Failed to get inventory",
+        error: error.message || 'Failed to get inventory',
       };
     }
   }
@@ -834,12 +832,12 @@ export class ToolHandler {
         success: true,
         data: response.data,
         pagination: response.pagination,
-        message: "Inventory list retrieved successfully",
+        message: 'Inventory list retrieved successfully',
       };
     } catch (error) {
       return {
         success: false,
-        error: error.message || "Failed to list inventory",
+        error: error.message || 'Failed to list inventory',
       };
     }
   }
@@ -851,12 +849,12 @@ export class ToolHandler {
       return {
         success: true,
         data: response.data,
-        message: "Inventory updated successfully",
+        message: 'Inventory updated successfully',
       };
     } catch (error) {
       return {
         success: false,
-        error: error.message || "Failed to update inventory",
+        error: error.message || 'Failed to update inventory',
       };
     }
   }
@@ -868,12 +866,12 @@ export class ToolHandler {
       return {
         success: true,
         data: response.data,
-        message: "Media uploaded successfully",
+        message: 'Media uploaded successfully',
       };
     } catch (error) {
       return {
         success: false,
-        error: error.message || "Failed to upload media",
+        error: error.message || 'Failed to upload media',
       };
     }
   }
@@ -885,12 +883,12 @@ export class ToolHandler {
       return {
         success: true,
         data: response.data,
-        message: "Media retrieved successfully",
+        message: 'Media retrieved successfully',
       };
     } catch (error) {
       return {
         success: false,
-        error: error.message || "Failed to get media",
+        error: error.message || 'Failed to get media',
       };
     }
   }
@@ -902,12 +900,12 @@ export class ToolHandler {
         success: true,
         data: response.data,
         pagination: response.pagination,
-        message: "Media list retrieved successfully",
+        message: 'Media list retrieved successfully',
       };
     } catch (error) {
       return {
         success: false,
-        error: error.message || "Failed to list media",
+        error: error.message || 'Failed to list media',
       };
     }
   }
@@ -919,12 +917,12 @@ export class ToolHandler {
       return {
         success: true,
         data: response.data,
-        message: "Media updated successfully",
+        message: 'Media updated successfully',
       };
     } catch (error) {
       return {
         success: false,
-        error: error.message || "Failed to update media",
+        error: error.message || 'Failed to update media',
       };
     }
   }
@@ -935,12 +933,12 @@ export class ToolHandler {
       await this.apiClient.deleteMedia(id);
       return {
         success: true,
-        message: "Media deleted successfully",
+        message: 'Media deleted successfully',
       };
     } catch (error) {
       return {
         success: false,
-        error: error.message || "Failed to delete media",
+        error: error.message || 'Failed to delete media',
       };
     }
   }
@@ -952,12 +950,12 @@ export class ToolHandler {
       return {
         success: true,
         data: response.data,
-        message: "Partner created successfully",
+        message: 'Partner created successfully',
       };
     } catch (error) {
       return {
         success: false,
-        error: error.message || "Failed to create partner",
+        error: error.message || 'Failed to create partner',
       };
     }
   }
@@ -969,12 +967,12 @@ export class ToolHandler {
       return {
         success: true,
         data: response.data,
-        message: "Partner retrieved successfully",
+        message: 'Partner retrieved successfully',
       };
     } catch (error) {
       return {
         success: false,
-        error: error.message || "Failed to get partner",
+        error: error.message || 'Failed to get partner',
       };
     }
   }
@@ -986,12 +984,12 @@ export class ToolHandler {
         success: true,
         data: response.data,
         pagination: response.pagination,
-        message: "Partners retrieved successfully",
+        message: 'Partners retrieved successfully',
       };
     } catch (error) {
       return {
         success: false,
-        error: error.message || "Failed to list partners",
+        error: error.message || 'Failed to list partners',
       };
     }
   }
@@ -1003,12 +1001,12 @@ export class ToolHandler {
       return {
         success: true,
         data: response.data,
-        message: "Sales channel created successfully",
+        message: 'Sales channel created successfully',
       };
     } catch (error) {
       return {
         success: false,
-        error: error.message || "Failed to create sales channel",
+        error: error.message || 'Failed to create sales channel',
       };
     }
   }
@@ -1020,12 +1018,12 @@ export class ToolHandler {
       return {
         success: true,
         data: response.data,
-        message: "Sales channel retrieved successfully",
+        message: 'Sales channel retrieved successfully',
       };
     } catch (error) {
       return {
         success: false,
-        error: error.message || "Failed to get sales channel",
+        error: error.message || 'Failed to get sales channel',
       };
     }
   }
@@ -1037,12 +1035,12 @@ export class ToolHandler {
       return {
         success: true,
         data: response.data,
-        message: "Sales channel retrieved successfully",
+        message: 'Sales channel retrieved successfully',
       };
     } catch (error) {
       return {
         success: false,
-        error: error.message || "Failed to get sales channel by code",
+        error: error.message || 'Failed to get sales channel by code',
       };
     }
   }
@@ -1054,12 +1052,12 @@ export class ToolHandler {
         success: true,
         data: response.data,
         pagination: response.pagination,
-        message: "Sales channels retrieved successfully",
+        message: 'Sales channels retrieved successfully',
       };
     } catch (error) {
       return {
         success: false,
-        error: error.message || "Failed to list sales channels",
+        error: error.message || 'Failed to list sales channels',
       };
     }
   }
@@ -1071,12 +1069,12 @@ export class ToolHandler {
       return {
         success: true,
         data: response.data,
-        message: "Sales channel updated successfully",
+        message: 'Sales channel updated successfully',
       };
     } catch (error) {
       return {
         success: false,
-        error: error.message || "Failed to update sales channel",
+        error: error.message || 'Failed to update sales channel',
       };
     }
   }
@@ -1087,12 +1085,12 @@ export class ToolHandler {
       await this.apiClient.deleteSalesChannel(id);
       return {
         success: true,
-        message: "Sales channel deleted successfully",
+        message: 'Sales channel deleted successfully',
       };
     } catch (error) {
       return {
         success: false,
-        error: error.message || "Failed to delete sales channel",
+        error: error.message || 'Failed to delete sales channel',
       };
     }
   }
@@ -1104,12 +1102,12 @@ export class ToolHandler {
       return {
         success: true,
         data: response.data,
-        message: "Sales channel activated successfully",
+        message: 'Sales channel activated successfully',
       };
     } catch (error) {
       return {
         success: false,
-        error: error.message || "Failed to activate sales channel",
+        error: error.message || 'Failed to activate sales channel',
       };
     }
   }
@@ -1121,12 +1119,12 @@ export class ToolHandler {
       return {
         success: true,
         data: response.data,
-        message: "Sales channel deactivated successfully",
+        message: 'Sales channel deactivated successfully',
       };
     } catch (error) {
       return {
         success: false,
-        error: error.message || "Failed to deactivate sales channel",
+        error: error.message || 'Failed to deactivate sales channel',
       };
     }
   }
@@ -1137,12 +1135,12 @@ export class ToolHandler {
       return {
         success: true,
         data: response.data,
-        message: "Sales channel statistics retrieved successfully",
+        message: 'Sales channel statistics retrieved successfully',
       };
     } catch (error) {
       return {
         success: false,
-        error: error.message || "Failed to get sales channel statistics",
+        error: error.message || 'Failed to get sales channel statistics',
       };
     }
   }
@@ -1154,12 +1152,12 @@ export class ToolHandler {
       return {
         success: true,
         data: response.data,
-        message: "Translation created successfully",
+        message: 'Translation created successfully',
       };
     } catch (error) {
       return {
         success: false,
-        error: error.message || "Failed to create translation",
+        error: error.message || 'Failed to create translation',
       };
     }
   }
@@ -1170,28 +1168,28 @@ export class ToolHandler {
       return {
         success: true,
         data: response.data,
-        message: "Translation retrieved successfully",
+        message: 'Translation retrieved successfully',
       };
     } catch (error) {
       return {
         success: false,
-        error: error.message || "Failed to get translation",
+        error: error.message || 'Failed to get translation',
       };
     }
   }
 
-  async getSupportedLanguages(args) {
+  async getSupportedLanguages() {
     try {
       const response = await this.apiClient.getSupportedLanguages();
       return {
         success: true,
         data: response.data,
-        message: "Supported languages retrieved successfully",
+        message: 'Supported languages retrieved successfully',
       };
     } catch (error) {
       return {
         success: false,
-        error: error.message || "Failed to get supported languages",
+        error: error.message || 'Failed to get supported languages',
       };
     }
   }
@@ -1203,12 +1201,12 @@ export class ToolHandler {
       return {
         success: true,
         data: response.data,
-        message: "Product translation created successfully",
+        message: 'Product translation created successfully',
       };
     } catch (error) {
       return {
         success: false,
-        error: error.message || "Failed to create product translation",
+        error: error.message || 'Failed to create product translation',
       };
     }
   }
@@ -1219,12 +1217,12 @@ export class ToolHandler {
       return {
         success: true,
         data: response.data,
-        message: "Product translation retrieved successfully",
+        message: 'Product translation retrieved successfully',
       };
     } catch (error) {
       return {
         success: false,
-        error: error.message || "Failed to get product translation",
+        error: error.message || 'Failed to get product translation',
       };
     }
   }
@@ -1235,12 +1233,12 @@ export class ToolHandler {
       return {
         success: true,
         data: response.data,
-        message: "Product translation updated successfully",
+        message: 'Product translation updated successfully',
       };
     } catch (error) {
       return {
         success: false,
-        error: error.message || "Failed to update product translation",
+        error: error.message || 'Failed to update product translation',
       };
     }
   }
@@ -1251,12 +1249,12 @@ export class ToolHandler {
       await this.apiClient.deleteProductTranslation(productId, language);
       return {
         success: true,
-        message: "Product translation deleted successfully",
+        message: 'Product translation deleted successfully',
       };
     } catch (error) {
       return {
         success: false,
-        error: error.message || "Failed to delete product translation",
+        error: error.message || 'Failed to delete product translation',
       };
     }
   }
@@ -1268,12 +1266,12 @@ export class ToolHandler {
       return {
         success: true,
         data: response.data,
-        message: "Product translations retrieved successfully",
+        message: 'Product translations retrieved successfully',
       };
     } catch (error) {
       return {
         success: false,
-        error: error.message || "Failed to list product translations",
+        error: error.message || 'Failed to list product translations',
       };
     }
   }
@@ -1285,12 +1283,12 @@ export class ToolHandler {
       return {
         success: true,
         data: response.data,
-        message: "Category translation created successfully",
+        message: 'Category translation created successfully',
       };
     } catch (error) {
       return {
         success: false,
-        error: error.message || "Failed to create category translation",
+        error: error.message || 'Failed to create category translation',
       };
     }
   }
@@ -1301,12 +1299,12 @@ export class ToolHandler {
       return {
         success: true,
         data: response.data,
-        message: "Category translation retrieved successfully",
+        message: 'Category translation retrieved successfully',
       };
     } catch (error) {
       return {
         success: false,
-        error: error.message || "Failed to get category translation",
+        error: error.message || 'Failed to get category translation',
       };
     }
   }
@@ -1317,12 +1315,12 @@ export class ToolHandler {
       return {
         success: true,
         data: response.data,
-        message: "Category translation updated successfully",
+        message: 'Category translation updated successfully',
       };
     } catch (error) {
       return {
         success: false,
-        error: error.message || "Failed to update category translation",
+        error: error.message || 'Failed to update category translation',
       };
     }
   }
@@ -1333,12 +1331,12 @@ export class ToolHandler {
       await this.apiClient.deleteCategoryTranslation(categoryId, language);
       return {
         success: true,
-        message: "Category translation deleted successfully",
+        message: 'Category translation deleted successfully',
       };
     } catch (error) {
       return {
         success: false,
-        error: error.message || "Failed to delete category translation",
+        error: error.message || 'Failed to delete category translation',
       };
     }
   }
@@ -1350,12 +1348,12 @@ export class ToolHandler {
       return {
         success: true,
         data: response.data,
-        message: "Category translations retrieved successfully",
+        message: 'Category translations retrieved successfully',
       };
     } catch (error) {
       return {
         success: false,
-        error: error.message || "Failed to list category translations",
+        error: error.message || 'Failed to list category translations',
       };
     }
   }
@@ -1368,13 +1366,13 @@ export class ToolHandler {
       return {
         success: true,
         data: response.data,
-        message: "Product attribute translation created successfully",
+        message: 'Product attribute translation created successfully',
       };
     } catch (error) {
       return {
         success: false,
         error:
-          error.message || "Failed to create product attribute translation",
+          error.message || 'Failed to create product attribute translation',
       };
     }
   }
@@ -1386,12 +1384,12 @@ export class ToolHandler {
       return {
         success: true,
         data: response.data,
-        message: "Product attribute translation retrieved successfully",
+        message: 'Product attribute translation retrieved successfully',
       };
     } catch (error) {
       return {
         success: false,
-        error: error.message || "Failed to get product attribute translation",
+        error: error.message || 'Failed to get product attribute translation',
       };
     }
   }
@@ -1403,13 +1401,13 @@ export class ToolHandler {
       return {
         success: true,
         data: response.data,
-        message: "Product attribute translation updated successfully",
+        message: 'Product attribute translation updated successfully',
       };
     } catch (error) {
       return {
         success: false,
         error:
-          error.message || "Failed to update product attribute translation",
+          error.message || 'Failed to update product attribute translation',
       };
     }
   }
@@ -1423,13 +1421,13 @@ export class ToolHandler {
       );
       return {
         success: true,
-        message: "Product attribute translation deleted successfully",
+        message: 'Product attribute translation deleted successfully',
       };
     } catch (error) {
       return {
         success: false,
         error:
-          error.message || "Failed to delete product attribute translation",
+          error.message || 'Failed to delete product attribute translation',
       };
     }
   }
@@ -1442,12 +1440,12 @@ export class ToolHandler {
       return {
         success: true,
         data: response.data,
-        message: "Product attribute translations retrieved successfully",
+        message: 'Product attribute translations retrieved successfully',
       };
     } catch (error) {
       return {
         success: false,
-        error: error.message || "Failed to list product attribute translations",
+        error: error.message || 'Failed to list product attribute translations',
       };
     }
   }
@@ -1460,12 +1458,12 @@ export class ToolHandler {
       return {
         success: true,
         data: response.data,
-        message: "Product variant translation created successfully",
+        message: 'Product variant translation created successfully',
       };
     } catch (error) {
       return {
         success: false,
-        error: error.message || "Failed to create product variant translation",
+        error: error.message || 'Failed to create product variant translation',
       };
     }
   }
@@ -1476,12 +1474,12 @@ export class ToolHandler {
       return {
         success: true,
         data: response.data,
-        message: "Product variant translation retrieved successfully",
+        message: 'Product variant translation retrieved successfully',
       };
     } catch (error) {
       return {
         success: false,
-        error: error.message || "Failed to get product variant translation",
+        error: error.message || 'Failed to get product variant translation',
       };
     }
   }
@@ -1493,12 +1491,12 @@ export class ToolHandler {
       return {
         success: true,
         data: response.data,
-        message: "Product variant translation updated successfully",
+        message: 'Product variant translation updated successfully',
       };
     } catch (error) {
       return {
         success: false,
-        error: error.message || "Failed to update product variant translation",
+        error: error.message || 'Failed to update product variant translation',
       };
     }
   }
@@ -1509,12 +1507,12 @@ export class ToolHandler {
       await this.apiClient.deleteProductVariantTranslation(variantId, language);
       return {
         success: true,
-        message: "Product variant translation deleted successfully",
+        message: 'Product variant translation deleted successfully',
       };
     } catch (error) {
       return {
         success: false,
-        error: error.message || "Failed to delete product variant translation",
+        error: error.message || 'Failed to delete product variant translation',
       };
     }
   }
@@ -1527,12 +1525,12 @@ export class ToolHandler {
       return {
         success: true,
         data: response.data,
-        message: "Product variant translations retrieved successfully",
+        message: 'Product variant translations retrieved successfully',
       };
     } catch (error) {
       return {
         success: false,
-        error: error.message || "Failed to list product variant translations",
+        error: error.message || 'Failed to list product variant translations',
       };
     }
   }
@@ -1544,12 +1542,12 @@ export class ToolHandler {
       return {
         success: true,
         data: response.data,
-        message: "Bulk translations created successfully",
+        message: 'Bulk translations created successfully',
       };
     } catch (error) {
       return {
         success: false,
-        error: error.message || "Failed to create bulk translations",
+        error: error.message || 'Failed to create bulk translations',
       };
     }
   }
@@ -1560,12 +1558,12 @@ export class ToolHandler {
       return {
         success: true,
         data: response.data,
-        message: "Bulk translations deleted successfully",
+        message: 'Bulk translations deleted successfully',
       };
     } catch (error) {
       return {
         success: false,
-        error: error.message || "Failed to delete bulk translations",
+        error: error.message || 'Failed to delete bulk translations',
       };
     }
   }
@@ -1576,12 +1574,12 @@ export class ToolHandler {
       return {
         success: true,
         data: response.data,
-        message: "Translation statistics retrieved successfully",
+        message: 'Translation statistics retrieved successfully',
       };
     } catch (error) {
       return {
         success: false,
-        error: error.message || "Failed to get translation statistics",
+        error: error.message || 'Failed to get translation statistics',
       };
     }
   }
@@ -1593,12 +1591,12 @@ export class ToolHandler {
       return {
         success: true,
         data: response.data,
-        message: "Attribute created successfully",
+        message: 'Attribute created successfully',
       };
     } catch (error) {
       return {
         success: false,
-        error: error.message || "Failed to create attribute",
+        error: error.message || 'Failed to create attribute',
       };
     }
   }
@@ -1610,12 +1608,12 @@ export class ToolHandler {
       return {
         success: true,
         data: response.data,
-        message: "Attribute retrieved successfully",
+        message: 'Attribute retrieved successfully',
       };
     } catch (error) {
       return {
         success: false,
-        error: error.message || "Failed to get attribute",
+        error: error.message || 'Failed to get attribute',
       };
     }
   }
@@ -1627,12 +1625,12 @@ export class ToolHandler {
         success: true,
         data: response.data,
         pagination: response.pagination,
-        message: "Attributes retrieved successfully",
+        message: 'Attributes retrieved successfully',
       };
     } catch (error) {
       return {
         success: false,
-        error: error.message || "Failed to list attributes",
+        error: error.message || 'Failed to list attributes',
       };
     }
   }
@@ -1643,12 +1641,12 @@ export class ToolHandler {
       return {
         success: true,
         data: response.data,
-        message: "Attribute value created successfully",
+        message: 'Attribute value created successfully',
       };
     } catch (error) {
       return {
         success: false,
-        error: error.message || "Failed to create attribute value",
+        error: error.message || 'Failed to create attribute value',
       };
     }
   }
@@ -1660,12 +1658,12 @@ export class ToolHandler {
       return {
         success: true,
         data: response.data,
-        message: "Attribute values retrieved successfully",
+        message: 'Attribute values retrieved successfully',
       };
     } catch (error) {
       return {
         success: false,
-        error: error.message || "Failed to get attribute values",
+        error: error.message || 'Failed to get attribute values',
       };
     }
   }
@@ -1677,12 +1675,12 @@ export class ToolHandler {
       return {
         success: true,
         data: response.data,
-        message: "Attribute retrieved successfully",
+        message: 'Attribute retrieved successfully',
       };
     } catch (error) {
       return {
         success: false,
-        error: error.message || "Failed to get attribute by name",
+        error: error.message || 'Failed to get attribute by name',
       };
     }
   }
@@ -1694,12 +1692,12 @@ export class ToolHandler {
       return {
         success: true,
         data: response.data,
-        message: "Attribute updated successfully",
+        message: 'Attribute updated successfully',
       };
     } catch (error) {
       return {
         success: false,
-        error: error.message || "Failed to update attribute",
+        error: error.message || 'Failed to update attribute',
       };
     }
   }
@@ -1710,12 +1708,12 @@ export class ToolHandler {
       await this.apiClient.deleteAttribute(id);
       return {
         success: true,
-        message: "Attribute deleted successfully",
+        message: 'Attribute deleted successfully',
       };
     } catch (error) {
       return {
         success: false,
-        error: error.message || "Failed to delete attribute",
+        error: error.message || 'Failed to delete attribute',
       };
     }
   }
@@ -1726,12 +1724,12 @@ export class ToolHandler {
       return {
         success: true,
         data: response.data,
-        message: "Attribute value updated successfully",
+        message: 'Attribute value updated successfully',
       };
     } catch (error) {
       return {
         success: false,
-        error: error.message || "Failed to update attribute value",
+        error: error.message || 'Failed to update attribute value',
       };
     }
   }
@@ -1742,12 +1740,12 @@ export class ToolHandler {
       await this.apiClient.deleteAttributeValue(attributeId, valueId);
       return {
         success: true,
-        message: "Attribute value deleted successfully",
+        message: 'Attribute value deleted successfully',
       };
     } catch (error) {
       return {
         success: false,
-        error: error.message || "Failed to delete attribute value",
+        error: error.message || 'Failed to delete attribute value',
       };
     }
   }
@@ -1759,12 +1757,12 @@ export class ToolHandler {
       return {
         success: true,
         data: response.data,
-        message: "Inventory deleted successfully",
+        message: 'Inventory deleted successfully',
       };
     } catch (error) {
       return {
         success: false,
-        error: error.message || "Failed to delete inventory",
+        error: error.message || 'Failed to delete inventory',
       };
     }
   }
@@ -1775,12 +1773,12 @@ export class ToolHandler {
       return {
         success: true,
         data: response.data,
-        message: "Inventory bulk updated successfully",
+        message: 'Inventory bulk updated successfully',
       };
     } catch (error) {
       return {
         success: false,
-        error: error.message || "Failed to bulk update inventory",
+        error: error.message || 'Failed to bulk update inventory',
       };
     }
   }
@@ -1791,12 +1789,12 @@ export class ToolHandler {
       return {
         success: true,
         data: response.data,
-        message: "Inventory reservation released successfully",
+        message: 'Inventory reservation released successfully',
       };
     } catch (error) {
       return {
         success: false,
-        error: error.message || "Failed to release inventory reservation",
+        error: error.message || 'Failed to release inventory reservation',
       };
     }
   }
@@ -1807,12 +1805,12 @@ export class ToolHandler {
       return {
         success: true,
         data: response.data,
-        message: "Inventory movements retrieved successfully",
+        message: 'Inventory movements retrieved successfully',
       };
     } catch (error) {
       return {
         success: false,
-        error: error.message || "Failed to get inventory movements",
+        error: error.message || 'Failed to get inventory movements',
       };
     }
   }
@@ -1823,12 +1821,12 @@ export class ToolHandler {
       return {
         success: true,
         data: response.data,
-        message: "Inventory statistics retrieved successfully",
+        message: 'Inventory statistics retrieved successfully',
       };
     } catch (error) {
       return {
         success: false,
-        error: error.message || "Failed to get inventory statistics",
+        error: error.message || 'Failed to get inventory statistics',
       };
     }
   }
@@ -1840,12 +1838,12 @@ export class ToolHandler {
       return {
         success: true,
         data: response.data,
-        message: "Land created successfully",
+        message: 'Land created successfully',
       };
     } catch (error) {
       return {
         success: false,
-        error: error.message || "Failed to create land",
+        error: error.message || 'Failed to create land',
       };
     }
   }
@@ -1856,12 +1854,12 @@ export class ToolHandler {
       return {
         success: true,
         data: response.data,
-        message: "Land retrieved successfully",
+        message: 'Land retrieved successfully',
       };
     } catch (error) {
       return {
         success: false,
-        error: error.message || "Failed to get land",
+        error: error.message || 'Failed to get land',
       };
     }
   }
@@ -1872,12 +1870,12 @@ export class ToolHandler {
       return {
         success: true,
         data: response.data,
-        message: "Land retrieved by code successfully",
+        message: 'Land retrieved by code successfully',
       };
     } catch (error) {
       return {
         success: false,
-        error: error.message || "Failed to get land by code",
+        error: error.message || 'Failed to get land by code',
       };
     }
   }
@@ -1888,12 +1886,12 @@ export class ToolHandler {
       return {
         success: true,
         data: response.data,
-        message: "Lands listed successfully",
+        message: 'Lands listed successfully',
       };
     } catch (error) {
       return {
         success: false,
-        error: error.message || "Failed to list lands",
+        error: error.message || 'Failed to list lands',
       };
     }
   }
@@ -1904,12 +1902,12 @@ export class ToolHandler {
       return {
         success: true,
         data: response.data,
-        message: "Land updated successfully",
+        message: 'Land updated successfully',
       };
     } catch (error) {
       return {
         success: false,
-        error: error.message || "Failed to update land",
+        error: error.message || 'Failed to update land',
       };
     }
   }
@@ -1920,12 +1918,12 @@ export class ToolHandler {
       return {
         success: true,
         data: response.data,
-        message: "Land deleted successfully",
+        message: 'Land deleted successfully',
       };
     } catch (error) {
       return {
         success: false,
-        error: error.message || "Failed to delete land",
+        error: error.message || 'Failed to delete land',
       };
     }
   }
@@ -1936,12 +1934,12 @@ export class ToolHandler {
       return {
         success: true,
         data: response.data,
-        message: "Land activated successfully",
+        message: 'Land activated successfully',
       };
     } catch (error) {
       return {
         success: false,
-        error: error.message || "Failed to activate land",
+        error: error.message || 'Failed to activate land',
       };
     }
   }
@@ -1952,12 +1950,12 @@ export class ToolHandler {
       return {
         success: true,
         data: response.data,
-        message: "Land deactivated successfully",
+        message: 'Land deactivated successfully',
       };
     } catch (error) {
       return {
         success: false,
-        error: error.message || "Failed to deactivate land",
+        error: error.message || 'Failed to deactivate land',
       };
     }
   }
@@ -1968,12 +1966,12 @@ export class ToolHandler {
       return {
         success: true,
         data: response.data,
-        message: "Lands by partner retrieved successfully",
+        message: 'Lands by partner retrieved successfully',
       };
     } catch (error) {
       return {
         success: false,
-        error: error.message || "Failed to get lands by partner",
+        error: error.message || 'Failed to get lands by partner',
       };
     }
   }
@@ -1984,12 +1982,12 @@ export class ToolHandler {
       return {
         success: true,
         data: response.data,
-        message: "Land statistics retrieved successfully",
+        message: 'Land statistics retrieved successfully',
       };
     } catch (error) {
       return {
         success: false,
-        error: error.message || "Failed to get land statistics",
+        error: error.message || 'Failed to get land statistics',
       };
     }
   }
@@ -2001,12 +1999,12 @@ export class ToolHandler {
       return {
         success: true,
         data: response.data,
-        message: "Partner updated successfully",
+        message: 'Partner updated successfully',
       };
     } catch (error) {
       return {
         success: false,
-        error: error.message || "Failed to update partner",
+        error: error.message || 'Failed to update partner',
       };
     }
   }
@@ -2017,12 +2015,12 @@ export class ToolHandler {
       return {
         success: true,
         data: response.data,
-        message: "Partner deleted successfully",
+        message: 'Partner deleted successfully',
       };
     } catch (error) {
       return {
         success: false,
-        error: error.message || "Failed to delete partner",
+        error: error.message || 'Failed to delete partner',
       };
     }
   }
@@ -2033,12 +2031,12 @@ export class ToolHandler {
       return {
         success: true,
         data: response.data,
-        message: "Partner retrieved by code successfully",
+        message: 'Partner retrieved by code successfully',
       };
     } catch (error) {
       return {
         success: false,
-        error: error.message || "Failed to get partner by code",
+        error: error.message || 'Failed to get partner by code',
       };
     }
   }
@@ -2049,12 +2047,12 @@ export class ToolHandler {
       return {
         success: true,
         data: response.data,
-        message: "Partner activated successfully",
+        message: 'Partner activated successfully',
       };
     } catch (error) {
       return {
         success: false,
-        error: error.message || "Failed to activate partner",
+        error: error.message || 'Failed to activate partner',
       };
     }
   }
@@ -2065,12 +2063,12 @@ export class ToolHandler {
       return {
         success: true,
         data: response.data,
-        message: "Partner deactivated successfully",
+        message: 'Partner deactivated successfully',
       };
     } catch (error) {
       return {
         success: false,
-        error: error.message || "Failed to deactivate partner",
+        error: error.message || 'Failed to deactivate partner',
       };
     }
   }
@@ -2081,12 +2079,12 @@ export class ToolHandler {
       return {
         success: true,
         data: response.data,
-        message: "Partner balance retrieved successfully",
+        message: 'Partner balance retrieved successfully',
       };
     } catch (error) {
       return {
         success: false,
-        error: error.message || "Failed to get partner balance",
+        error: error.message || 'Failed to get partner balance',
       };
     }
   }
@@ -2097,12 +2095,12 @@ export class ToolHandler {
       return {
         success: true,
         data: response.data,
-        message: "Partner statistics retrieved successfully",
+        message: 'Partner statistics retrieved successfully',
       };
     } catch (error) {
       return {
         success: false,
-        error: error.message || "Failed to get partner statistics",
+        error: error.message || 'Failed to get partner statistics',
       };
     }
   }
@@ -2113,12 +2111,12 @@ export class ToolHandler {
       return {
         success: true,
         data: response.data,
-        message: "Partner tier benefits retrieved successfully",
+        message: 'Partner tier benefits retrieved successfully',
       };
     } catch (error) {
       return {
         success: false,
-        error: error.message || "Failed to get partner tier benefits",
+        error: error.message || 'Failed to get partner tier benefits',
       };
     }
   }
@@ -2129,12 +2127,12 @@ export class ToolHandler {
       return {
         success: true,
         data: response.data,
-        message: "Partners searched successfully",
+        message: 'Partners searched successfully',
       };
     } catch (error) {
       return {
         success: false,
-        error: error.message || "Failed to search partners",
+        error: error.message || 'Failed to search partners',
       };
     }
   }
@@ -2145,12 +2143,12 @@ export class ToolHandler {
       return {
         success: true,
         data: response.data,
-        message: "Partners by type retrieved successfully",
+        message: 'Partners by type retrieved successfully',
       };
     } catch (error) {
       return {
         success: false,
-        error: error.message || "Failed to get partners by type",
+        error: error.message || 'Failed to get partners by type',
       };
     }
   }
@@ -2161,12 +2159,12 @@ export class ToolHandler {
       return {
         success: true,
         data: response.data,
-        message: "Partners by tier retrieved successfully",
+        message: 'Partners by tier retrieved successfully',
       };
     } catch (error) {
       return {
         success: false,
-        error: error.message || "Failed to get partners by tier",
+        error: error.message || 'Failed to get partners by tier',
       };
     }
   }
@@ -2178,12 +2176,12 @@ export class ToolHandler {
       return {
         success: true,
         data: response.data,
-        message: "Sales channels by type retrieved successfully",
+        message: 'Sales channels by type retrieved successfully',
       };
     } catch (error) {
       return {
         success: false,
-        error: error.message || "Failed to get sales channels by type",
+        error: error.message || 'Failed to get sales channels by type',
       };
     }
   }
@@ -2194,12 +2192,12 @@ export class ToolHandler {
       return {
         success: true,
         data: response.data,
-        message: "Active sales channels retrieved successfully",
+        message: 'Active sales channels retrieved successfully',
       };
     } catch (error) {
       return {
         success: false,
-        error: error.message || "Failed to get active sales channels",
+        error: error.message || 'Failed to get active sales channels',
       };
     }
   }
@@ -2210,12 +2208,12 @@ export class ToolHandler {
       return {
         success: true,
         data: response.data,
-        message: "Sales channels searched successfully",
+        message: 'Sales channels searched successfully',
       };
     } catch (error) {
       return {
         success: false,
-        error: error.message || "Failed to search sales channels",
+        error: error.message || 'Failed to search sales channels',
       };
     }
   }
@@ -2226,12 +2224,12 @@ export class ToolHandler {
       return {
         success: true,
         data: response.data,
-        message: "Sales channel configuration retrieved successfully",
+        message: 'Sales channel configuration retrieved successfully',
       };
     } catch (error) {
       return {
         success: false,
-        error: error.message || "Failed to get sales channel configuration",
+        error: error.message || 'Failed to get sales channel configuration',
       };
     }
   }
@@ -2243,61 +2241,61 @@ export class ToolHandler {
       return {
         success: true,
         data: response.data,
-        message: "Sales channel configuration updated successfully",
+        message: 'Sales channel configuration updated successfully',
       };
     } catch (error) {
       return {
         success: false,
-        error: error.message || "Failed to update sales channel configuration",
+        error: error.message || 'Failed to update sales channel configuration',
       };
     }
   }
 
   // System Methods
-  async healthCheck(args) {
+  async healthCheck() {
     try {
       const response = await this.apiClient.getSystemHealth();
       return {
         success: true,
         data: response.data,
-        message: "Health check completed successfully",
+        message: 'Health check completed successfully',
       };
     } catch (error) {
       return {
         success: false,
-        error: error.message || "Health check failed",
+        error: error.message || 'Health check failed',
       };
     }
   }
 
-  async getSystemHealth(args) {
+  async getSystemHealth() {
     try {
       const response = await this.apiClient.getSystemHealth();
       return {
         success: true,
         data: response.data,
-        message: "System health retrieved successfully",
+        message: 'System health retrieved successfully',
       };
     } catch (error) {
       return {
         success: false,
-        error: error.message || "Failed to get system health",
+        error: error.message || 'Failed to get system health',
       };
     }
   }
 
-  async getSystemInfo(args) {
+  async getSystemInfo() {
     try {
       const response = await this.apiClient.getSystemInfo();
       return {
         success: true,
         data: response.data,
-        message: "System information retrieved successfully",
+        message: 'System information retrieved successfully',
       };
     } catch (error) {
       return {
         success: false,
-        error: error.message || "Failed to get system information",
+        error: error.message || 'Failed to get system information',
       };
     }
   }

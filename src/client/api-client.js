@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from 'axios';
 
 /**
  * Sun eCommerce API Client - Pure JavaScript Implementation
@@ -23,8 +23,8 @@ export class SunEcommerceApiClient {
       baseURL: `${config.baseUrl}/api/${config.apiVersion}`,
       timeout: config.timeout,
       headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
         ...(config.authToken && {
           Authorization: `Bearer ${config.authToken}`,
         }),
@@ -51,7 +51,7 @@ export class SunEcommerceApiClient {
       },
       (error) => {
         if (this.config.enableLogging) {
-          console.error("[API Request Error]", error);
+          console.error('[API Request Error]', error);
         }
         return Promise.reject(error);
       },
@@ -70,7 +70,7 @@ export class SunEcommerceApiClient {
       (error) => {
         if (this.config.enableLogging) {
           console.error(
-            "[API Response Error]",
+            '[API Response Error]',
             error.response?.data || error.message,
           );
         }
@@ -117,8 +117,8 @@ export class SunEcommerceApiClient {
    */
   async createProduct(data) {
     return this.request({
-      method: "POST",
-      url: "/products",
+      method: 'POST',
+      url: '/products',
       data,
     });
   }
@@ -131,7 +131,7 @@ export class SunEcommerceApiClient {
    */
   async getProduct(id, params) {
     return this.request({
-      method: "GET",
+      method: 'GET',
       url: `/products/${id}`,
       params,
     });
@@ -144,8 +144,8 @@ export class SunEcommerceApiClient {
    */
   async searchProducts(params) {
     return this.request({
-      method: "GET",
-      url: "/products",
+      method: 'GET',
+      url: '/products',
       params,
     });
   }
@@ -158,7 +158,7 @@ export class SunEcommerceApiClient {
    */
   async updateProduct(id, data) {
     return this.request({
-      method: "PUT",
+      method: 'PUT',
       url: `/products/${id}`,
       data,
     });
@@ -171,7 +171,7 @@ export class SunEcommerceApiClient {
    */
   async deleteProduct(id) {
     return this.request({
-      method: "DELETE",
+      method: 'DELETE',
       url: `/products/${id}`,
     });
   }
@@ -183,7 +183,7 @@ export class SunEcommerceApiClient {
    */
   async getProductByHandle(handle) {
     return this.request({
-      method: "GET",
+      method: 'GET',
       url: `/products/handle/${handle}`,
     });
   }
@@ -197,8 +197,8 @@ export class SunEcommerceApiClient {
    */
   async createCategory(data) {
     return this.request({
-      method: "POST",
-      url: "/categories",
+      method: 'POST',
+      url: '/categories',
       data,
     });
   }
@@ -210,7 +210,7 @@ export class SunEcommerceApiClient {
    */
   async getCategory(id) {
     return this.request({
-      method: "GET",
+      method: 'GET',
       url: `/categories/${id}`,
     });
   }
@@ -222,8 +222,8 @@ export class SunEcommerceApiClient {
    */
   async listCategories(params) {
     return this.request({
-      method: "GET",
-      url: "/categories",
+      method: 'GET',
+      url: '/categories',
       params,
     });
   }
@@ -234,8 +234,8 @@ export class SunEcommerceApiClient {
    */
   async getCategoryTree() {
     return this.request({
-      method: "GET",
-      url: "/categories/tree",
+      method: 'GET',
+      url: '/categories/tree',
     });
   }
 
@@ -247,7 +247,7 @@ export class SunEcommerceApiClient {
    */
   async updateCategory(id, data) {
     return this.request({
-      method: "PUT",
+      method: 'PUT',
       url: `/categories/${id}`,
       data,
     });
@@ -260,7 +260,7 @@ export class SunEcommerceApiClient {
    */
   async deleteCategory(id) {
     return this.request({
-      method: "DELETE",
+      method: 'DELETE',
       url: `/categories/${id}`,
     });
   }
@@ -274,8 +274,8 @@ export class SunEcommerceApiClient {
    */
   async createPricingRule(data) {
     return this.request({
-      method: "POST",
-      url: "/pricing-rules",
+      method: 'POST',
+      url: '/pricing-rules',
       data,
     });
   }
@@ -287,7 +287,7 @@ export class SunEcommerceApiClient {
    */
   async getPricingRule(id) {
     return this.request({
-      method: "GET",
+      method: 'GET',
       url: `/pricing-rules/${id}`,
     });
   }
@@ -299,8 +299,8 @@ export class SunEcommerceApiClient {
    */
   async listPricingRules(params) {
     return this.request({
-      method: "GET",
-      url: "/pricing-rules",
+      method: 'GET',
+      url: '/pricing-rules',
       params,
     });
   }
@@ -312,8 +312,8 @@ export class SunEcommerceApiClient {
    */
   async applyPricingRules(data) {
     return this.request({
-      method: "POST",
-      url: "/pricing-rules/apply",
+      method: 'POST',
+      url: '/pricing-rules/apply',
       data,
     });
   }
@@ -325,8 +325,8 @@ export class SunEcommerceApiClient {
    */
   async validatePricingRule(data) {
     return this.request({
-      method: "POST",
-      url: "/pricing-rules/validate",
+      method: 'POST',
+      url: '/pricing-rules/validate',
       data,
     });
   }
@@ -339,7 +339,7 @@ export class SunEcommerceApiClient {
    */
   async updatePricingRule(id, data) {
     return this.request({
-      method: "PUT",
+      method: 'PUT',
       url: `/pricing-rules/${id}`,
       data,
     });
@@ -352,7 +352,7 @@ export class SunEcommerceApiClient {
    */
   async deletePricingRule(id) {
     return this.request({
-      method: "DELETE",
+      method: 'DELETE',
       url: `/pricing-rules/${id}`,
     });
   }
@@ -364,7 +364,7 @@ export class SunEcommerceApiClient {
    */
   async getPricingRuleByName(name) {
     return this.request({
-      method: "GET",
+      method: 'GET',
       url: `/pricing-rules/name/${name}`,
     });
   }
@@ -377,7 +377,7 @@ export class SunEcommerceApiClient {
    */
   async updatePricingRuleStatus(id, isActive) {
     return this.request({
-      method: "PATCH",
+      method: 'PATCH',
       url: `/pricing-rules/${id}/status`,
       data: { isActive },
     });
@@ -390,8 +390,8 @@ export class SunEcommerceApiClient {
    */
   async getActivePricingRules(params) {
     return this.request({
-      method: "GET",
-      url: "/pricing-rules/active",
+      method: 'GET',
+      url: '/pricing-rules/active',
       params,
     });
   }
@@ -403,8 +403,8 @@ export class SunEcommerceApiClient {
    */
   async bulkCalculatePrice(data) {
     return this.request({
-      method: "POST",
-      url: "/pricing-rules/bulk-calculate",
+      method: 'POST',
+      url: '/pricing-rules/bulk-calculate',
       data,
     });
   }
@@ -416,7 +416,7 @@ export class SunEcommerceApiClient {
    */
   async getPricingRulesByPriority(priority) {
     return this.request({
-      method: "GET",
+      method: 'GET',
       url: `/pricing-rules/priority/${priority}`,
     });
   }
@@ -429,8 +429,8 @@ export class SunEcommerceApiClient {
    */
   async bulkUpdatePricingRuleStatus(ruleIds, isActive) {
     return this.request({
-      method: "PATCH",
-      url: "/pricing-rules/bulk-status",
+      method: 'PATCH',
+      url: '/pricing-rules/bulk-status',
       data: { ruleIds, isActive },
     });
   }
@@ -442,7 +442,7 @@ export class SunEcommerceApiClient {
    */
   async getPricingRuleStats(id) {
     return this.request({
-      method: "GET",
+      method: 'GET',
       url: `/pricing-rules/${id}/stats`,
     });
   }
@@ -455,7 +455,7 @@ export class SunEcommerceApiClient {
    */
   async duplicatePricingRule(id, newName) {
     return this.request({
-      method: "POST",
+      method: 'POST',
       url: `/pricing-rules/${id}/duplicate`,
       data: { newName },
     });
@@ -470,8 +470,8 @@ export class SunEcommerceApiClient {
    */
   async createCart(data) {
     return this.request({
-      method: "POST",
-      url: "/carts",
+      method: 'POST',
+      url: '/carts',
       data,
     });
   }
@@ -483,7 +483,7 @@ export class SunEcommerceApiClient {
    */
   async getCart(id) {
     return this.request({
-      method: "GET",
+      method: 'GET',
       url: `/carts/${id}`,
     });
   }
@@ -496,7 +496,7 @@ export class SunEcommerceApiClient {
    */
   async addCartItem(cartId, data) {
     return this.request({
-      method: "POST",
+      method: 'POST',
       url: `/carts/${cartId}/items`,
       data,
     });
@@ -511,7 +511,7 @@ export class SunEcommerceApiClient {
    */
   async updateCartItem(cartId, itemId, data) {
     return this.request({
-      method: "PUT",
+      method: 'PUT',
       url: `/carts/${cartId}/items/${itemId}`,
       data,
     });
@@ -525,7 +525,7 @@ export class SunEcommerceApiClient {
    */
   async removeCartItem(cartId, itemId) {
     return this.request({
-      method: "DELETE",
+      method: 'DELETE',
       url: `/carts/${cartId}/items/${itemId}`,
     });
   }
@@ -537,7 +537,7 @@ export class SunEcommerceApiClient {
    */
   async getCartSummary(cartId) {
     return this.request({
-      method: "GET",
+      method: 'GET',
       url: `/carts/${cartId}/summary`,
     });
   }
@@ -550,7 +550,7 @@ export class SunEcommerceApiClient {
    */
   async getCartItems(cartId, params) {
     return this.request({
-      method: "GET",
+      method: 'GET',
       url: `/carts/${cartId}/items`,
       params,
     });
@@ -563,7 +563,7 @@ export class SunEcommerceApiClient {
    */
   async clearCart(cartId) {
     return this.request({
-      method: "DELETE",
+      method: 'DELETE',
       url: `/carts/${cartId}/items`,
     });
   }
@@ -577,8 +577,8 @@ export class SunEcommerceApiClient {
    */
   async createInventory(data) {
     return this.request({
-      method: "POST",
-      url: "/inventory",
+      method: 'POST',
+      url: '/inventory',
       data,
     });
   }
@@ -590,7 +590,7 @@ export class SunEcommerceApiClient {
    */
   async getInventory(id) {
     return this.request({
-      method: "GET",
+      method: 'GET',
       url: `/inventory/${id}`,
     });
   }
@@ -602,8 +602,8 @@ export class SunEcommerceApiClient {
    */
   async listInventory(params) {
     return this.request({
-      method: "GET",
-      url: "/inventory",
+      method: 'GET',
+      url: '/inventory',
       params,
     });
   }
@@ -616,7 +616,7 @@ export class SunEcommerceApiClient {
    */
   async updateInventory(id, data) {
     return this.request({
-      method: "PUT",
+      method: 'PUT',
       url: `/inventory/${id}`,
       data,
     });
@@ -629,7 +629,7 @@ export class SunEcommerceApiClient {
    */
   async deleteInventory(id) {
     return this.request({
-      method: "DELETE",
+      method: 'DELETE',
       url: `/inventory/${id}`,
     });
   }
@@ -641,8 +641,8 @@ export class SunEcommerceApiClient {
    */
   async bulkUpdateInventory(data) {
     return this.request({
-      method: "PUT",
-      url: "/inventory/bulk-update",
+      method: 'PUT',
+      url: '/inventory/bulk-update',
       data,
     });
   }
@@ -654,8 +654,8 @@ export class SunEcommerceApiClient {
    */
   async reserveInventory(data) {
     return this.request({
-      method: "POST",
-      url: "/inventory/reserve",
+      method: 'POST',
+      url: '/inventory/reserve',
       data,
     });
   }
@@ -667,8 +667,8 @@ export class SunEcommerceApiClient {
    */
   async releaseInventoryReservation(data) {
     return this.request({
-      method: "POST",
-      url: "/inventory/release",
+      method: 'POST',
+      url: '/inventory/release',
       data,
     });
   }
@@ -680,8 +680,8 @@ export class SunEcommerceApiClient {
    */
   async checkInventoryAvailability(data) {
     return this.request({
-      method: "POST",
-      url: "/inventory/check-availability",
+      method: 'POST',
+      url: '/inventory/check-availability',
       data,
     });
   }
@@ -694,7 +694,7 @@ export class SunEcommerceApiClient {
    */
   async getInventoryMovements(inventoryId, params) {
     return this.request({
-      method: "GET",
+      method: 'GET',
       url: `/inventory/${inventoryId}/movements`,
       params,
     });
@@ -707,8 +707,8 @@ export class SunEcommerceApiClient {
    */
   async getInventoryStatistics(params) {
     return this.request({
-      method: "GET",
-      url: "/inventory/statistics",
+      method: 'GET',
+      url: '/inventory/statistics',
       params,
     });
   }
@@ -720,7 +720,7 @@ export class SunEcommerceApiClient {
    */
   async getInventoryByProduct(productId) {
     return this.request({
-      method: "GET",
+      method: 'GET',
       url: `/inventory/product/${productId}`,
     });
   }
@@ -734,11 +734,11 @@ export class SunEcommerceApiClient {
    */
   async uploadMedia(data) {
     return this.request({
-      method: "POST",
-      url: "/media/upload",
+      method: 'POST',
+      url: '/media/upload',
       data,
       headers: {
-        "Content-Type": "multipart/form-data",
+        'Content-Type': 'multipart/form-data',
       },
     });
   }
@@ -750,7 +750,7 @@ export class SunEcommerceApiClient {
    */
   async getMedia(id) {
     return this.request({
-      method: "GET",
+      method: 'GET',
       url: `/media/${id}`,
     });
   }
@@ -762,8 +762,8 @@ export class SunEcommerceApiClient {
    */
   async listMedia(params) {
     return this.request({
-      method: "GET",
-      url: "/media",
+      method: 'GET',
+      url: '/media',
       params,
     });
   }
@@ -776,7 +776,7 @@ export class SunEcommerceApiClient {
    */
   async updateMedia(id, data) {
     return this.request({
-      method: "PUT",
+      method: 'PUT',
       url: `/media/${id}`,
       data,
     });
@@ -789,7 +789,7 @@ export class SunEcommerceApiClient {
    */
   async deleteMedia(id) {
     return this.request({
-      method: "DELETE",
+      method: 'DELETE',
       url: `/media/${id}`,
     });
   }
@@ -803,8 +803,8 @@ export class SunEcommerceApiClient {
    */
   async createPartner(data) {
     return this.request({
-      method: "POST",
-      url: "/partners",
+      method: 'POST',
+      url: '/partners',
       data,
     });
   }
@@ -816,7 +816,7 @@ export class SunEcommerceApiClient {
    */
   async getPartner(id) {
     return this.request({
-      method: "GET",
+      method: 'GET',
       url: `/partners/${id}`,
     });
   }
@@ -828,8 +828,8 @@ export class SunEcommerceApiClient {
    */
   async listPartners(params) {
     return this.request({
-      method: "GET",
-      url: "/partners",
+      method: 'GET',
+      url: '/partners',
       params,
     });
   }
@@ -842,7 +842,7 @@ export class SunEcommerceApiClient {
    */
   async updatePartner(id, data) {
     return this.request({
-      method: "PUT",
+      method: 'PUT',
       url: `/partners/${id}`,
       data,
     });
@@ -855,7 +855,7 @@ export class SunEcommerceApiClient {
    */
   async deletePartner(id) {
     return this.request({
-      method: "DELETE",
+      method: 'DELETE',
       url: `/partners/${id}`,
     });
   }
@@ -867,7 +867,7 @@ export class SunEcommerceApiClient {
    */
   async getPartnerByCode(code) {
     return this.request({
-      method: "GET",
+      method: 'GET',
       url: `/partners/code/${code}`,
     });
   }
@@ -879,7 +879,7 @@ export class SunEcommerceApiClient {
    */
   async activatePartner(id) {
     return this.request({
-      method: "POST",
+      method: 'POST',
       url: `/partners/${id}/activate`,
     });
   }
@@ -891,7 +891,7 @@ export class SunEcommerceApiClient {
    */
   async deactivatePartner(id) {
     return this.request({
-      method: "POST",
+      method: 'POST',
       url: `/partners/${id}/deactivate`,
     });
   }
@@ -903,7 +903,7 @@ export class SunEcommerceApiClient {
    */
   async getPartnerStatistics(id) {
     return this.request({
-      method: "GET",
+      method: 'GET',
       url: `/partners/${id}/statistics`,
     });
   }
@@ -915,7 +915,7 @@ export class SunEcommerceApiClient {
    */
   async getPartnerBalance(id) {
     return this.request({
-      method: "GET",
+      method: 'GET',
       url: `/partners/${id}/balance`,
     });
   }
@@ -927,7 +927,7 @@ export class SunEcommerceApiClient {
    */
   async getPartnerTierBenefits(id) {
     return this.request({
-      method: "GET",
+      method: 'GET',
       url: `/partners/${id}/tier-benefits`,
     });
   }
@@ -939,8 +939,8 @@ export class SunEcommerceApiClient {
    */
   async searchPartners(params) {
     return this.request({
-      method: "GET",
-      url: "/partners/search",
+      method: 'GET',
+      url: '/partners/search',
       params,
     });
   }
@@ -953,7 +953,7 @@ export class SunEcommerceApiClient {
    */
   async getPartnersByType(type, params) {
     return this.request({
-      method: "GET",
+      method: 'GET',
       url: `/partners/type/${type}`,
       params,
     });
@@ -967,7 +967,7 @@ export class SunEcommerceApiClient {
    */
   async getPartnersByTier(tier, params) {
     return this.request({
-      method: "GET",
+      method: 'GET',
       url: `/partners/tier/${tier}`,
       params,
     });
@@ -982,8 +982,8 @@ export class SunEcommerceApiClient {
    */
   async createLand(data) {
     return this.request({
-      method: "POST",
-      url: "/lands",
+      method: 'POST',
+      url: '/lands',
       data,
     });
   }
@@ -995,7 +995,7 @@ export class SunEcommerceApiClient {
    */
   async getLand(id) {
     return this.request({
-      method: "GET",
+      method: 'GET',
       url: `/lands/${id}`,
     });
   }
@@ -1007,8 +1007,8 @@ export class SunEcommerceApiClient {
    */
   async listLands(params) {
     return this.request({
-      method: "GET",
-      url: "/lands",
+      method: 'GET',
+      url: '/lands',
       params,
     });
   }
@@ -1021,7 +1021,7 @@ export class SunEcommerceApiClient {
    */
   async updateLand(id, data) {
     return this.request({
-      method: "PUT",
+      method: 'PUT',
       url: `/lands/${id}`,
       data,
     });
@@ -1034,7 +1034,7 @@ export class SunEcommerceApiClient {
    */
   async deleteLand(id) {
     return this.request({
-      method: "DELETE",
+      method: 'DELETE',
       url: `/lands/${id}`,
     });
   }
@@ -1046,7 +1046,7 @@ export class SunEcommerceApiClient {
    */
   async getLandByCode(code) {
     return this.request({
-      method: "GET",
+      method: 'GET',
       url: `/lands/code/${code}`,
     });
   }
@@ -1058,7 +1058,7 @@ export class SunEcommerceApiClient {
    */
   async getLandsByPartner(partnerId) {
     return this.request({
-      method: "GET",
+      method: 'GET',
       url: `/lands/partner/${partnerId}`,
     });
   }
@@ -1070,7 +1070,7 @@ export class SunEcommerceApiClient {
    */
   async getLandStatistics(id) {
     return this.request({
-      method: "GET",
+      method: 'GET',
       url: `/lands/${id}/statistics`,
     });
   }
@@ -1082,7 +1082,7 @@ export class SunEcommerceApiClient {
    */
   async activateLand(id) {
     return this.request({
-      method: "POST",
+      method: 'POST',
       url: `/lands/${id}/activate`,
     });
   }
@@ -1094,7 +1094,7 @@ export class SunEcommerceApiClient {
    */
   async deactivateLand(id) {
     return this.request({
-      method: "POST",
+      method: 'POST',
       url: `/lands/${id}/deactivate`,
     });
   }
@@ -1108,8 +1108,8 @@ export class SunEcommerceApiClient {
    */
   async createSalesChannel(data) {
     return this.request({
-      method: "POST",
-      url: "/sales-channels",
+      method: 'POST',
+      url: '/sales-channels',
       data,
     });
   }
@@ -1121,7 +1121,7 @@ export class SunEcommerceApiClient {
    */
   async getSalesChannel(id) {
     return this.request({
-      method: "GET",
+      method: 'GET',
       url: `/sales-channels/${id}`,
     });
   }
@@ -1133,7 +1133,7 @@ export class SunEcommerceApiClient {
    */
   async getSalesChannelByCode(code) {
     return this.request({
-      method: "GET",
+      method: 'GET',
       url: `/sales-channels/code/${code}`,
     });
   }
@@ -1145,8 +1145,8 @@ export class SunEcommerceApiClient {
    */
   async listSalesChannels(params) {
     return this.request({
-      method: "GET",
-      url: "/sales-channels",
+      method: 'GET',
+      url: '/sales-channels',
       params,
     });
   }
@@ -1159,7 +1159,7 @@ export class SunEcommerceApiClient {
    */
   async updateSalesChannel(id, data) {
     return this.request({
-      method: "PUT",
+      method: 'PUT',
       url: `/sales-channels/${id}`,
       data,
     });
@@ -1172,7 +1172,7 @@ export class SunEcommerceApiClient {
    */
   async deleteSalesChannel(id) {
     return this.request({
-      method: "DELETE",
+      method: 'DELETE',
       url: `/sales-channels/${id}`,
     });
   }
@@ -1184,7 +1184,7 @@ export class SunEcommerceApiClient {
    */
   async activateSalesChannel(id) {
     return this.request({
-      method: "POST",
+      method: 'POST',
       url: `/sales-channels/${id}/activate`,
     });
   }
@@ -1196,7 +1196,7 @@ export class SunEcommerceApiClient {
    */
   async deactivateSalesChannel(id) {
     return this.request({
-      method: "POST",
+      method: 'POST',
       url: `/sales-channels/${id}/deactivate`,
     });
   }
@@ -1208,7 +1208,7 @@ export class SunEcommerceApiClient {
    */
   async getSalesChannelStatistics(id) {
     return this.request({
-      method: "GET",
+      method: 'GET',
       url: `/sales-channels/${id}/statistics`,
     });
   }
@@ -1221,7 +1221,7 @@ export class SunEcommerceApiClient {
    */
   async getSalesChannelsByType(type, params) {
     return this.request({
-      method: "GET",
+      method: 'GET',
       url: `/sales-channels/type/${type}`,
       params,
     });
@@ -1234,8 +1234,8 @@ export class SunEcommerceApiClient {
    */
   async getActiveSalesChannels(params) {
     return this.request({
-      method: "GET",
-      url: "/sales-channels/active",
+      method: 'GET',
+      url: '/sales-channels/active',
       params,
     });
   }
@@ -1247,8 +1247,8 @@ export class SunEcommerceApiClient {
    */
   async searchSalesChannels(params) {
     return this.request({
-      method: "GET",
-      url: "/sales-channels/search",
+      method: 'GET',
+      url: '/sales-channels/search',
       params,
     });
   }
@@ -1260,7 +1260,7 @@ export class SunEcommerceApiClient {
    */
   async getSalesChannelConfiguration(id) {
     return this.request({
-      method: "GET",
+      method: 'GET',
       url: `/sales-channels/${id}/configuration`,
     });
   }
@@ -1273,7 +1273,7 @@ export class SunEcommerceApiClient {
    */
   async updateSalesChannelConfiguration(id, data) {
     return this.request({
-      method: "PUT",
+      method: 'PUT',
       url: `/sales-channels/${id}/configuration`,
       data,
     });
@@ -1288,8 +1288,8 @@ export class SunEcommerceApiClient {
    */
   async createTranslation(data) {
     return this.request({
-      method: "POST",
-      url: "/translations",
+      method: 'POST',
+      url: '/translations',
       data,
     });
   }
@@ -1302,7 +1302,7 @@ export class SunEcommerceApiClient {
    */
   async getTranslation(entityId, languageCode) {
     return this.request({
-      method: "GET",
+      method: 'GET',
       url: `/translations/${entityId}/${languageCode}`,
     });
   }
@@ -1313,30 +1313,30 @@ export class SunEcommerceApiClient {
    */
   async getSupportedLanguages() {
     return this.request({
-      method: "GET",
-      url: "/translations/languages",
+      method: 'GET',
+      url: '/translations/languages',
     });
   }
 
   // Product Translation Methods
   async createProductTranslation(data) {
     return this.request({
-      method: "POST",
-      url: "/translations/products",
+      method: 'POST',
+      url: '/translations/products',
       data,
     });
   }
 
   async getProductTranslation(productId, language) {
     return this.request({
-      method: "GET",
+      method: 'GET',
       url: `/translations/products/${productId}/${language}`,
     });
   }
 
   async updateProductTranslation(productId, language, data) {
     return this.request({
-      method: "PUT",
+      method: 'PUT',
       url: `/translations/products/${productId}/${language}`,
       data,
     });
@@ -1344,14 +1344,14 @@ export class SunEcommerceApiClient {
 
   async deleteProductTranslation(productId, language) {
     return this.request({
-      method: "DELETE",
+      method: 'DELETE',
       url: `/translations/products/${productId}/${language}`,
     });
   }
 
   async listProductTranslations(productId) {
     return this.request({
-      method: "GET",
+      method: 'GET',
       url: `/translations/products/${productId}`,
     });
   }
@@ -1359,22 +1359,22 @@ export class SunEcommerceApiClient {
   // Category Translation Methods
   async createCategoryTranslation(data) {
     return this.request({
-      method: "POST",
-      url: "/translations/categories",
+      method: 'POST',
+      url: '/translations/categories',
       data,
     });
   }
 
   async getCategoryTranslation(categoryId, language) {
     return this.request({
-      method: "GET",
+      method: 'GET',
       url: `/translations/categories/${categoryId}/${language}`,
     });
   }
 
   async updateCategoryTranslation(categoryId, language, data) {
     return this.request({
-      method: "PUT",
+      method: 'PUT',
       url: `/translations/categories/${categoryId}/${language}`,
       data,
     });
@@ -1382,14 +1382,14 @@ export class SunEcommerceApiClient {
 
   async deleteCategoryTranslation(categoryId, language) {
     return this.request({
-      method: "DELETE",
+      method: 'DELETE',
       url: `/translations/categories/${categoryId}/${language}`,
     });
   }
 
   async listCategoryTranslations(categoryId) {
     return this.request({
-      method: "GET",
+      method: 'GET',
       url: `/translations/categories/${categoryId}`,
     });
   }
@@ -1397,22 +1397,22 @@ export class SunEcommerceApiClient {
   // Product Attribute Translation Methods
   async createProductAttributeTranslation(data) {
     return this.request({
-      method: "POST",
-      url: "/translations/product-attributes",
+      method: 'POST',
+      url: '/translations/product-attributes',
       data,
     });
   }
 
   async getProductAttributeTranslation(attributeId, language) {
     return this.request({
-      method: "GET",
+      method: 'GET',
       url: `/translations/product-attributes/${attributeId}/${language}`,
     });
   }
 
   async updateProductAttributeTranslation(attributeId, language, data) {
     return this.request({
-      method: "PUT",
+      method: 'PUT',
       url: `/translations/product-attributes/${attributeId}/${language}`,
       data,
     });
@@ -1420,14 +1420,14 @@ export class SunEcommerceApiClient {
 
   async deleteProductAttributeTranslation(attributeId, language) {
     return this.request({
-      method: "DELETE",
+      method: 'DELETE',
       url: `/translations/product-attributes/${attributeId}/${language}`,
     });
   }
 
   async listProductAttributeTranslations(attributeId) {
     return this.request({
-      method: "GET",
+      method: 'GET',
       url: `/translations/product-attributes/${attributeId}`,
     });
   }
@@ -1435,22 +1435,22 @@ export class SunEcommerceApiClient {
   // Product Variant Translation Methods
   async createProductVariantTranslation(data) {
     return this.request({
-      method: "POST",
-      url: "/translations/product-variants",
+      method: 'POST',
+      url: '/translations/product-variants',
       data,
     });
   }
 
   async getProductVariantTranslation(variantId, language) {
     return this.request({
-      method: "GET",
+      method: 'GET',
       url: `/translations/product-variants/${variantId}/${language}`,
     });
   }
 
   async updateProductVariantTranslation(variantId, language, data) {
     return this.request({
-      method: "PUT",
+      method: 'PUT',
       url: `/translations/product-variants/${variantId}/${language}`,
       data,
     });
@@ -1458,14 +1458,14 @@ export class SunEcommerceApiClient {
 
   async deleteProductVariantTranslation(variantId, language) {
     return this.request({
-      method: "DELETE",
+      method: 'DELETE',
       url: `/translations/product-variants/${variantId}/${language}`,
     });
   }
 
   async listProductVariantTranslations(variantId) {
     return this.request({
-      method: "GET",
+      method: 'GET',
       url: `/translations/product-variants/${variantId}`,
     });
   }
@@ -1473,24 +1473,24 @@ export class SunEcommerceApiClient {
   // Bulk Translation Methods
   async bulkCreateTranslations(translations) {
     return this.request({
-      method: "POST",
-      url: "/translations/bulk",
+      method: 'POST',
+      url: '/translations/bulk',
       data: { translations },
     });
   }
 
   async bulkDeleteTranslations(translations) {
     return this.request({
-      method: "DELETE",
-      url: "/translations/bulk",
+      method: 'DELETE',
+      url: '/translations/bulk',
       data: { translations },
     });
   }
 
   async getTranslationStats(params) {
     return this.request({
-      method: "GET",
-      url: "/translations/stats",
+      method: 'GET',
+      url: '/translations/stats',
       params,
     });
   }
@@ -1499,30 +1499,30 @@ export class SunEcommerceApiClient {
 
   async createAttribute(data) {
     return this.request({
-      method: "POST",
-      url: "/attributes",
+      method: 'POST',
+      url: '/attributes',
       data,
     });
   }
 
   async getAttribute(id) {
     return this.request({
-      method: "GET",
+      method: 'GET',
       url: `/attributes/${id}`,
     });
   }
 
   async listAttributes(params) {
     return this.request({
-      method: "GET",
-      url: "/attributes",
+      method: 'GET',
+      url: '/attributes',
       params,
     });
   }
 
   async createAttributeValue(attributeId, data) {
     return this.request({
-      method: "POST",
+      method: 'POST',
       url: `/attributes/${attributeId}/values`,
       data,
     });
@@ -1530,21 +1530,21 @@ export class SunEcommerceApiClient {
 
   async getAttributeValues(attributeId) {
     return this.request({
-      method: "GET",
+      method: 'GET',
       url: `/attributes/${attributeId}/values`,
     });
   }
 
   async getAttributeByName(name) {
     return this.request({
-      method: "GET",
+      method: 'GET',
       url: `/attributes/name/${name}`,
     });
   }
 
   async updateAttribute(id, data) {
     return this.request({
-      method: "PUT",
+      method: 'PUT',
       url: `/attributes/${id}`,
       data,
     });
@@ -1552,14 +1552,14 @@ export class SunEcommerceApiClient {
 
   async deleteAttribute(id) {
     return this.request({
-      method: "DELETE",
+      method: 'DELETE',
       url: `/attributes/${id}`,
     });
   }
 
   async updateAttributeValue(attributeId, valueId, data) {
     return this.request({
-      method: "PUT",
+      method: 'PUT',
       url: `/attributes/${attributeId}/values/${valueId}`,
       data,
     });
@@ -1567,14 +1567,14 @@ export class SunEcommerceApiClient {
 
   async deleteAttributeValue(attributeId, valueId) {
     return this.request({
-      method: "DELETE",
+      method: 'DELETE',
       url: `/attributes/${attributeId}/values/${valueId}`,
     });
   }
 
   async bulkCreateAttributeValues(attributeId, values) {
     return this.request({
-      method: "POST",
+      method: 'POST',
       url: `/attributes/${attributeId}/values/bulk`,
       data: { values },
     });
@@ -1582,7 +1582,7 @@ export class SunEcommerceApiClient {
 
   async getAttributeUsage(id) {
     return this.request({
-      method: "GET",
+      method: 'GET',
       url: `/attributes/${id}/usage`,
     });
   }
@@ -1595,8 +1595,8 @@ export class SunEcommerceApiClient {
    */
   async healthCheck() {
     return this.request({
-      method: "GET",
-      url: "/health",
+      method: 'GET',
+      url: '/health',
     });
   }
 
@@ -1606,8 +1606,8 @@ export class SunEcommerceApiClient {
    */
   async getSystemHealth() {
     return this.request({
-      method: "GET",
-      url: "/health",
+      method: 'GET',
+      url: '/health',
     });
   }
 
@@ -1617,8 +1617,8 @@ export class SunEcommerceApiClient {
    */
   async getSystemInfo() {
     return this.request({
-      method: "GET",
-      url: "/system/info",
+      method: 'GET',
+      url: '/system/info',
     });
   }
 }
