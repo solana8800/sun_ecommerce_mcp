@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
-import { SunEcommerceApiClient } from './client/api-client.js';
-import { ToolHandler } from './tools/tool-handler.js';
+import { SunEcommerceApiClient } from '../client/api-client.js';
+import { ToolHandler } from '../tools/tool-handler.js';
 
 // Test script để kiểm tra kết nối API và các chức năng cơ bản
 async function testApiConnection() {

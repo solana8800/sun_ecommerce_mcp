@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
-import { SunEcommerceApiClient } from './client/api-client.js';
-import { ToolHandler } from './tools/tool-handler.js';
+import { SunEcommerceApiClient } from '../client/api-client.js';
+import { ToolHandler } from '../tools/tool-handler.js';
 
 // Simple test script for MCP Server
 async function testMcpServer() {
