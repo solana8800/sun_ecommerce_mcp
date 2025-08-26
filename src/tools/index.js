@@ -2393,6 +2393,211 @@ export const toolDefinitions = [
     },
   },
 
+  // Product Connector Management Tools
+  {
+    name: 'create_connector',
+    description: 'Tạo mới product connector để tích hợp với hệ thống bên ngoài',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        name: { type: 'string', description: 'Tên connector' },
+        description: { type: 'string', description: 'Mô tả connector' },
+        provider: {
+          type: 'string',
+          enum: ['amadeus', 'booking', 'urbox', 'custom'],
+          description: 'Nhà cung cấp dịch vụ'
+        },
+        config: {
+          type: 'object',
+          description: 'Cấu hình connector',
+          properties: {
+            api: {
+              type: 'object',
+              properties: {
+                base_url: { type: 'string', description: 'URL cơ sở của API' },
+                version: { type: 'string', description: 'Phiên bản API' },
+                timeout: { type: 'number', description: 'Timeout (giây)' }
+              }
+            },
+            auth: {
+              type: 'object',
+              properties: {
+                type: {
+                  type: 'string',
+                  enum: ['api_key', 'oauth2', 'basic_auth', 'bearer_token'],
+                  description: 'Loại xác thực'
+                },
+                credentials: { type: 'object', description: 'Thông tin xác thực' }
+              }
+            }
+          }
+        },
+        is_active: { type: 'boolean', default: true, description: 'Trạng thái hoạt động' }
+      },
+      required: ['name', 'provider', 'config']
+    }
+  },
+  {
+    name: 'list_connectors',
+    description: 'Liệt kê tất cả product connectors',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        provider: { type: 'string', description: 'Lọc theo nhà cung cấp' },
+        status: {
+          type: 'string',
+          enum: ['active', 'inactive', 'error', 'syncing'],
+          description: 'Lọc theo trạng thái'
+        },
+        page: { type: 'number', default: 1, description: 'Số trang' },
+        limit: { type: 'number', default: 20, description: 'Số bản ghi mỗi trang' }
+      }
+    }
+  },
+  {
+    name: 'get_connector',
+    description: 'Lấy thông tin chi tiết về một connector',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        id: { type: 'string', description: 'UUID của connector' }
+      },
+      required: ['id']
+    }
+  },
+  {
+    name: 'update_connector',
+    description: 'Cập nhật thông tin connector',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        id: { type: 'string', description: 'UUID của connector' },
+        name: { type: 'string', description: 'Tên connector' },
+        description: { type: 'string', description: 'Mô tả connector' },
+        config: { type: 'object', description: 'Cấu hình connector' },
+        is_active: { type: 'boolean', description: 'Trạng thái hoạt động' }
+      },
+      required: ['id']
+    }
+  },
+  {
+    name: 'delete_connector',
+    description: 'Xóa connector khỏi hệ thống',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        id: { type: 'string', description: 'UUID của connector cần xóa' }
+      },
+      required: ['id']
+    }
+  },
+  {
+    name: 'test_connector_connection',
+    description: 'Kiểm tra kết nối đến hệ thống bên ngoài',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        id: { type: 'string', description: 'UUID của connector' }
+      },
+      required: ['id']
+    }
+  },
+  {
+    name: 'validate_connector_config',
+    description: 'Xác thực cấu hình connector',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        provider: { type: 'string', description: 'Nhà cung cấp dịch vụ' },
+        config: { type: 'object', description: 'Cấu hình cần xác thực' }
+      },
+      required: ['provider', 'config']
+    }
+  },
+  {
+    name: 'trigger_connector_sync',
+    description: 'Kích hoạt đồng bộ dữ liệu từ hệ thống bên ngoài',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        id: { type: 'string', description: 'UUID của connector' },
+        options: {
+          type: 'object',
+          properties: {
+            dry_run: { type: 'boolean', default: false, description: 'Chạy thử không lưu dữ liệu' },
+            batch_size: { type: 'number', default: 100, description: 'Kích thước batch' },
+            force_update: { type: 'boolean', default: false, description: 'Buộc cập nhật tất cả' },
+            filters: { type: 'object', description: 'Bộ lọc đồng bộ' }
+          }
+        }
+      },
+      required: ['id']
+    }
+  },
+  {
+    name: 'get_connector_sync_status',
+    description: 'Lấy trạng thái đồng bộ của connector',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        id: { type: 'string', description: 'UUID của connector' }
+      },
+      required: ['id']
+    }
+  },
+  {
+    name: 'get_connector_sync_logs',
+    description: 'Lấy lịch sử đồng bộ của connector',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        id: { type: 'string', description: 'UUID của connector' },
+        page: { type: 'number', default: 1, description: 'Số trang' },
+        limit: { type: 'number', default: 50, description: 'Số bản ghi mỗi trang' },
+        status: {
+          type: 'string',
+          enum: ['pending', 'running', 'completed', 'failed', 'cancelled'],
+          description: 'Lọc theo trạng thái đồng bộ'
+        }
+      },
+      required: ['id']
+    }
+  },
+  {
+    name: 'get_connector_field_mappings',
+    description: 'Lấy cấu hình ánh xạ trường dữ liệu',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        provider: { type: 'string', description: 'Nhà cung cấp dịch vụ' },
+        swagger_url: { type: 'string', description: 'URL Swagger spec (tùy chọn)' }
+      },
+      required: ['provider']
+    }
+  },
+  {
+    name: 'get_connector_ui_schema',
+    description: 'Lấy UI schema cho cấu hình connector',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        provider: { type: 'string', description: 'Nhà cung cấp dịch vụ' }
+      },
+      required: ['provider']
+    }
+  },
+  {
+    name: 'parse_swagger_spec',
+    description: 'Phân tích Swagger specification từ URL',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        swagger_url: { type: 'string', description: 'URL của Swagger specification' }
+      },
+      required: ['swagger_url']
+    }
+  },
+
   // System Health Tools
   {
     name: 'get_system_health',

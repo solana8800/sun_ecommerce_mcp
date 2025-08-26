@@ -279,6 +279,34 @@ export class ToolHandler {
     case 'get_system_info':
       return this.getSystemInfo();
 
+      // Product Connector Management
+    case 'create_product_connector':
+      return this.createProductConnector(args);
+    case 'list_product_connectors':
+      return this.listProductConnectors(args);
+    case 'get_product_connector':
+      return this.getProductConnector(args);
+    case 'update_product_connector':
+      return this.updateProductConnector(args);
+    case 'delete_product_connector':
+      return this.deleteProductConnector(args);
+    case 'test_connector_connection':
+      return this.testConnectorConnection(args);
+    case 'validate_connector_config':
+      return this.validateConnectorConfig(args);
+    case 'trigger_connector_sync':
+      return this.triggerConnectorSync(args);
+    case 'get_connector_sync_status':
+      return this.getConnectorSyncStatus(args);
+    case 'get_connector_sync_logs':
+      return this.getConnectorSyncLogs(args);
+    case 'get_connector_field_mappings':
+      return this.getConnectorFieldMappings(args);
+    case 'get_connector_ui_schema':
+      return this.getConnectorUISchema(args);
+    case 'parse_connector_swagger':
+      return this.parseConnectorSwagger(args);
+
     default:
       throw new Error(`Unknown tool: ${name}`);
     }
@@ -2296,6 +2324,280 @@ export class ToolHandler {
       return {
         success: false,
         error: error.message || 'Failed to get system information',
+      };
+    }
+  }
+
+  // Product Connector Management Methods
+  async createProductConnector(args) {
+    try {
+      const response = await this.apiClient.request({
+        method: 'POST',
+        url: '/connectors',
+        data: args,
+      });
+      return {
+        success: true,
+        data: response.data,
+        message: 'Product connector created successfully',
+      };
+    } catch (error) {
+      return {
+        success: false,
+        error: error.message || 'Failed to create product connector',
+      };
+    }
+  }
+
+  async listProductConnectors(args) {
+    try {
+      const { page = 1, limit = 10, status, type } = args;
+      const params = { page, limit };
+      if (status) params.status = status;
+      if (type) params.type = type;
+      
+      const response = await this.apiClient.request({
+        method: 'GET',
+        url: '/connectors',
+        params,
+      });
+      return {
+        success: true,
+        data: response.data,
+        pagination: response.pagination,
+        message: 'Product connectors retrieved successfully',
+      };
+    } catch (error) {
+      return {
+        success: false,
+        error: error.message || 'Failed to list product connectors',
+      };
+    }
+  }
+
+  async getProductConnector(args) {
+    try {
+      const { id } = args;
+      const response = await this.apiClient.request({
+        method: 'GET',
+        url: `/connectors/${id}`,
+      });
+      return {
+        success: true,
+        data: response.data,
+        message: 'Product connector retrieved successfully',
+      };
+    } catch (error) {
+      return {
+        success: false,
+        error: error.message || 'Failed to get product connector',
+      };
+    }
+  }
+
+  async updateProductConnector(args) {
+    try {
+      const { id, ...updateData } = args;
+      const response = await this.apiClient.request({
+        method: 'PUT',
+        url: `/connectors/${id}`,
+        data: updateData,
+      });
+      return {
+        success: true,
+        data: response.data,
+        message: 'Product connector updated successfully',
+      };
+    } catch (error) {
+      return {
+        success: false,
+        error: error.message || 'Failed to update product connector',
+      };
+    }
+  }
+
+  async deleteProductConnector(args) {
+    try {
+      const { id } = args;
+      await this.apiClient.request({
+        method: 'DELETE',
+        url: `/connectors/${id}`,
+      });
+      return {
+        success: true,
+        message: 'Product connector deleted successfully',
+      };
+    } catch (error) {
+      return {
+        success: false,
+        error: error.message || 'Failed to delete product connector',
+      };
+    }
+  }
+
+  async testConnectorConnection(args) {
+    try {
+      const { id } = args;
+      const response = await this.apiClient.request({
+        method: 'POST',
+        url: `/connectors/${id}/test-connection`,
+      });
+      return {
+        success: true,
+        data: response.data,
+        message: 'Connector connection test completed',
+      };
+    } catch (error) {
+      return {
+        success: false,
+        error: error.message || 'Failed to test connector connection',
+      };
+    }
+  }
+
+  async validateConnectorConfig(args) {
+    try {
+      const { id } = args;
+      const response = await this.apiClient.request({
+        method: 'POST',
+        url: `/connectors/${id}/validate`,
+      });
+      return {
+        success: true,
+        data: response.data,
+        message: 'Connector configuration validated successfully',
+      };
+    } catch (error) {
+      return {
+        success: false,
+        error: error.message || 'Failed to validate connector configuration',
+      };
+    }
+  }
+
+  async triggerConnectorSync(args) {
+    try {
+      const { id, options = {} } = args;
+      const response = await this.apiClient.request({
+        method: 'POST',
+        url: `/connectors/${id}/sync`,
+        data: options,
+      });
+      return {
+        success: true,
+        data: response.data,
+        message: 'Connector sync triggered successfully',
+      };
+    } catch (error) {
+      return {
+        success: false,
+        error: error.message || 'Failed to trigger connector sync',
+      };
+    }
+  }
+
+  async getConnectorSyncStatus(args) {
+    try {
+      const { id } = args;
+      const response = await this.apiClient.request({
+        method: 'GET',
+        url: `/connectors/${id}/sync/status`,
+      });
+      return {
+        success: true,
+        data: response.data,
+        message: 'Connector sync status retrieved successfully',
+      };
+    } catch (error) {
+      return {
+        success: false,
+        error: error.message || 'Failed to get connector sync status',
+      };
+    }
+  }
+
+  async getConnectorSyncLogs(args) {
+    try {
+      const { id, page = 1, limit = 50, level } = args;
+      const params = { page, limit };
+      if (level) params.level = level;
+      
+      const response = await this.apiClient.request({
+        method: 'GET',
+        url: `/connectors/${id}/sync/logs`,
+        params,
+      });
+      return {
+        success: true,
+        data: response.data,
+        pagination: response.pagination,
+        message: 'Connector sync logs retrieved successfully',
+      };
+    } catch (error) {
+      return {
+        success: false,
+        error: error.message || 'Failed to get connector sync logs',
+      };
+    }
+  }
+
+  async getConnectorFieldMappings(args) {
+    try {
+      const { id } = args;
+      const response = await this.apiClient.request({
+        method: 'GET',
+        url: `/connectors/${id}/field-mappings`,
+      });
+      return {
+        success: true,
+        data: response.data,
+        message: 'Connector field mappings retrieved successfully',
+      };
+    } catch (error) {
+      return {
+        success: false,
+        error: error.message || 'Failed to get connector field mappings',
+      };
+    }
+  }
+
+  async getConnectorUISchema(args) {
+    try {
+      const { type } = args;
+      const response = await this.apiClient.request({
+        method: 'GET',
+        url: `/connectors/ui-schema/${type}`,
+      });
+      return {
+        success: true,
+        data: response.data,
+        message: 'Connector UI schema retrieved successfully',
+      };
+    } catch (error) {
+      return {
+        success: false,
+        error: error.message || 'Failed to get connector UI schema',
+      };
+    }
+  }
+
+  async parseConnectorSwagger(args) {
+    try {
+      const { url } = args;
+      const response = await this.apiClient.request({
+        method: 'POST',
+        url: '/connectors/parse-swagger',
+        data: { url },
+      });
+      return {
+        success: true,
+        data: response.data,
+        message: 'Swagger specification parsed successfully',
+      };
+    } catch (error) {
+      return {
+        success: false,
+        error: error.message || 'Failed to parse swagger specification',
       };
     }
   }
