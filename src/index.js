@@ -42,7 +42,7 @@ class SunEcommerceMCPServer {
 
       // Initialize API client with environment variables
       const config = {
-        baseUrl: process.env.SUN_ECOMMERCE_API_URL || 'http://42.96.60.253:8080',
+        baseUrl: process.env.SUN_ECOMMERCE_API_URL || 'http://42.96.60.253:8081',
         apiVersion: process.env.SUN_ECOMMERCE_API_VERSION || 'v1',
         timeout: parseInt(process.env.SUN_ECOMMERCE_API_TIMEOUT || '30000'),
         retries: parseInt(process.env.SUN_ECOMMERCE_API_RETRIES || '3'),

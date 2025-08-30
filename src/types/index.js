@@ -1,6 +1,6 @@
 // Base configuration defaults
 export const defaultConfig = {
-  baseUrl: 'http://42.96.60.253:8080',
+  baseUrl: 'http://42.96.60.253:8081',
   apiVersion: 'v1',
   timeout: 30000,
   retries: 3,

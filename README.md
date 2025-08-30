@@ -43,7 +43,7 @@ Một máy chủ Model Context Protocol (MCP) toàn diện được viết bằn
       "command": "npx",
       "args": ["-y", "@solana8800/sun_ecommerce_mcp"],
       "env": {
-        "SUN_ECOMMERCE_API_URL": "http://42.96.60.253:8080",
+        "SUN_ECOMMERCE_API_URL": "http://42.96.60.253:8081",
         "SUN_ECOMMERCE_API_TOKEN": "sun-ecommerce"
       }
     }
@@ -61,7 +61,7 @@ Một máy chủ Model Context Protocol (MCP) toàn diện được viết bằn
       "command": "npx",
       "args": ["-y", "@solana8800/sun_ecommerce_mcp"],
       "env": {
-        "SUN_ECOMMERCE_API_URL": "http://42.96.60.253:8080",
+        "SUN_ECOMMERCE_API_URL": "http://42.96.60.253:8081",
         "SUN_ECOMMERCE_API_TOKEN": "sun-ecommerce"
       }
     }
@@ -83,7 +83,7 @@ Dự án này đã được chuyển đổi sang JavaScript thuần, không cầ
       "command": "node",
       "args": ["/Users/aloha/Documents/projects/sun_ecommerce_product/mcp-server/src/index.js"],
       "env": {
-        "SUN_ECOMMERCE_API_URL": "http://42.96.60.253:8080",
+        "SUN_ECOMMERCE_API_URL": "http://42.96.60.253:8081",
         "SUN_ECOMMERCE_API_TOKEN": "sun-ecommerce"
       }
     }
@@ -100,7 +100,7 @@ Dự án này đã được chuyển đổi sang JavaScript thuần, không cầ
       "args": ["start"],
       "cwd": "/Users/aloha/Documents/projects/sun_ecommerce_product/mcp-server",
       "env": {
-        "SUN_ECOMMERCE_API_URL": "http://42.96.60.253:8080",
+        "SUN_ECOMMERCE_API_URL": "http://42.96.60.253:8081",
         "SUN_ECOMMERCE_API_TOKEN": "sun-ecommerce"
       }
     }
@@ -116,7 +116,7 @@ Dự án này đã được chuyển đổi sang JavaScript thuần, không cầ
       "command": "npx",
       "args": ["-y", "git+https://github.com/solana8800/sun_ecommerce_mcp.git"],
       "env": {
-        "SUN_ECOMMERCE_API_URL": "http://42.96.60.253:8080",
+        "SUN_ECOMMERCE_API_URL": "http://42.96.60.253:8081",
         "SUN_ECOMMERCE_API_TOKEN": "sun-ecommerce"
       }
     }
@@ -162,7 +162,7 @@ npm start
 
 ### Command local
 ```bash
-SUN_ECOMMERCE_API_URL="http://42.96.60.253:8080" \
+SUN_ECOMMERCE_API_URL="http://42.96.60.253:8081" \
 SUN_ECOMMERCE_API_TOKEN="sun-ecommerce" \
 npx -y git+https://github.com/solana8800/sun_ecommerce_mcp.git
 ```
@@ -173,7 +173,7 @@ Thiết lập các biến môi trường sau:
 
 ```bash
 # Bắt buộc
-SUN_ECOMMERCE_API_URL=http://42.96.60.253:8080    # Địa chỉ nền tảng
+SUN_ECOMMERCE_API_URL=http://42.96.60.253:8081    # Địa chỉ nền tảng
 SUN_ECOMMERCE_API_TOKEN=sun-ecommerce          # Token xác thực
 
 # Tuỳ chọn
@@ -488,7 +488,7 @@ Chào mừng mọi đóng góp! Xem [Contributing Guide](./CONTRIBUTING.md) đ�
 
 2. **Test kết nối trực tiếp**:
    ```bash
-   curl -H "Authorization: Bearer sun-ecommerce" http://42.96.60.253:8080/api/v1/health
+   curl -H "Authorization: Bearer sun-ecommerce" http://42.96.60.253:8081/api/v1/health
    ```
 
 3. **Chạy test script**:

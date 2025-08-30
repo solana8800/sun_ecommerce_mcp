@@ -9,7 +9,7 @@ async function testWorkingCreateFunctions() {
   
   // Khởi tạo API client
   const apiClient = new SunEcommerceApiClient({
-    baseUrl: process.env.SUN_ECOMMERCE_API_URL || 'http://localhost:8080',
+    baseUrl: process.env.SUN_ECOMMERCE_API_URL || 'http://localhost:8081',
     apiVersion: process.env.SUN_ECOMMERCE_API_VERSION || 'v1',
     timeout: parseInt(process.env.SUN_ECOMMERCE_API_TIMEOUT || '30000'),
     retries: parseInt(process.env.SUN_ECOMMERCE_API_RETRIES || '3'),
@@ -159,7 +159,7 @@ async function testDirectApiCalls() {
   console.log('📤 Dữ liệu gửi:', JSON.stringify(pricingRuleData, null, 2));
   
   try {
-    const response = await fetch('http://localhost:8080/api/v1/pricing-rules', {
+    const response = await fetch('http://localhost:8081/api/v1/pricing-rules', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -209,7 +209,7 @@ async function testDirectApiCalls() {
   console.log('📤 Dữ liệu gửi:', JSON.stringify(buyXGetYData, null, 2));
   
   try {
-    const response = await fetch('http://localhost:8080/api/v1/pricing-rules', {
+    const response = await fetch('http://localhost:8081/api/v1/pricing-rules', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -238,7 +238,7 @@ async function testBasicReadFunctions() {
   console.log('\n📖 Test các chức năng READ cơ bản...');
   
   const apiClient = new SunEcommerceApiClient({
-    baseUrl: process.env.SUN_ECOMMERCE_API_URL || 'http://localhost:8080',
+    baseUrl: process.env.SUN_ECOMMERCE_API_URL || 'http://localhost:8081',
     apiVersion: process.env.SUN_ECOMMERCE_API_VERSION || 'v1',
     timeout: parseInt(process.env.SUN_ECOMMERCE_API_TIMEOUT || '30000'),
     retries: parseInt(process.env.SUN_ECOMMERCE_API_RETRIES || '3'),

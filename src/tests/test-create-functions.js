@@ -9,7 +9,7 @@ async function testCreateFunctions() {
   
   // Khởi tạo API client
   const apiClient = new SunEcommerceApiClient({
-    baseUrl: process.env.SUN_ECOMMERCE_API_URL || 'http://localhost:8080',
+    baseUrl: process.env.SUN_ECOMMERCE_API_URL || 'http://localhost:8081',
     apiVersion: process.env.SUN_ECOMMERCE_API_VERSION || 'v1',
     timeout: parseInt(process.env.SUN_ECOMMERCE_API_TIMEOUT || '30000'),
     retries: parseInt(process.env.SUN_ECOMMERCE_API_RETRIES || '3'),
@@ -131,7 +131,7 @@ async function testIndividualCreateFunctions() {
   console.log('\n🔧 Test từng chức năng CREATE riêng lẻ...');
   
   const apiClient = new SunEcommerceApiClient({
-    baseUrl: process.env.SUN_ECOMMERCE_API_URL || 'http://localhost:8080',
+    baseUrl: process.env.SUN_ECOMMERCE_API_URL || 'http://localhost:8081',
     apiVersion: process.env.SUN_ECOMMERCE_API_VERSION || 'v1',
     timeout: parseInt(process.env.SUN_ECOMMERCE_API_TIMEOUT || '30000'),
     retries: parseInt(process.env.SUN_ECOMMERCE_API_RETRIES || '3'),

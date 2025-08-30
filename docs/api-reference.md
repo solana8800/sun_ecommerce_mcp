@@ -412,7 +412,7 @@ Authorization: Bearer {SUN_ECOMMERCE_API_TOKEN}
 
 API hiện tại sử dụng version `v1`. Version được chỉ định trong base URL:
 ```
-http://42.96.60.253:8080/api/v1/
+http://42.96.60.253:8081/api/v1/
 ```
 
 ## 🌐 Internationalization

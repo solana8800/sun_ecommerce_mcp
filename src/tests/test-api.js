@@ -9,7 +9,7 @@ async function testApiConnection() {
   
   // Khởi tạo API client
   const apiClient = new SunEcommerceApiClient({
-    baseUrl: process.env.SUN_ECOMMERCE_API_URL || 'http://42.96.60.253:8080',
+    baseUrl: process.env.SUN_ECOMMERCE_API_URL || 'http://42.96.60.253:8081',
     apiVersion: process.env.SUN_ECOMMERCE_API_VERSION || 'v1',
     timeout: parseInt(process.env.SUN_ECOMMERCE_API_TIMEOUT || '30000'),
     retries: parseInt(process.env.SUN_ECOMMERCE_API_RETRIES || '3'),
@@ -60,7 +60,7 @@ async function testDirectApiConnection() {
   console.log('\n🔗 Test kết nối trực tiếp API...');
   
   const apiClient = new SunEcommerceApiClient({
-    baseUrl: process.env.SUN_ECOMMERCE_API_URL || 'http://42.96.60.253:8080',
+    baseUrl: process.env.SUN_ECOMMERCE_API_URL || 'http://42.96.60.253:8081',
     apiVersion: process.env.SUN_ECOMMERCE_API_VERSION || 'v1',
     timeout: parseInt(process.env.SUN_ECOMMERCE_API_TIMEOUT || '30000'),
     retries: parseInt(process.env.SUN_ECOMMERCE_API_RETRIES || '3'),
